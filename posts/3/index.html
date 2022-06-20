@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mumo.fun","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="标准函数Kotlin 的标准函数指的是 Standard.kt 文件中定义的函数，任何 Kotlin 代码都可以自由地调用所有的标准函数 let 函数let 函数提供了函数式 API 的编程接口，并将原始调用对象作为参数传递到 Lambda 表达式中。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kotlin 标准函数和静态方法">
+<meta property="og:url" content="https://mumo.fun/posts/3/index.html">
+<meta property="og:site_name" content="Mumo">
+<meta property="og:description" content="标准函数Kotlin 的标准函数指的是 Standard.kt 文件中定义的函数，任何 Kotlin 代码都可以自由地调用所有的标准函数 let 函数let 函数提供了函数式 API 的编程接口，并将原始调用对象作为参数传递到 Lambda 表达式中。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-16T08:28:14.000Z">
+<meta property="article:modified_time" content="2022-06-20T10:06:01.024Z">
+<meta property="article:author" content="沐墨">
+<meta property="article:tag" content="Kotlin">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://mumo.fun/posts/3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mumo.fun/posts/3/","path":"posts/3/","title":"Kotlin 标准函数和静态方法"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Kotlin 标准函数和静态方法 | Mumo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Mumo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">标准函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#let%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">let 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#with%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">with 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#run%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.</span> <span class="nav-text">run 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#apply%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.</span> <span class="nav-text">apply 函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">静态方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JvmStatic%E6%B3%A8%E8%A7%A3%E5%92%8C%E9%A1%B6%E5%B1%82%E6%96%B9%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">@JvmStatic 注解和顶层方法</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">沐墨</p>
+  <div class="site-description" itemprop="description">也无风雨也无晴</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://mumo.fun/posts/3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="沐墨">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mumo">
+      <meta itemprop="description" content="也无风雨也无晴">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Kotlin 标准函数和静态方法 | Mumo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Kotlin 标准函数和静态方法
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-06-16 16:28:14" itemprop="dateCreated datePublished" datetime="2022-06-16T16:28:14+08:00">2022-06-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-06-20 18:06:01" itemprop="dateModified" datetime="2022-06-20T18:06:01+08:00">2022-06-20</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="标准函数"><a href="#标准函数" class="headerlink" title="标准函数"></a>标准函数</h1><p>Kotlin 的标准函数指的是 <code>Standard.kt</code> 文件中定义的函数，任何 Kotlin 代码都可以自由地调用所有的标准函数</p>
+<h2 id="let函数"><a href="#let函数" class="headerlink" title="let函数"></a>let 函数</h2><p><code>let</code> 函数提供了函数式 API 的编程接口，并将原始调用对象作为参数传递到 Lambda 表达式中。</p>
+<span id="more"></span>
+
+<h2 id="with函数"><a href="#with函数" class="headerlink" title="with函数"></a>with 函数</h2><p><code>with</code> 函数接收两个参数：第一个参数是一个任意类型的的对象，第二个参数是一个 Lambda 表达式。<code>with</code> 函数会在 Lambda 表达式中提供第一个参数对象的上下文，并使用 Lambda 表达式中的最后一行代码作为返回值返回。示例代码如下：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> result = with(obj) {</span><br><span class="line">    <span class="comment">// 这里是 obj 的上下文</span></span><br><span class="line">    <span class="string">"value"</span> <span class="comment">// with 函数的返回值</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><code>with</code> 函数在连续调用同一个对象的多个方法时让代码变得钢架精简，例如：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> list = listOf(<span class="string">"Apple"</span>, <span class="string">"Banana"</span>, <span class="string">"Orange"</span>, <span class="string">"Pear"</span>, <span class="string">"Grape"</span>)</span><br><span class="line"><span class="keyword">val</span> result = with(StringBuilder()) {</span><br><span class="line">    append(<span class="string">"Start eating fruits.\n"</span>)</span><br><span class="line">    <span class="keyword">for</span> (fruit <span class="keyword">in</span> list) {</span><br><span class="line">        append(fruit).append(<span class="string">"\n"</span>)</span><br><span class="line">    }</span><br><span class="line">    append(<span class="string">"Ate all fruits."</span>)</span><br><span class="line">    toString()</span><br><span class="line">}</span><br><span class="line">println(result)</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="run函数"><a href="#run函数" class="headerlink" title="run函数"></a>run 函数</h2><p><code>run</code> 函数的用法和使用场景与 <code>with</code> 函数类似，只是语法做了改动。<code>run</code> 函数通常不会直接调用，而是要在某个对象的基础上调用，只接受一个 Lambda 函数，并且会在 Lambda 表达式中提供对象的上下文，其他方面与 <code>with</code> 函数一样。示例代码如下：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> result = obj.run {</span><br><span class="line">    <span class="comment">// 这里是 obj 的上下文</span></span><br><span class="line">    <span class="string">"value"</span> <span class="comment">// run 函数的返回值</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>可以用 <code>run</code> 函数修改前面的代码：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> list = listOf(<span class="string">"Apple"</span>, <span class="string">"Banana"</span>, <span class="string">"Orange"</span>, <span class="string">"Pear"</span>, <span class="string">"Grape"</span>)</span><br><span class="line"><span class="keyword">val</span> result = StringBuilder().run {</span><br><span class="line">    append(<span class="string">"Start eating fruits.\n"</span>)</span><br><span class="line">    <span class="keyword">for</span> (fruit <span class="keyword">in</span> list) {</span><br><span class="line">        append(fruit).append(<span class="string">"\n"</span>)</span><br><span class="line">    }</span><br><span class="line">    append(<span class="string">"Ate all fruits."</span>)</span><br><span class="line">    toString()</span><br><span class="line">}</span><br><span class="line">println(result)</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="apply函数"><a href="#apply函数" class="headerlink" title="apply函数"></a>apply 函数</h2><p><code>apply</code> 函数和 <code>run</code> 函数极其类似，但是无法指定返回值，而是会自动返回调用对象本身。示例代码如下：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> result = obj.apply {</span><br><span class="line">    <span class="comment">// 这里是 obj 的上下文</span></span><br><span class="line">}</span><br><span class="line"><span class="comment">// result == obj</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h1 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h1><p>Kotlin 极度弱化了静态方法这个概念，提供了比静态方法更好用的语法特性 —— 单例类。像工具类这种功能，在 Kotlin 中就非常推荐使用单例类的方式来实现。</p>
+<p>让类中的某一个方法变成静态方法的调用方式使用 <code>companion object</code>：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Util</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">doAction1</span><span class="params">()</span></span> {</span><br><span class="line">        println(<span class="string">"do action"</span>)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span> {</span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">doAction2</span><span class="params">()</span></span> {</span><br><span class="line">            println(<span class="string">"do action2"</span>)</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>doAction2 () 方法并不是静态方法，<code>companion object</code> 关键字会在 Util 类的内部创建一个伴生类，而 doAction2 () 方法就是定义在这个伴生类里面的实例方法。Kotlin 会保证 Util 类始终只会存在一个伴生类对象，因此调用 Util.doAction2 () 方法实际上就是调用了 Util 类中伴生对象的 doAction2 () 方法。</p>
+<h2 id="JvmStatic注解和顶层方法"><a href="#JvmStatic注解和顶层方法" class="headerlink" title="@JvmStatic注解和顶层方法"></a>@JvmStatic 注解和顶层方法</h2><p>Kotlin 提供了注解和顶层方法两种实现方式类定义真正的静态方法。</p>
+<ol>
+<li><p>添加 <code>@JvmStatic</code> 注解后 Kotlin 会将方法编译成真正的静态方法，<code>@JvmStatic</code> 注解只能加在单例类或 <code>companion object</code> 中的方法上。</p>
+</li>
+<li><p>顶层方法指的是那些没有定义在任何类中的方法。Kotlin 编译器会将所有的顶层方法全部编译成静态方法，在 Kotlin 中调用时直接键入方法名即可，在 Java 中调用需要使用<code>文件名.方法名</code>。</p>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>沐墨
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://mumo.fun/posts/3/" title="Kotlin 标准函数和静态方法">https://mumo.fun/posts/3/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/2/" rel="prev" title="均线多头排列、空头排列交易验证记录">
+                  <i class="fa fa-chevron-left"></i> 均线多头排列、空头排列交易验证记录
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<style>
+        .ss_ad{
+            display: block;
+            width: 100%;
+            text-align: center;
+            color: #fff;
+            background: #0088CC;
+			font-family: Microsoft YaHei;
+        }
+		a.ss_ad{
+			border:0;
+			color:#fff;
+		}
+		a.ss_ad:hover{
+				text-decoration:none;
+				color:#fff;
+		}
+</style>
+<div class="post-block animated fadeIn" style="margin-top:20px; padding: 0px; background: #0088cc">
+<a class="ss_ad" style="font-size:22px" href="https://order.yizhihongxing.network/aff.php?aff=3671" target="_blank">可靠便捷的VPN服务</a>
+<a class="ss_ad" style="font-size:15px" href="https://order.yizhihongxing.network/aff.php?aff=3671" target="_blank">100 G 月流量，5台设备可用，一年仅需99元！</a>
+</div>
+    <div class="comments"><div id="twikoo-comments"></div></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">沐墨</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+<script class="next-config" data-name="twikoo" type="application/json">{"enable":true,"visitor":false,"envId":"https://twikoo-nu-opal.vercel.app/","el":"#twikoo-comments"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.twikoo.el)
+    .then(() => NexT.utils.getScript(
+      CONFIG.twikoo.jsUrl || 'https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js',
+      { condition: window.twikoo }
+    ))
+    .then(() => {
+      twikoo.init(CONFIG.twikoo);
+    });
+});
+</script>
+<style>
+.post-block, .comments {
+  overflow: visible;
+}
+.tk-owo-emotion {
+  display: inline-block;
+}
+</style>
+
+</body>
+</html>
