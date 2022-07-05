@@ -119,7 +119,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -154,6 +154,84 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://mumo.fun/posts/4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="沐墨">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mumo">
+      <meta itemprop="description" content="也无风雨也无晴">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Mumo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/4/" class="post-title-link" itemprop="url">Kotlin 延迟初始化和密封类</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-05 10:40:57 / 修改时间：11:34:41" itemprop="dateCreated datePublished" datetime="2022-07-05T10:40:57+08:00">2022-07-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="对变量延迟初始化"><a href="#对变量延迟初始化" class="headerlink" title="对变量延迟初始化"></a>对变量延迟初始化</h1><p>延迟初始化使用 <code>lateinit</code> 关键字，它可以告诉编译器会在晚些对这个变量进行初始化，这样就不用在一开始的时候将它赋值为 null 了。如果在变量还没有初始化的情况下直接使用，程序会崩溃，所以当对一个全局变量使用了 <code>lateinit</code> 关键字时，要确保它在任何地方调用之前已经完成了初始化工作。</p>
+<p>使用<code>::variable.isInitialized</code> 判断变量是否已经初始化。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/4/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -283,7 +361,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-28 22:10:53" itemprop="dateModified" datetime="2022-06-28T22:10:53+08:00">2022-06-28</time>
+      <time title="修改时间：2022-07-02 19:01:34" itemprop="dateModified" datetime="2022-07-02T19:01:34+08:00">2022-07-02</time>
     </span>
 
   
@@ -298,12 +376,14 @@
     <div class="post-body" itemprop="articleBody">
           <p>根据 4 小时级别 5、10、30、60 日均线发出的信号进行交易，交易对为 BTC / 当季，ETH / 当季，10 倍杠杆。</p>
 <h1 id="BTC"><a href="#BTC" class="headerlink" title="BTC"></a>BTC</h1><ol>
-<li>2022.04.07 空头排列，在 43867.6 开空 1 张，2022.06.06 在 31516.5 平仓，盈利 <code>0.00089335</code> BTC</li>
-<li>2022.06.06 多头排列，在 31570.1 开多 1 张，2022.06.10 在 29906.6 平仓，亏损 <code>0.00017618</code> BTC</li>
-<li>2022.06.10 空头排列，在 29371.4 开空 1 张，2022.06.24 交割 20846.3 平，盈利 <code>0.00139234</code> BTC</li>
+<li>2022-04-07 在 43867.6<font color="#ed6160"> 开空 1 张</font>，2022-06-06 在 31516.5 平仓，<font color="#00c087">盈利 0.00089335 BTC</font></li>
+<li>2022-06-06 在 31570.1<font color="#00c087"> 开多 1 张</font>，2022-06-10 在 29906.6 平仓，<font color="#ed6160">亏损 0.00017618 BTC</font></li>
+<li>2022-06-10 在 29371.4<font color="#ed6160"> 开空 1 张</font>，2022-06-24 交割 20846.3 平，<font color="#00c087">盈利 0.00139234 BTC</font></li>
+<li>2022-06-29 在 20315.4<font color="#ed6160"> 开空 1 张</font></li>
 </ol>
 <h1 id="ETH"><a href="#ETH" class="headerlink" title="ETH"></a>ETH</h1><ol>
-<li>2020.04.08 空头排列，在 3257.81 开空 10 张，2022.06.24 交割 1143.22 平，盈利 <code>0.05677676</code> ETH</li>
+<li>2020-04-08 在 3257.81<font color="#ed6160"> 开空 10 张</font>，2022-06-24 交割 1143.22 平，<font color="#00c087">盈利 0.05677676 ETH</font></li>
+<li>2020-06-29 在 1146.82<font color="#ed6160"> 开空 10 张</font></li>
 </ol>
 
       
@@ -367,7 +447,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-05 00:27:03" itemprop="dateModified" datetime="2022-06-05T00:27:03+08:00">2022-06-05</time>
+      <time title="修改时间：2022-07-03 19:01:53" itemprop="dateModified" datetime="2022-07-03T19:01:53+08:00">2022-07-03</time>
     </span>
 
   
