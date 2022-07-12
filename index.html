@@ -119,7 +119,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -154,6 +154,257 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://mumo.fun/posts/7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="沐墨">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mumo">
+      <meta itemprop="description" content="也无风雨也无晴">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Mumo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/7/" class="post-title-link" itemprop="url">Kotlin 泛型和委托</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-12 16:54:41 / 修改时间：17:46:27" itemprop="dateCreated datePublished" datetime="2022-07-12T16:54:41+08:00">2022-07-12</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="泛型的基本用法"><a href="#泛型的基本用法" class="headerlink" title="泛型的基本用法"></a>泛型的基本用法</h1><p>在一般的编程模式下，我们需要给任何一个变量指定一个具体的类型，而泛型允许我们在不指定具体类型的情况下进行编程，这样编写出来的代码将会拥有更好的扩展性。</p>
+<p>泛型主要有两种定义方式：一种是定义泛型类，另一种是定义泛型方法，使用的语法结构都是 <code>&lt;T&gt;</code>，使用任何英文字母或单词都可以，通常情况下 T 是一种约定俗成的泛型写法。</p>
+<p>定义一个泛型类：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span>&lt;<span class="type">T</span>&gt; </span>{</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">method</span><span class="params">(param: <span class="type">T</span>)</span></span>: T {</span><br><span class="line">        <span class="keyword">return</span> param</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> myClass = MyClass&lt;<span class="built_in">Int</span>&gt;()</span><br><span class="line"><span class="keyword">val</span> result = myClass.method(<span class="number">123</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>定义一个泛型方法：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span></span>{</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">method</span><span class="params">(param: <span class="type">T</span>)</span></span>: T {</span><br><span class="line">        <span class="keyword">return</span> param</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> myClass = MyClass()</span><br><span class="line"><span class="keyword">val</span> result = myClass.method&lt;<span class="built_in">Int</span>&gt;(<span class="number">123</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>由于 Kotlin 拥有出色的类型推导机制，这里可以直接省略泛型的指定：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> myClass = MyClass()</span><br><span class="line"><span class="keyword">val</span> result = myClass.method(<span class="number">123</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Kotlin 还允许对泛型的类型进行限制，可以以通过指定上界的方式来对泛型的类型进行约束，如指定成数字类型：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T : Number&gt;</span> <span class="title">method</span><span class="params">(param: <span class="type">T</span>)</span></span>: T {</span><br><span class="line">        <span class="keyword">return</span> param</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>默认情况下，所有的泛型都可以指定成可空类型，因为泛型的上界默认是 <code>Any?</code>，如果想让泛型的类型不可为空，需要将泛型的上界指定为 <code>Any</code>。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://mumo.fun/posts/6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="沐墨">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mumo">
+      <meta itemprop="description" content="也无风雨也无晴">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Mumo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/6/" class="post-title-link" itemprop="url">Kotlin 高阶函数</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-07-08 21:45:46" itemprop="dateCreated datePublished" datetime="2022-07-08T21:45:46+08:00">2022-07-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-12 10:56:13" itemprop="dateModified" datetime="2022-07-12T10:56:13+08:00">2022-07-12</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="定义高阶函数"><a href="#定义高阶函数" class="headerlink" title="定义高阶函数"></a>定义高阶函数</h1><p>接收 Lambda 参数的函数可以称为具有函数式编程风格的 API。</p>
+<p>如果一个函数接收另一个函数作为参数，或者返回值的类型是另一个函数，该函数就称为高阶函数。函数类型的语法规则：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line">(String, <span class="built_in">Int</span>) -&gt; <span class="built_in">Unit</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>-&gt; 左边的部分用来声明该函数接收什么参数，多个参数之间使用逗号隔开，如果不接受任何参数写一对空括号就可以了。-&gt; 右边的部分用于声明该函数的返回值是什么类型，如果没有返回值就使用 Unit，大致相当于 Java 中的 void。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/6/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://mumo.fun/posts/5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="沐墨">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mumo">
+      <meta itemprop="description" content="也无风雨也无晴">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Mumo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/5/" class="post-title-link" itemprop="url">Kotlin 扩展函数和运算符重载</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-07 11:08:41 / 修改时间：11:50:41" itemprop="dateCreated datePublished" datetime="2022-07-07T11:08:41+08:00">2022-07-07</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="扩展函数"><a href="#扩展函数" class="headerlink" title="扩展函数"></a>扩展函数</h1><p>扩展函数表示即使在不修改某个类的源码的形况下，仍然可以打开这个类，向该类添加新的函数。扩展函数的语法结构：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> ClassName.<span class="title">methodName</span><span class="params">(param1: <span class="type">Int</span>, param2: <span class="type">Int</span>)</span></span>: <span class="built_in">Int</span> {</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>扩展函数可以定义在任何一个现有类中，建议向哪个类中添加扩展函数就定义一个同名的 Kotlin 文件，便于以后查找，最好定义为顶层方法，可以让扩展函数拥有全局的访问域。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/5/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -361,7 +612,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-02 19:01:34" itemprop="dateModified" datetime="2022-07-02T19:01:34+08:00">2022-07-02</time>
+      <time title="修改时间：2022-07-11 09:32:07" itemprop="dateModified" datetime="2022-07-11T09:32:07+08:00">2022-07-11</time>
     </span>
 
   
@@ -379,11 +630,13 @@
 <li>2022-04-07 在 43867.6<font color="#ed6160"> 开空 1 张</font>，2022-06-06 在 31516.5 平仓，<font color="#00c087">盈利 0.00089335 BTC</font></li>
 <li>2022-06-06 在 31570.1<font color="#00c087"> 开多 1 张</font>，2022-06-10 在 29906.6 平仓，<font color="#ed6160">亏损 0.00017618 BTC</font></li>
 <li>2022-06-10 在 29371.4<font color="#ed6160"> 开空 1 张</font>，2022-06-24 交割 20846.3 平，<font color="#00c087">盈利 0.00139234 BTC</font></li>
-<li>2022-06-29 在 20315.4<font color="#ed6160"> 开空 1 张</font></li>
+<li>2022-06-29 在 20315.4<font color="#ed6160"> 开空 1 张</font>，2022-07-08 在 21721.8 平仓，<font color="#ed6160">亏损 0.00031865 BTC</font></li>
+<li>2022-07-08 在 21718.7<font color="#00c087"> 开多 1 张</font></li>
 </ol>
 <h1 id="ETH"><a href="#ETH" class="headerlink" title="ETH"></a>ETH</h1><ol>
 <li>2020-04-08 在 3257.81<font color="#ed6160"> 开空 10 张</font>，2022-06-24 交割 1143.22 平，<font color="#00c087">盈利 0.05677676 ETH</font></li>
-<li>2020-06-29 在 1146.82<font color="#ed6160"> 开空 10 张</font></li>
+<li>2020-06-29 在 1146.82<font color="#ed6160"> 开空 10 张</font>，2022-07-08 在 1190.00 平仓，<font color="#ed6160">亏损 0.00316401 ETH</font></li>
+<li>2022-07-08 在 1224.67<font color="#00c087"> 开多 10 张</font></li>
 </ol>
 
       
@@ -447,7 +700,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-03 19:01:53" itemprop="dateModified" datetime="2022-07-03T19:01:53+08:00">2022-07-03</time>
+      <time title="修改时间：2022-07-07 11:31:23" itemprop="dateModified" datetime="2022-07-07T11:31:23+08:00">2022-07-07</time>
     </span>
 
   
