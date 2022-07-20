@@ -21,15 +21,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"mumo.fun","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="泛型的基本用法在一般的编程模式下，我们需要给任何一个变量指定一个具体的类型，而泛型允许我们在不指定具体类型的情况下进行编程，这样编写出来的代码将会拥有更好的扩展性。 泛型主要有两种定义方式：一种是定义泛型类，另一种是定义泛型方法，使用的语法结构都是 &lt;T&gt;，使用任何英文字母或单词都可以，通常情况下 T 是一种约定俗成的泛型写法。 定义一个泛型类： class MyClass&lt;T&amp;">
+    <meta name="description" content="泛型的基本用法在一般的编程模式下，我们需要给任何一个变量指定一个具体的类型，而泛型允许我们在不指定具体类型的情况下进行编程，这样编写出来的代码将会拥有更好的扩展性。 泛型主要有两种定义方式：一种是定义泛型类，另一种是定义泛型方法，使用的语法结构都是 &lt;T&gt;，使用任何英文字母或单词都可以，通常情况下 T 是一种约定俗成的泛型写法。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kotlin 泛型和委托">
 <meta property="og:url" content="https://mumo.fun/posts/7/index.html">
 <meta property="og:site_name" content="Mumo">
-<meta property="og:description" content="泛型的基本用法在一般的编程模式下，我们需要给任何一个变量指定一个具体的类型，而泛型允许我们在不指定具体类型的情况下进行编程，这样编写出来的代码将会拥有更好的扩展性。 泛型主要有两种定义方式：一种是定义泛型类，另一种是定义泛型方法，使用的语法结构都是 &lt;T&gt;，使用任何英文字母或单词都可以，通常情况下 T 是一种约定俗成的泛型写法。 定义一个泛型类： class MyClass&lt;T&amp;">
+<meta property="og:description" content="泛型的基本用法在一般的编程模式下，我们需要给任何一个变量指定一个具体的类型，而泛型允许我们在不指定具体类型的情况下进行编程，这样编写出来的代码将会拥有更好的扩展性。 泛型主要有两种定义方式：一种是定义泛型类，另一种是定义泛型方法，使用的语法结构都是 &lt;T&gt;，使用任何英文字母或单词都可以，通常情况下 T 是一种约定俗成的泛型写法。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-07-12T08:54:41.000Z">
-<meta property="article:modified_time" content="2022-07-12T09:46:27.029Z">
+<meta property="article:modified_time" content="2022-07-20T10:28:16.590Z">
 <meta property="article:author" content="沐墨">
 <meta property="article:tag" content="Kotlin">
 <meta name="twitter:card" content="summary">
@@ -110,7 +110,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">泛型的基本用法</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">泛型的基本用法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B1%BB%E5%A7%94%E6%89%98%E5%92%8C%E5%A7%94%E6%89%98%E5%B1%9E%E6%80%A7"><span class="nav-number">2.</span> <span class="nav-text">类委托和委托属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%A7%94%E6%89%98"><span class="nav-number">2.1.</span> <span class="nav-text">类委托</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A7%94%E6%89%98%E5%B1%9E%E6%80%A7"><span class="nav-number">2.2.</span> <span class="nav-text">委托属性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84lazy%E5%87%BD%E6%95%B0"><span class="nav-number">3.</span> <span class="nav-text">实现一个自己的 lazy 函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -196,9 +196,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2022-07-12 16:54:41 / 修改时间：17:46:27" itemprop="dateCreated datePublished" datetime="2022-07-12T16:54:41+08:00">2022-07-12</time>
+      <time title="创建时间：2022-07-12 16:54:41" itemprop="dateCreated datePublished" datetime="2022-07-12T16:54:41+08:00">2022-07-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-20 18:28:16" itemprop="dateModified" datetime="2022-07-20T18:28:16+08:00">2022-07-20</time>
     </span>
 
   
@@ -213,6 +219,8 @@
     <div class="post-body" itemprop="articleBody">
         <h1 id="泛型的基本用法"><a href="#泛型的基本用法" class="headerlink" title="泛型的基本用法"></a>泛型的基本用法</h1><p>在一般的编程模式下，我们需要给任何一个变量指定一个具体的类型，而泛型允许我们在不指定具体类型的情况下进行编程，这样编写出来的代码将会拥有更好的扩展性。</p>
 <p>泛型主要有两种定义方式：一种是定义泛型类，另一种是定义泛型方法，使用的语法结构都是 <code>&lt;T&gt;</code>，使用任何英文字母或单词都可以，通常情况下 T 是一种约定俗成的泛型写法。</p>
+<span id="more"></span>
+
 <p>定义一个泛型类：</p>
 <figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span>&lt;<span class="type">T</span>&gt; </span>{</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">method</span><span class="params">(param: <span class="type">T</span>)</span></span>: T {</span><br><span class="line">        <span class="keyword">return</span> param</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> myClass = MyClass&lt;<span class="built_in">Int</span>&gt;()</span><br><span class="line"><span class="keyword">val</span> result = myClass.method(<span class="number">123</span>)</span><br></pre></td></tr></tbody></table></figure>
 
@@ -226,6 +234,43 @@
 <figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T : Number&gt;</span> <span class="title">method</span><span class="params">(param: <span class="type">T</span>)</span></span>: T {</span><br><span class="line">        <span class="keyword">return</span> param</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>默认情况下，所有的泛型都可以指定成可空类型，因为泛型的上界默认是 <code>Any?</code>，如果想让泛型的类型不可为空，需要将泛型的上界指定为 <code>Any</code>。</p>
+<h1 id="类委托和委托属性"><a href="#类委托和委托属性" class="headerlink" title="类委托和委托属性"></a>类委托和委托属性</h1><p>委托是一种设计模式：操作对象自己不会去处理某段逻辑，而是会把工作委托给另外一个辅助对象去处理。Kotlin 中将委托功能分为了两种：类委托和委托属性。</p>
+<h2 id="类委托"><a href="#类委托" class="headerlink" title="类委托"></a>类委托</h2><p>类委托的核心思想在于将一个类的具体实现委托给另一个类去完成。</p>
+<p>Set 是一个接口，使用它需要用它具体的实现类比如 HashSet。借助委托模式可以轻松实现一个自己的实现类，比如定义一个 MySet 并让它实现 Set 接口：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MySet</span>&lt;<span class="type">T</span>&gt;</span>(<span class="keyword">val</span> helperSet: HashSet&lt;T&gt;) : Set&lt;T&gt; {</span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">val</span> size: <span class="built_in">Int</span></span><br><span class="line">        <span class="keyword">get</span>() = helperSet.size</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">contains</span><span class="params">(element: <span class="type">T</span>)</span></span> = helperSet.contains(element)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">containsAll</span><span class="params">(elements: <span class="type">Collection</span>&lt;<span class="type">T</span>&gt;)</span></span> = helperSet.containsAll(elements)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">isEmpty</span><span class="params">()</span></span> = helperSet.isEmpty()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">iterator</span><span class="params">()</span></span>: Iterator&lt;T&gt; = helperSet.iterator()</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>MySet 的构造函数中接收了一个 HashSet 参数，这就相当于一个辅助对象。Set 接口所有的实现方法中都没有进行自己的实现，而是调用了辅助对象中相应的方法实现，这其实就是一种委托模式。</p>
+<p>如果只是让大部分的方法实现调用辅助对象中的方法，少部分的方法实现由自己重写，甚至加入一些自己独有的方法，那么 MySet 就会称为一个全新的数据结构类，这就是委托模式的意义所在。</p>
+<p>Kotlin 中委托使用的关键字是 <code>by</code>，只需要在接口声明的后面使用 <code>by</code> 关键字再接上受委托的辅助对象，就可以免去一大堆模板式代码：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MySet</span>&lt;<span class="type">T</span>&gt;</span>(<span class="keyword">val</span> helperSet: HashSet&lt;T&gt;) : Set&lt;T&gt; <span class="keyword">by</span> helperSet {</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>上面两段代码效果一样，借助了类委托的功能后代码大大简化，如果要对某个方法重新实现只需要单独重写哪一个方法就可以了。</p>
+<h2 id="委托属性"><a href="#委托属性" class="headerlink" title="委托属性"></a>委托属性</h2><p>委托属性的核心思想是将一个属性（字段）的具体实现委托给另一个类去完成。委托属性的语法结构如下：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> p <span class="keyword">by</span> Delegate()</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这里使用 <code>by</code> 关键字连接左边的 p 属性和右边的 Delegate 实例，代表着将 p 属性的具体实现委托给 Delegate 类去完成。当调用 p 属性的时候会自动调用 Delegate 类的 getValue () 方法，当给 p 属性赋值的时候会自动调用 Delegate 类的 setValue () 方法。</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Delegate</span> </span>{</span><br><span class="line">    <span class="keyword">var</span> propValue: Any? = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="title">getValue</span><span class="params">(myClass: <span class="type">MyClass</span>, prop: <span class="type">KProperty</span>&lt;*&gt;)</span></span>: Any? {</span><br><span class="line">        <span class="keyword">return</span> propValue</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="title">setValue</span><span class="params">(myClass: <span class="type">MyClass</span>, prop: <span class="type">KProperty</span>&lt;*&gt;, value: <span class="type">Any</span>?)</span></span> {</span><br><span class="line">        propValue = value</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这是一种标准的代码实现模板，在 Delagate 类中我门必须实现 getValue () 和 setValue () 这两个方法，并且都要使用 <code>operator</code> 关键字进行声明。</p>
+<p>getValue () 方法要接收两个参数：第一个参数用于声明该 Delegate 类的委托功能可以在什么类中使用；第二个<code>参数KProperty&lt;*&gt;</code> 是 Kotlin 中的一个属性操作类，可用于获取各种属性相关的值，必须在方法参数上进行声明。&lt;*&gt; 这种泛型的写法表示不知道或者不关心泛型的具体类型，只是为了通过语法编译而已，有点类似 Java 中 &lt;?&gt; 的写法。返回值可以声明成各种类型。</p>
+<p>setValue () 方法接收 3 个参数，前两个和 getValue () 方法相同，最后一个参数表示具体要赋值给委托属性的值，这个参数的类型必须和 getValue () 方法返回值的类型保持一致。</p>
+<p>MyClass 中的 p 属性使用 val 关键字声明时，意味着 p 属性是无法在初始化之后杯重新赋值，因此没有必要实现 setValue () 方法，只需要实现 getValue () 方法就可以了。</p>
+<h1 id="实现一个自己的lazy函数"><a href="#实现一个自己的lazy函数" class="headerlink" title="实现一个自己的lazy函数"></a>实现一个自己的 lazy 函数</h1><p><code>by lazy</code> 代码块是 Kotlin 提供的一种懒加载技术，它的基本语法结构如下：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> p <span class="keyword">by</span> lazy { ... }</span><br></pre></td></tr></tbody></table></figure>
+
+<p>代码块中的代码一开始并不会执行，只有当 p 变量首次被调用的时候才执行，并且会将代码块中最后一行代码的返回值赋值给 p 变量。by 是 Kotlin 中的关键字，lazy 是一个高阶函数。在 lazy 函数中会创建并返回已给 Delegate 对象，调用 p 属性时其实调用的是 Delegate 对象的 getValue () 方法，然后 getValue () 方法又会调用 lazy 函数传入的 Lambda 表达式，这样表达式中的代码就可以得到执行了，并且调用 p 属性后得到的值就是 Lambda 表达式中最后一行代码的返回值。</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Later</span>&lt;<span class="type">T</span>&gt;</span>(<span class="keyword">val</span> block: () -&gt; T) {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> value: Any? = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="title">getValue</span><span class="params">(any: <span class="type">Any</span>?, prop: <span class="type">KProperty</span>&lt;*&gt;)</span></span>: T {</span><br><span class="line">        <span class="keyword">if</span> (value == <span class="literal">null</span>) {</span><br><span class="line">            value = block()</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> value <span class="keyword">as</span> T</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这里定义了一个 Later 类并指定为泛型类，Later 的构造函数中接收一个函数类型参数，这个函数类型参数不接收任何参数，并且返回值类型就是 Later 类指定的泛型。getValue () 方法的第一个参数指定成 Any? 类型，表示我们希望 Later 的委托功能在所有类中都可以使用。然后使用了一个 value 变量对值进行缓存，如果 value 值为空就调用构造函数中传入的函数类型参数去获取值，否则就直接返回。懒加载技术不会对属性机型赋值，因此这里不用实现 setValue () 方法。</p>
+<p>为了让用法更类似 lazy 函数，可以再定义一个顶层函数：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">later</span><span class="params">(block: () -&gt; <span class="type">T</span>)</span></span> = Later(block)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这里将顶层函数也定义成了泛型函数，并接收一个函数类型参数，这个顶层函数的作用很简单：创建 Later 类的实例，并将接收的函数类型参数传给 Later 类的构造函数。现在可以用 later 简单替代 lazy 函数了：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> p <span class="keyword">by</span> later { ... }</span><br></pre></td></tr></tbody></table></figure>
+
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&amp;p=JF8BANIJK1olXDYCV1dfC0sVAl9MRANLAjZbERscSkAJHTdNTwcKBlMdBgABFksUCm0LG1kUQl9HCANtFj8WAy1zXCB3KWRxIB4FDSIUUCR3e1cZbQcyV19dCEseC2kOGmslXQEyAjBdCUoWAm4NH1wSbQcyVFlZCk8SC2YAH10QXjYFVFdtUx55Bm1cH18RCAVWXA1bC3snM2w4HFscSQBwFQxJDjknM284GGtXMwIEUlkID0pFUDxfTF5GWQUKAVYIW0ITB2YIS1oVCFEEZFxcCU8eM18">第一行代码 第 3 版</a></li>
+</ul>
 
     </div>
 

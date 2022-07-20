@@ -29,7 +29,7 @@
 <meta property="og:description" content="标准函数Kotlin 的标准函数指的是 Standard.kt 文件中定义的函数，任何 Kotlin 代码都可以自由地调用所有的标准函数 let 函数let 函数提供了函数式 API 的编程接口，并将原始调用对象作为参数传递到 Lambda 表达式中。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-06-16T08:28:14.000Z">
-<meta property="article:modified_time" content="2022-06-20T10:06:01.024Z">
+<meta property="article:modified_time" content="2022-07-20T09:42:48.410Z">
 <meta property="article:author" content="沐墨">
 <meta property="article:tag" content="Kotlin">
 <meta name="twitter:card" content="summary">
@@ -110,7 +110,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">标准函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#let%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">let 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#with%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">with 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#run%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.</span> <span class="nav-text">run 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#apply%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.</span> <span class="nav-text">apply 函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">静态方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JvmStatic%E6%B3%A8%E8%A7%A3%E5%92%8C%E9%A1%B6%E5%B1%82%E6%96%B9%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">@JvmStatic 注解和顶层方法</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">标准函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#let%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">let 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#with%E5%87%BD%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">with 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#run%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.</span> <span class="nav-text">run 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#apply%E5%87%BD%E6%95%B0"><span class="nav-number">1.4.</span> <span class="nav-text">apply 函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">静态方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#JvmStatic%E6%B3%A8%E8%A7%A3%E5%92%8C%E9%A1%B6%E5%B1%82%E6%96%B9%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">@JvmStatic 注解和顶层方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -204,7 +204,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-06-20 18:06:01" itemprop="dateModified" datetime="2022-06-20T18:06:01+08:00">2022-06-20</time>
+      <time title="修改时间：2022-07-20 17:42:48" itemprop="dateModified" datetime="2022-07-20T17:42:48+08:00">2022-07-20</time>
     </span>
 
   
@@ -248,6 +248,9 @@
 <li><p>顶层方法指的是那些没有定义在任何类中的方法。Kotlin 编译器会将所有的顶层方法全部编译成静态方法，在 Kotlin 中调用时直接键入方法名即可，在 Java 中调用需要使用<code>文件名.方法名</code>。</p>
 </li>
 </ol>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&amp;p=JF8BANIJK1olXDYCV1dfC0sVAl9MRANLAjZbERscSkAJHTdNTwcKBlMdBgABFksUCm0LG1kUQl9HCANtFj8WAy1zXCB3KWRxIB4FDSIUUCR3e1cZbQcyV19dCEseC2kOGmslXQEyAjBdCUoWAm4NH1wSbQcyVFlZCk8SC2YAH10QXjYFVFdtUx55Bm1cH18RCAVWXA1bC3snM2w4HFscSQBwFQxJDjknM284GGtXMwIEUlkID0pFUDxfTF5GWQUKAVYIW0ITB2YIS1oVCFEEZFxcCU8eM18">第一行代码 第 3 版</a></li>
+</ul>
 
     </div>
 
