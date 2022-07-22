@@ -119,7 +119,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -163,6 +163,90 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://mumo.fun/posts/9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="沐墨">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mumo">
+      <meta itemprop="description" content="也无风雨也无晴">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Mumo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/9/" class="post-title-link" itemprop="url">Kotlin 泛型的高级特性</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-07-21 11:08:09" itemprop="dateCreated datePublished" datetime="2022-07-21T11:08:09+08:00">2022-07-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-22 18:09:34" itemprop="dateModified" datetime="2022-07-22T18:09:34+08:00">2022-07-22</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="对泛型进行实化"><a href="#对泛型进行实化" class="headerlink" title="对泛型进行实化"></a>对泛型进行实化</h1><p>泛型实化的函数必须是内联函数，即用 <code>inline</code> 关键字来修饰函数，在声明泛型的地方必须加上 <code>reified</code> 关键字来表示该泛型要进行实化：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;<span class="keyword">reified</span> T&gt;</span> <span class="title">getGenericType</span><span class="params">()</span></span> = T::<span class="keyword">class</span>.java</span><br></pre></td></tr></tbody></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/9/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://mumo.fun/posts/8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -191,9 +275,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2022-07-21 08:24:08 / 修改时间：10:22:27" itemprop="dateCreated datePublished" datetime="2022-07-21T08:24:08+08:00">2022-07-21</time>
+      <time title="创建时间：2022-07-21 08:24:08" itemprop="dateCreated datePublished" datetime="2022-07-21T08:24:08+08:00">2022-07-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-22 18:09:09" itemprop="dateModified" datetime="2022-07-22T18:09:09+08:00">2022-07-22</time>
     </span>
 
   
@@ -785,7 +875,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-20 17:42:48" itemprop="dateModified" datetime="2022-07-20T17:42:48+08:00">2022-07-20</time>
+      <time title="修改时间：2022-07-21 21:38:17" itemprop="dateModified" datetime="2022-07-21T21:38:17+08:00">2022-07-21</time>
     </span>
 
   

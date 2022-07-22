@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mumo.fun","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="对泛型进行实化泛型实化的函数必须是内联函数，即用 inline 关键字来修饰函数，在声明泛型的地方必须加上 reified 关键字来表示该泛型要进行实化： inline fun &lt;reified T&gt; getGenericType() &#x3D; T::class.java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kotlin 泛型的高级特性">
+<meta property="og:url" content="https://mumo.fun/posts/9/index.html">
+<meta property="og:site_name" content="Mumo">
+<meta property="og:description" content="对泛型进行实化泛型实化的函数必须是内联函数，即用 inline 关键字来修饰函数，在声明泛型的地方必须加上 reified 关键字来表示该泛型要进行实化： inline fun &lt;reified T&gt; getGenericType() &#x3D; T::class.java">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-21T03:08:09.000Z">
+<meta property="article:modified_time" content="2022-07-22T10:09:34.719Z">
+<meta property="article:author" content="沐墨">
+<meta property="article:tag" content="Kotlin">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://mumo.fun/posts/9/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mumo.fun/posts/9/","path":"posts/9/","title":"Kotlin 泛型的高级特性"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Kotlin 泛型的高级特性 | Mumo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Mumo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%B9%E6%B3%9B%E5%9E%8B%E8%BF%9B%E8%A1%8C%E5%AE%9E%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">对泛型进行实化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E5%AE%9E%E5%8C%96%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">泛型实化的应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E7%9A%84%E5%8D%8F%E5%8F%98"><span class="nav-number">3.</span> <span class="nav-text">泛型的协变</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E7%9A%84%E9%80%86%E5%8F%98"><span class="nav-number">4.</span> <span class="nav-text">泛型的逆变</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">沐墨</p>
+  <div class="site-description" itemprop="description">也无风雨也无晴</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://mumo.fun/posts/9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="沐墨">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mumo">
+      <meta itemprop="description" content="也无风雨也无晴">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Kotlin 泛型的高级特性 | Mumo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Kotlin 泛型的高级特性
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-07-21 11:08:09" itemprop="dateCreated datePublished" datetime="2022-07-21T11:08:09+08:00">2022-07-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-22 18:09:34" itemprop="dateModified" datetime="2022-07-22T18:09:34+08:00">2022-07-22</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="对泛型进行实化"><a href="#对泛型进行实化" class="headerlink" title="对泛型进行实化"></a>对泛型进行实化</h1><p>泛型实化的函数必须是内联函数，即用 <code>inline</code> 关键字来修饰函数，在声明泛型的地方必须加上 <code>reified</code> 关键字来表示该泛型要进行实化：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;<span class="keyword">reified</span> T&gt;</span> <span class="title">getGenericType</span><span class="params">()</span></span> = T::<span class="keyword">class</span>.java</span><br></pre></td></tr></tbody></table></figure>
+
+<span id="more"></span>
+
+<p>上面的函数实现了获取泛型实际类型的功能。</p>
+<h1 id="泛型实化的应用"><a href="#泛型实化的应用" class="headerlink" title="泛型实化的应用"></a>泛型实化的应用</h1><p>启动一个 Activity 通常的写法如下：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> intent = Intent(context, TestActivity::<span class="keyword">class</span>.java)</span><br><span class="line">context.startActivity(intent)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>利用 Kotlin 的泛型实化功能可以编写如下代码：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;<span class="keyword">reified</span> T&gt;</span> <span class="title">startActivity</span><span class="params">(context: <span class="type">Context</span>)</span></span> {</span><br><span class="line">    <span class="keyword">val</span> intent=Intent(context,T::<span class="keyword">class</span>.java)</span><br><span class="line">    context.startActivity(intent)</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>由于 T 已经是一个被实化的泛型，因此 Intent 的第二个参数可以直接传入 <code>T::class.java</code>，现在启动 TestActivity 可以直接这样写：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line">startActivity&lt;TestActivity&gt;(context)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>上述方法无法传参，这是可以借助高阶函数来解决：添加一个新的函数重载：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;<span class="keyword">reified</span> T&gt;</span> <span class="title">startActivity</span><span class="params">(context: <span class="type">Context</span>, block: <span class="type">Intent</span>.() -&gt; <span class="type">Unit</span>)</span></span> {</span><br><span class="line">    <span class="keyword">val</span> intent = Intent(context, T::<span class="keyword">class</span>.java)</span><br><span class="line">    intent.block()</span><br><span class="line">    context.startActivity(intent)</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><code>startActivity()</code> 函数中增加了一个函数类型参数，并且它的函数类型是定义在 Intent 类当中的，现在可以在 Lambda 表达式中为 Intent 传参了：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line">startActivity&lt;TestAcitivty&gt;(context) {</span><br><span class="line">    putExtra(<span class="string">"param1"</span>, <span class="string">"data"</span>)</span><br><span class="line">    putExtra(<span class="string">"param2"</span>, <span class="number">123</span>)</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h1 id="泛型的协变"><a href="#泛型的协变" class="headerlink" title="泛型的协变"></a>泛型的协变</h1><p>一个泛型类或者泛型接口中的方法，它的参数列表是接收数据的地方，因此可以称它为 in 位置，而它的返回值是输出数据的地方，因此可以称它为 out 位置。</p>
+<p>假如定义了一个 <code>MyClass&lt;T&gt;</code> 的的泛型类，其中 A 是 B 的子类型，同时 <code>MyClass&lt;A&gt;</code> 又是 <code>MyClass&lt;B&gt;</code> 的子类型，那么我们就可以称 <code>MyClass</code> 在 <code>T</code> 这个泛型上是协变的。</p>
+<p>如何让 <code>MyClass&lt;A&gt;</code> 成为 <code>MyClass&lt;B&gt;</code> 的子类型呢？如果一个泛型类在其泛型类型的数据上是只读的话，那么它是没有类型转换安全隐患的。要实现这一点，则需要让 <code>MyClass&lt;T&gt;</code> 类中所有方法都不能接收 <code>T</code> 类型的参数，也就是 <code>T</code> 只能出现在 out 位置上，而不能出现在 in 位置上。</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SimpleData</span>&lt;<span class="type">out T</span>&gt;</span>(<span class="keyword">val</span> <span class="keyword">data</span>: T?) {</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">get</span><span class="params">()</span></span>: T? {</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">data</span></span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>泛型 T 的声明前面加上了 <code>out</code> 关键字，现在 T 只能出现在 out 位置上而不能出现在 in 位置上，同时意味着 <code>SimpleData</code> 在泛型 T 上是协变的。</p>
+<p>由于泛型 <code>T</code> 不能出现在 in 位置上，因此不能使用 <code>set()</code> 方法为 <code>data</code> 参数赋值，可以使用构造函数的方式类赋值。由于使用了 <code>val</code> 关键字，所以构造函数中的泛型 <code>T</code> 仍然只读的，因此这样写是合法且安全的。如果使用了 <code>var</code> 关键字，只要加上 <code>private</code> 修饰符，保证这个泛型 <code>T</code> 对于外部而言是不可修改的，那么就是合法的写法。</p>
+<p>以下代码可以编译通过且没有任何安全隐患：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>(<span class="keyword">val</span> name: String, <span class="keyword">val</span> age: <span class="built_in">Int</span>)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span></span>(name: String, age: <span class="built_in">Int</span>) : Person(name, age)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Teacher</span></span>(name: String, age: <span class="built_in">Int</span>) : Person(name, age)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">    <span class="keyword">val</span> student = Student(<span class="string">"Tom"</span>, <span class="number">19</span>)</span><br><span class="line">    <span class="keyword">val</span> <span class="keyword">data</span> = SimpleData&lt;Student&gt;(student)</span><br><span class="line">    handleMyData(<span class="keyword">data</span>)</span><br><span class="line">    <span class="keyword">val</span> studentData = <span class="keyword">data</span>.<span class="keyword">get</span>()</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">handleMyData</span><span class="params">(<span class="keyword">data</span>: <span class="type">SimpleData</span>&lt;<span class="type">Person</span>&gt;)</span></span> {</span><br><span class="line">    <span class="keyword">val</span> personData = <span class="keyword">data</span>.<span class="keyword">get</span>()</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>由于 <code>SimpleData</code> 类已经进行了协变声明，那么 <code>SimpleData&lt;Student&gt;</code> 就是 <code>SimpleData&lt;Person&gt;</code> 的子类，所以这里可以安全地向 <code>handleMyData()</code> 方法中传递参数。在 <code>handleMyData()</code> 方法中获取 <code>SimpleData</code> 封装的数据，虽然这里泛型声明的是 <code>Person</code> 类型，实际获得的会是一个 <code>Student</code> 实例，由于 <code>Person</code> 是 <code>Student</code> 的父类，向上转型是完全安全的，所以这段代码没有任何问题。</p>
+<p>Kotlin 已经默认给许多内置的 API 加上了协变声明，其中包括各种集合的类和接口。Kotlin 中的 <code>List</code> 是只读的，是可以协变的，简化版源码如下：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">List</span>&lt;<span class="type">out E</span>&gt; : <span class="type">Collection</span>&lt;<span class="type">E</span>&gt; </span>{</span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">val</span> size: <span class="built_in">Int</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">isEmpty</span><span class="params">()</span></span>: <span class="built_in">Boolean</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">contains</span><span class="params">(element: @<span class="type">UnsafeVariance</span> <span class="type">E</span>)</span></span>: <span class="built_in">Boolean</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">iterator</span><span class="params">()</span></span>: Iterator&lt;E&gt;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="title">get</span><span class="params">(index: <span class="type">Int</span>)</span></span>: E</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><code>List</code> 在泛型 <code>E</code> 上是协变的，原则上在声明了协变之后，泛型 <code>E</code> 只能出现在 out 位置上，在 <code>contains()</code> 方法中，泛型 <code>E</code> 仍然出现在 in 位置上，这本身是不合法的，但是 <code>contains()</code> 方法的目的非常明确，它只是为了判断当前集合中是否包含参数中传入的这个元素而不会修改当前集合中的内容，因此这种操作实质上又是安全的。泛型 <code>E</code> 前面加上 <code>@UnsafeVariance</code> 注解，编译器就会允许泛型 <code>E</code> 出现在 in 位置上了。</p>
+<h1 id="泛型的逆变"><a href="#泛型的逆变" class="headerlink" title="泛型的逆变"></a>泛型的逆变</h1><p>假如定义了一个 <code>MyClass&lt;T&gt;</code> 的泛型类，其中 A 是 B 的子类型，同时 <code>MyClass&lt;B&gt;</code> 又是 <code>MyClass&lt;A&gt;</code> 的子类型，那么我们就可以称 <code>MyClass</code> 在 <code>T</code> 这个泛型上是逆变的。</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Transformer</span>&lt;<span class="type">in T</span>&gt; </span>{</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">transform</span><span class="params">(t: <span class="type">T</span>)</span></span>: String</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> {</span><br><span class="line">    <span class="keyword">val</span> trans = <span class="keyword">object</span> : Transformer&lt;Person&gt; {</span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">transform</span><span class="params">(t: <span class="type">Person</span>)</span></span>: String {</span><br><span class="line">            <span class="keyword">return</span> <span class="string">"<span class="subst">${t.name}</span> <span class="subst">${t.age}</span>"</span></span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    handleTransformer(trans)</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">handleTransformer</span><span class="params">(trans: <span class="type">Transformer</span>&lt;<span class="type">Student</span>&gt;)</span></span> {</span><br><span class="line">    <span class="keyword">val</span> student = Student(<span class="string">"Tom"</span>, <span class="number">19</span>)</span><br><span class="line">    <span class="keyword">val</span> result = trans.transform(student)</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>逆变功能在 Kotlin 内置 API 中应用比较典型的就是 <code>Comparable</code> 的使用：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Comparable</span>&lt;<span class="type">in T</span>&gt; </span>{</span><br><span class="line">    <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="title">compareTo</span><span class="params">(other: <span class="type">T</span>)</span></span>: <span class="built_in">Int</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><p><a target="_blank" rel="noopener" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&amp;p=JF8BANIJK1olXDYCV1dfC0sVAl9MRANLAjZbERscSkAJHTdNTwcKBlMdBgABFksUCm0LG1kUQl9HCANtFj8WAy1zXCB3KWRxIB4FDSIUUCR3e1cZbQcyV19dCEseC2kOGmslXQEyAjBdCUoWAm4NH1wSbQcyVFlZCk8SC2YAH10QXjYFVFdtUx55Bm1cH18RCAVWXA1bC3snM2w4HFscSQBwFQxJDjknM284GGtXMwIEUlkID0pFUDxfTF5GWQUKAVYIW0ITB2YIS1oVCFEEZFxcCU8eM18">第一行代码 第 3 版</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://rengwuxian.com/kotlin-generics/">扔物线</a></p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>沐墨
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://mumo.fun/posts/9/" title="Kotlin 泛型的高级特性">https://mumo.fun/posts/9/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/8/" rel="prev" title="Kotlin 使用 infix 函数构建更可读的语法">
+                  <i class="fa fa-chevron-left"></i> Kotlin 使用 infix 函数构建更可读的语法
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<style>
+        .ss_ad{
+            display: block;
+            width: 100%;
+            text-align: center;
+            color: #fff;
+            background: #0088CC;
+			font-family: Microsoft YaHei;
+        }
+		a.ss_ad{
+			border:0;
+			color:#fff;
+		}
+		a.ss_ad:hover{
+				text-decoration:none;
+				color:#fff;
+		}
+</style>
+<div class="post-block animated fadeIn" style="margin-top:20px; padding: 0px; background: #0088cc">
+<a class="ss_ad" style="font-size:22px" href="https://order.yizhihongxing.network/aff.php?aff=3671" target="_blank">可靠便捷的VPN服务</a>
+<a class="ss_ad" style="font-size:15px" href="https://order.yizhihongxing.network/aff.php?aff=3671" target="_blank">100 G 月流量，5台设备可用，一年仅需99元！</a>
+</div>
+    <div class="comments"><div id="twikoo-comments"></div></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">沐墨</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+<script class="next-config" data-name="twikoo" type="application/json">{"enable":true,"visitor":false,"envId":"https://twikoo-nu-opal.vercel.app/","el":"#twikoo-comments"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.twikoo.el)
+    .then(() => NexT.utils.getScript(
+      CONFIG.twikoo.jsUrl || 'https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js',
+      { condition: window.twikoo }
+    ))
+    .then(() => {
+      twikoo.init(CONFIG.twikoo);
+    });
+});
+</script>
+<style>
+.post-block, .comments {
+  overflow: visible;
+}
+.tk-owo-emotion {
+  display: inline-block;
+}
+</style>
+
+</body>
+</html>
