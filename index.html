@@ -28,7 +28,7 @@
 <meta property="og:site_name" content="Mumo">
 <meta property="og:description" content="也无风雨也无晴">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:author" content="沐墨">
+<meta property="article:author" content="Mumo">
 <meta name="twitter:card" content="summary">
 
 
@@ -112,20 +112,20 @@
 
         <div class="site-overview-wrap sidebar-panel">
           <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">沐墨</p>
+  <p class="site-author-name" itemprop="name">Mumo</p>
   <div class="site-description" itemprop="description">也无风雨也无晴</div>
 </div>
 <div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -163,11 +163,261 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://mumo.fun/posts/13/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Mumo">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mumo">
+      <meta itemprop="description" content="也无风雨也无晴">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Mumo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/13/" class="post-title-link" itemprop="url">Android Jetpack 组件</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-08-01 09:21:57 / 修改时间：10:25:12" itemprop="dateCreated datePublished" datetime="2022-08-01T09:21:57+08:00">2022-08-01</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="ViewModel"><a href="#ViewModel" class="headerlink" title="ViewModel"></a>ViewModel</h1><h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><p>添加依赖：</p>
+<figure class="highlight gradle"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> lifecycle_version = <span class="string">"2.6.0-alpha01"</span></span><br><span class="line"><span class="keyword">def</span> arch_version = <span class="string">"2.1.0"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ViewModel</span></span><br><span class="line">implementation <span class="string">"androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>比较好的编程规范是给每一个 Activity 和 Fragment 都创建一个对应的 ViewModel：</p>
+<figure class="highlight kotlin"><figcaption><span>MainViewModel.kt</span></figcaption><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainViewModel</span> : <span class="type">ViewModel</span></span>() {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> counter = <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight kotlin"><figcaption><span>MainActivity.kt</span></figcaption><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> : <span class="type">AppCompatActivity</span></span>() {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">lateinit</span> <span class="keyword">var</span> binding: ActivityMainBinding</span><br><span class="line">    <span class="keyword">lateinit</span> <span class="keyword">var</span> viewModel: MainViewModel</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> {</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        binding = ActivityMainBinding.inflate(layoutInflater)</span><br><span class="line">        setContentView(binding.root)</span><br><span class="line">        viewModel = ViewModelProvider(<span class="keyword">this</span>).<span class="keyword">get</span>(MainViewModel::<span class="keyword">class</span>.java)</span><br><span class="line"></span><br><span class="line">        binding.plusOneBtn.setOnClickListener {</span><br><span class="line">            viewModel.count++</span><br><span class="line">            refreshCounter()</span><br><span class="line">        }</span><br><span class="line">        refreshCounter()</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">refreshCounter</span><span class="params">()</span></span> {</span><br><span class="line">        infoText.text = viewModel.counter.toString()</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>ViewModel 有独立的声明周期，并且长于 Activity，所以不可以直接创建 ViewModel 的实例，而是一定要通过 <code>ViewModelProvider</code> 来获取 ViewModel 实例，语法规则如下：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line">ViewModelProvider(&lt;你的Activity或Fragment实例&gt;).<span class="keyword">get</span>(&lt;你的ViewMode&gt;::<span class="keyword">class</span>.java)</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="向ViewModel传递参数"><a href="#向ViewModel传递参数" class="headerlink" title="向ViewModel传递参数"></a>向 ViewModel 传递参数</h2><p>添加 <code>countReserved</code> 参数用于记录之前保存的值，并在初始化的时候赋值给 <code>counter</code> 变量：</p>
+<figure class="highlight kotlin"><figcaption><span>MainViewModel.kt</span></figcaption><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainViewModel</span></span>(countReserved: <span class="built_in">Int</span>) : ViewModel() {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> counter = countReserved</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&amp;p=JF8BANIJK1olXDYCV1dfC0sVAl9MRANLAjZbERscSkAJHTdNTwcKBlMdBgABFksUCm0LG1kUQl9HCANtFj8WAy1zXCB3KWRxIB4FDSIUUCR3e1cZbQcyV19dCEseC2kOGmslXQEyAjBdCUoWAm4NH1wSbQcyVFlZCk8SC2YAH10QXjYFVFdtUx55Bm1cH18RCAVWXA1bC3snM2w4HFscSQBwFQxJDjknM284GGtXMwIEUlkID0pFUDxfTF5GWQUKAVYIW0ITB2YIS1oVCFEEZFxcCU8eM18">第一行代码 第 3 版</a></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://mumo.fun/posts/12/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Mumo">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mumo">
+      <meta itemprop="description" content="也无风雨也无晴">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Mumo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/12/" class="post-title-link" itemprop="url">Retrofit 使用</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-07-31 11:25:27" itemprop="dateCreated datePublished" datetime="2022-07-31T11:25:27+08:00">2022-07-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-08-01 09:25:07" itemprop="dateModified" datetime="2022-08-01T09:25:07+08:00">2022-08-01</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h1><p><a target="_blank" rel="noopener" href="https://square.github.io/retrofit/">Retrofit 地址</a></p>
+<p>先添加依赖：</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/12/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://mumo.fun/posts/11/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Mumo">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mumo">
+      <meta itemprop="description" content="也无风雨也无晴">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Mumo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/11/" class="post-title-link" itemprop="url">Hexo Next 主题代码块显示语言名字</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-29 10:25:04 / 修改时间：16:08:54" itemprop="dateCreated datePublished" datetime="2022-07-29T10:25:04+08:00">2022-07-29</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>修改<code>_config.next.yml</code> 文件，取消 <code>custom_file_path</code> 中<code>style</code>和 <code>postMeta</code> 的注释。</p>
+<p>在 <code>source/_data/</code> 文件夹中新建 <code>post-meta.njk</code> 文件，添加如下代码：</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/11/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://mumo.fun/posts/10/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="沐墨">
+      <meta itemprop="name" content="Mumo">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -191,9 +441,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2022-07-23 10:07:02 / 修改时间：10:12:37" itemprop="dateCreated datePublished" datetime="2022-07-23T10:07:02+08:00">2022-07-23</time>
+      <time title="创建时间：2022-07-23 10:07:02" itemprop="dateCreated datePublished" datetime="2022-07-23T10:07:02+08:00">2022-07-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-31 11:26:13" itemprop="dateModified" datetime="2022-07-31T11:26:13+08:00">2022-07-31</time>
     </span>
 
   
@@ -207,10 +463,14 @@
     
     <div class="post-body" itemprop="articleBody">
           <p>协程和线程有点类似，可以简单的理解成一种轻量级的线程。协程可以仅在编程语言层面实现不同协程之间的切换，从而大大提升并发编程的运行效率。协程允许在单线程模式下模拟多线程的编程效果，代码执行时的挂起与恢复完全是由编程语言来控制的，和操作系统无关。</p>
-<h1 id="协程的基本用法"><a href="#协程的基本用法" class="headerlink" title="协程的基本用法"></a>协程的基本用法</h1><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a target="_blank" rel="noopener" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&amp;p=JF8BANIJK1olXDYCV1dfC0sVAl9MRANLAjZbERscSkAJHTdNTwcKBlMdBgABFksUCm0LG1kUQl9HCANtFj8WAy1zXCB3KWRxIB4FDSIUUCR3e1cZbQcyV19dCEseC2kOGmslXQEyAjBdCUoWAm4NH1wSbQcyVFlZCk8SC2YAH10QXjYFVFdtUx55Bm1cH18RCAVWXA1bC3snM2w4HFscSQBwFQxJDjknM284GGtXMwIEUlkID0pFUDxfTF5GWQUKAVYIW0ITB2YIS1oVCFEEZFxcCU8eM18">第一行代码 第 3 版</a></li>
-</ul>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/10/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -240,7 +500,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="沐墨">
+      <meta itemprop="name" content="Mumo">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -324,7 +584,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="沐墨">
+      <meta itemprop="name" content="Mumo">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -408,7 +668,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="沐墨">
+      <meta itemprop="name" content="Mumo">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -492,7 +752,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="沐墨">
+      <meta itemprop="name" content="Mumo">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -579,7 +839,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="沐墨">
+      <meta itemprop="name" content="Mumo">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -665,7 +925,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="沐墨">
+      <meta itemprop="name" content="Mumo">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -737,259 +997,9 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://mumo.fun/posts/3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="沐墨">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mumo">
-      <meta itemprop="description" content="也无风雨也无晴">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Mumo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/3/" class="post-title-link" itemprop="url">Kotlin 标准函数和静态方法</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-06-16 16:28:14" itemprop="dateCreated datePublished" datetime="2022-06-16T16:28:14+08:00">2022-06-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-20 17:42:48" itemprop="dateModified" datetime="2022-07-20T17:42:48+08:00">2022-07-20</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="标准函数"><a href="#标准函数" class="headerlink" title="标准函数"></a>标准函数</h1><p>Kotlin 的标准函数指的是 <code>Standard.kt</code> 文件中定义的函数，任何 Kotlin 代码都可以自由地调用所有的标准函数</p>
-<h2 id="let函数"><a href="#let函数" class="headerlink" title="let函数"></a>let 函数</h2><p><code>let</code> 函数提供了函数式 API 的编程接口，并将原始调用对象作为参数传递到 Lambda 表达式中。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/3/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://mumo.fun/posts/2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="沐墨">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mumo">
-      <meta itemprop="description" content="也无风雨也无晴">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Mumo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/2/" class="post-title-link" itemprop="url">均线多头排列、空头排列交易验证记录</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-06-04 18:30:08" itemprop="dateCreated datePublished" datetime="2022-06-04T18:30:08+08:00">2022-06-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-27 17:07:42" itemprop="dateModified" datetime="2022-07-27T17:07:42+08:00">2022-07-27</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>根据 4 小时级别 5、10、30、60 日均线发出的信号进行交易，交易对为 BTC / 当季，ETH / 当季，10 倍杠杆。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/2/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://mumo.fun/posts/1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="沐墨">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mumo">
-      <meta itemprop="description" content="也无风雨也无晴">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Mumo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/1/" class="post-title-link" itemprop="url">Kotlin 基础</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-05-25 18:01:30" itemprop="dateCreated datePublished" datetime="2022-05-25T18:01:30+08:00">2022-05-25</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-21 21:38:17" itemprop="dateModified" datetime="2022-07-21T21:38:17+08:00">2022-07-21</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="变量和函数"><a href="#变量和函数" class="headerlink" title="变量和函数"></a>变量和函数</h1><h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p>val (value 的简写) 用来声明一个不可变的变量</p>
-<p>var (variable 的简写) 用来声明一个可变的变量</p>
-<p>显式的声明变量类型：</p>
-<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> a: <span class="built_in">Int</span> <span class="number">10</span></span><br></pre></td></tr></tbody></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/1/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
 <style>
         .ss_ad{
             display: block;
@@ -1025,7 +1035,7 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">沐墨</span>
+  <span class="author" itemprop="copyrightHolder">Mumo</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

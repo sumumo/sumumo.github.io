@@ -2795,3 +2795,27 @@ ul.breadcrumb li:last-child {
     padding: 10px 12px;
   }
 }
+figure[class*=highlight]:before {
+  color: var(--t-l);
+  content: attr(data-language);
+  font-size: 1.9em;
+  font-weight: 700;
+  opacity: 0.15;
+  position: absolute;
+  right: 0.3rem;
+  top: 0.1em;
+  text-transform: uppercase;
+}
+/*
+pre[class*=language-]:before {
+  color: var(--t-l);
+  content: attr(data-language);
+  font-size: 1.9em;
+  font-weight: 700;
+  opacity: .15;
+  position: absolute;
+  right: .3rem;
+  top: .1em;
+  text-transform: uppercase;
+}
+*/

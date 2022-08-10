@@ -21,28 +21,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"mumo.fun","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="根据 4 小时级别 5、10、30、60 日均线发出的信号进行交易，交易对为 BTC &#x2F; 当季，ETH &#x2F; 当季，10 倍杠杆。">
+    <meta name="description" content="ViewModel基本用法添加依赖： def lifecycle_version &#x3D; &quot;2.6.0-alpha01&quot;def arch_version &#x3D; &quot;2.1.0&quot;&#x2F;&#x2F; ViewModelimplementation &quot;androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version&quot;  比较好的编程规范是给每一个 Activity 和">
 <meta property="og:type" content="article">
-<meta property="og:title" content="均线多头排列、空头排列交易验证记录">
-<meta property="og:url" content="https://mumo.fun/posts/2/index.html">
+<meta property="og:title" content="Android Jetpack 组件">
+<meta property="og:url" content="https://mumo.fun/posts/13/index.html">
 <meta property="og:site_name" content="Mumo">
-<meta property="og:description" content="根据 4 小时级别 5、10、30、60 日均线发出的信号进行交易，交易对为 BTC &#x2F; 当季，ETH &#x2F; 当季，10 倍杠杆。">
+<meta property="og:description" content="ViewModel基本用法添加依赖： def lifecycle_version &#x3D; &quot;2.6.0-alpha01&quot;def arch_version &#x3D; &quot;2.1.0&quot;&#x2F;&#x2F; ViewModelimplementation &quot;androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version&quot;  比较好的编程规范是给每一个 Activity 和">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-06-04T10:30:08.000Z">
-<meta property="article:modified_time" content="2022-07-31T14:15:18.692Z">
+<meta property="article:published_time" content="2022-08-01T01:21:57.000Z">
+<meta property="article:modified_time" content="2022-08-01T02:25:12.998Z">
 <meta property="article:author" content="Mumo">
-<meta property="article:tag" content="交易">
+<meta property="article:tag" content="Android">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://mumo.fun/posts/2/">
+<link rel="canonical" href="https://mumo.fun/posts/13/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mumo.fun/posts/2/","path":"posts/2/","title":"均线多头排列、空头排列交易验证记录"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mumo.fun/posts/13/","path":"posts/13/","title":"Android Jetpack 组件"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>均线多头排列、空头排列交易验证记录 | Mumo</title>
+<title>Android Jetpack 组件 | Mumo</title>
   
 
 
@@ -110,7 +110,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#BTC"><span class="nav-number">1.</span> <span class="nav-text">BTC</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ETH"><span class="nav-number">2.</span> <span class="nav-text">ETH</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ViewModel"><span class="nav-number">1.</span> <span class="nav-text">ViewModel</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">基本用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%91ViewModel%E4%BC%A0%E9%80%92%E5%8F%82%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">向 ViewModel 传递参数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">2.</span> <span class="nav-text">参考</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -168,7 +168,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://mumo.fun/posts/2/">
+    <link itemprop="mainEntityOfPage" href="https://mumo.fun/posts/13/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -181,12 +181,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="均线多头排列、空头排列交易验证记录 | Mumo">
+      <meta itemprop="name" content="Android Jetpack 组件 | Mumo">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          均线多头排列、空头排列交易验证记录
+          Android Jetpack 组件
         </h1>
 
         <div class="post-meta-container">
@@ -196,15 +196,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2022-06-04 18:30:08" itemprop="dateCreated datePublished" datetime="2022-06-04T18:30:08+08:00">2022-06-04</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-31 22:15:18" itemprop="dateModified" datetime="2022-07-31T22:15:18+08:00">2022-07-31</time>
+      <time title="创建时间：2022-08-01 09:21:57 / 修改时间：10:25:12" itemprop="dateCreated datePublished" datetime="2022-08-01T09:21:57+08:00">2022-08-01</time>
     </span>
 
   
@@ -217,161 +211,25 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>根据 4 小时级别 5、10、30、60 日均线发出的信号进行交易，交易对为 BTC / 当季，ETH / 当季，10 倍杠杆。</p>
-<span id="more"></span>
+        <h1 id="ViewModel"><a href="#ViewModel" class="headerlink" title="ViewModel"></a>ViewModel</h1><h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><p>添加依赖：</p>
+<figure class="highlight gradle"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> lifecycle_version = <span class="string">"2.6.0-alpha01"</span></span><br><span class="line"><span class="keyword">def</span> arch_version = <span class="string">"2.1.0"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ViewModel</span></span><br><span class="line">implementation <span class="string">"androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"</span></span><br></pre></td></tr></tbody></table></figure>
 
-<h1 id="BTC"><a href="#BTC" class="headerlink" title="BTC"></a>BTC</h1><table>
-<thead>
-<tr>
-<th align="center">开仓时间</th>
-<th align="center">开仓价格</th>
-<th align="center">开仓张数</th>
-<th align="center">平仓时间</th>
-<th align="center">平仓价格</th>
-<th align="center">盈亏  <font color="#00c087">0.00066109</font></th>
-<th align="center"> 备注</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"> 2022-04-07</td>
-<td align="center">43867.6</td>
-<td align="center"><font color="#ed6160"> 空 1 张</font></td>
-<td align="center"> 2022-06-06</td>
-<td align="center">31516.5</td>
-<td align="center"><font color="#00c087"> 盈利 0.00089335</font></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">2022-06-06</td>
-<td align="center">31570.1</td>
-<td align="center"><font color="#00c087"> 多 1 张</font></td>
-<td align="center"> 2022-06-10</td>
-<td align="center">29906.6</td>
-<td align="center"><font color="#ed6160"> 亏损 0.00017618</font></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">2022-06-10</td>
-<td align="center">29371.4</td>
-<td align="center"><font color="#ed6160"> 空 1 张</font></td>
-<td align="center"> 2022-06-24</td>
-<td align="center">20846.3</td>
-<td align="center"><font color="#00c087"> 盈利 0.00139234</font></td>
-<td align="center"> 交割</td>
-</tr>
-<tr>
-<td align="center"> 2022-06-29</td>
-<td align="center">20315.4</td>
-<td align="center"><font color="#ed6160"> 空 1 张</font></td>
-<td align="center"> 2022-07-08</td>
-<td align="center">21721.8</td>
-<td align="center"><font color="#ed6160"> 亏损 0.00031865</font></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">2022-07-08</td>
-<td align="center">21718.7</td>
-<td align="center"><font color="#00c087"> 多 1 张</font></td>
-<td align="center"> 2022-07-13</td>
-<td align="center">19777.7</td>
-<td align="center"><font color="#ed6160"> 亏损 0.00045187</font></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">2022-07-13</td>
-<td align="center">19326.1</td>
-<td align="center"><font color="#ed6160"> 空 1 张</font></td>
-<td align="center"> 2022-07-16</td>
-<td align="center">20758.0</td>
-<td align="center"><font color="#ed6160"> 亏损 0.00035692</font></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">2022-07-16</td>
-<td align="center">20758.0</td>
-<td align="center"><font color="#00c087"> 多 1 张</font></td>
-<td align="center"> 2022-07-27</td>
-<td align="center">21183.2</td>
-<td align="center"><font color="#00c087"> 盈利 0.00009669</font></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">2022-07-27</td>
-<td align="center">21177.3</td>
-<td align="center"><font color="#ed6160"> 空 1 张</font></td>
-<td align="center"> 2022-07-28</td>
-<td align="center">23232.1</td>
-<td align="center"><font color="#ed6160"> 亏损 0.00041767</font></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">2022-07-28</td>
-<td align="center">23238.4</td>
-<td align="center"><font color="#00c087"> 多 1 张</font></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-</tbody></table>
-<h1 id="ETH"><a href="#ETH" class="headerlink" title="ETH"></a>ETH</h1><table>
-<thead>
-<tr>
-<th align="center">开仓时间</th>
-<th align="center">开仓价格</th>
-<th align="center">开仓张数</th>
-<th align="center">平仓时间</th>
-<th align="center">平仓价格</th>
-<th align="center">盈亏 <font color="#00c087">0.02658341</font></th>
-<th align="center"> 备注</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center"> 2020-04-08</td>
-<td align="center">3257.81</td>
-<td align="center"><font color="#ed6160"> 空 10 张</font></td>
-<td align="center"> 2022-06-24</td>
-<td align="center">1143.22</td>
-<td align="center"><font color="#00c087"> 盈利 0.05677676</font></td>
-<td align="center"> 交割</td>
-</tr>
-<tr>
-<td align="center"> 2020-06-29</td>
-<td align="center">1146.82</td>
-<td align="center"><font color="#ed6160"> 空 10 张</font></td>
-<td align="center"> 2022-07-07</td>
-<td align="center">1190.00</td>
-<td align="center"><font color="#ed6160"> 亏损 0.00316401</font></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">2022-07-07</td>
-<td align="center">1224.67</td>
-<td align="center"><font color="#00c087"> 多 10 张</font></td>
-<td align="center"> 2022-07-12</td>
-<td align="center">1066.25</td>
-<td align="center"><font color="#ed6160"> 亏损 0.01213198</font></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">2020-07-12</td>
-<td align="center">1106.59</td>
-<td align="center"><font color="#ed6160"> 空 10 张</font></td>
-<td align="center"> 2022-07-16</td>
-<td align="center">1268.08</td>
-<td align="center"><font color="#ed6160"> 亏损 0.01489736</font></td>
-<td align="center"></td>
-</tr>
-<tr>
-<td align="center">2020-07-16</td>
-<td align="center">1268.27</td>
-<td align="center"><font color="#00c087"> 多 10 张</font></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"></td>
-</tr>
-</tbody></table>
+<p>比较好的编程规范是给每一个 Activity 和 Fragment 都创建一个对应的 ViewModel：</p>
+<figure class="highlight kotlin"><figcaption><span>MainViewModel.kt</span></figcaption><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainViewModel</span> : <span class="type">ViewModel</span></span>() {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> counter = <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<figure class="highlight kotlin"><figcaption><span>MainActivity.kt</span></figcaption><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> : <span class="type">AppCompatActivity</span></span>() {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">lateinit</span> <span class="keyword">var</span> binding: ActivityMainBinding</span><br><span class="line">    <span class="keyword">lateinit</span> <span class="keyword">var</span> viewModel: MainViewModel</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> {</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        binding = ActivityMainBinding.inflate(layoutInflater)</span><br><span class="line">        setContentView(binding.root)</span><br><span class="line">        viewModel = ViewModelProvider(<span class="keyword">this</span>).<span class="keyword">get</span>(MainViewModel::<span class="keyword">class</span>.java)</span><br><span class="line"></span><br><span class="line">        binding.plusOneBtn.setOnClickListener {</span><br><span class="line">            viewModel.count++</span><br><span class="line">            refreshCounter()</span><br><span class="line">        }</span><br><span class="line">        refreshCounter()</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">refreshCounter</span><span class="params">()</span></span> {</span><br><span class="line">        infoText.text = viewModel.counter.toString()</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>ViewModel 有独立的声明周期，并且长于 Activity，所以不可以直接创建 ViewModel 的实例，而是一定要通过 <code>ViewModelProvider</code> 来获取 ViewModel 实例，语法规则如下：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line">ViewModelProvider(&lt;你的Activity或Fragment实例&gt;).<span class="keyword">get</span>(&lt;你的ViewMode&gt;::<span class="keyword">class</span>.java)</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="向ViewModel传递参数"><a href="#向ViewModel传递参数" class="headerlink" title="向ViewModel传递参数"></a>向 ViewModel 传递参数</h2><p>添加 <code>countReserved</code> 参数用于记录之前保存的值，并在初始化的时候赋值给 <code>counter</code> 变量：</p>
+<figure class="highlight kotlin"><figcaption><span>MainViewModel.kt</span></figcaption><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainViewModel</span></span>(countReserved: <span class="built_in">Int</span>) : ViewModel() {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> counter = countReserved</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&amp;p=JF8BANIJK1olXDYCV1dfC0sVAl9MRANLAjZbERscSkAJHTdNTwcKBlMdBgABFksUCm0LG1kUQl9HCANtFj8WAy1zXCB3KWRxIB4FDSIUUCR3e1cZbQcyV19dCEseC2kOGmslXQEyAjBdCUoWAm4NH1wSbQcyVFlZCk8SC2YAH10QXjYFVFdtUx55Bm1cH18RCAVWXA1bC3snM2w4HFscSQBwFQxJDjknM284GGtXMwIEUlkID0pFUDxfTF5GWQUKAVYIW0ITB2YIS1oVCFEEZFxcCU8eM18">第一行代码 第 3 版</a></li>
+</ul>
 
     </div>
 
@@ -421,7 +279,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://mumo.fun/posts/2/" title="均线多头排列、空头排列交易验证记录">https://mumo.fun/posts/2/</a>
+      <a href="https://mumo.fun/posts/13/" title="Android Jetpack 组件">https://mumo.fun/posts/13/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -430,21 +288,18 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/%E4%BA%A4%E6%98%93/" rel="tag"># 交易</a>
+              <a href="/tags/Android/" rel="tag"># Android</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/posts/1/" rel="prev" title="Kotlin 基础">
-                  <i class="fa fa-chevron-left"></i> Kotlin 基础
+                <a href="/posts/12/" rel="prev" title="Retrofit 使用">
+                  <i class="fa fa-chevron-left"></i> Retrofit 使用
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/posts/3/" rel="next" title="Kotlin 标准函数和静态方法">
-                  Kotlin 标准函数和静态方法 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>

@@ -21,16 +21,16 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"mumo.fun","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="协程和线程有点类似，可以简单的理解成一种轻量级的线程。协程可以仅在编程语言层面实现不同协程之间的切换，从而大大提升并发编程的运行效率。协程允许在单线程模式下模拟多线程的编程效果，代码执行时的挂起与恢复完全是由编程语言来控制的，和操作系统无关。 协程的基本用法参考 第一行代码 第 3 版">
+    <meta name="description" content="协程和线程有点类似，可以简单的理解成一种轻量级的线程。协程可以仅在编程语言层面实现不同协程之间的切换，从而大大提升并发编程的运行效率。协程允许在单线程模式下模拟多线程的编程效果，代码执行时的挂起与恢复完全是由编程语言来控制的，和操作系统无关。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kotlin 使用协程编写高效的并发程序">
 <meta property="og:url" content="https://mumo.fun/posts/10/index.html">
 <meta property="og:site_name" content="Mumo">
-<meta property="og:description" content="协程和线程有点类似，可以简单的理解成一种轻量级的线程。协程可以仅在编程语言层面实现不同协程之间的切换，从而大大提升并发编程的运行效率。协程允许在单线程模式下模拟多线程的编程效果，代码执行时的挂起与恢复完全是由编程语言来控制的，和操作系统无关。 协程的基本用法参考 第一行代码 第 3 版">
+<meta property="og:description" content="协程和线程有点类似，可以简单的理解成一种轻量级的线程。协程可以仅在编程语言层面实现不同协程之间的切换，从而大大提升并发编程的运行效率。协程允许在单线程模式下模拟多线程的编程效果，代码执行时的挂起与恢复完全是由编程语言来控制的，和操作系统无关。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-07-23T02:07:02.000Z">
-<meta property="article:modified_time" content="2022-07-23T02:12:37.885Z">
-<meta property="article:author" content="沐墨">
+<meta property="article:modified_time" content="2022-07-31T03:26:13.667Z">
+<meta property="article:author" content="Mumo">
 <meta property="article:tag" content="Kotlin">
 <meta name="twitter:card" content="summary">
 
@@ -110,26 +110,26 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%8F%E7%A8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">协程的基本用法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">2.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%8F%E7%A8%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">协程的基本用法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9B%B4%E5%A4%9A%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F%E6%9E%84%E5%BB%BA%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">更多的作用域构建器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%8D%8F%E7%A8%8B%E7%AE%80%E5%8C%96%E5%9B%9E%E8%B0%83%E7%9A%84%E5%86%99%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">使用协程简化回调的写法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
           <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">沐墨</p>
+  <p class="site-author-name" itemprop="name">Mumo</p>
   <div class="site-description" itemprop="description">也无风雨也无晴</div>
 </div>
 <div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">13</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -172,7 +172,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="沐墨">
+      <meta itemprop="name" content="Mumo">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -196,9 +196,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2022-07-23 10:07:02 / 修改时间：10:12:37" itemprop="dateCreated datePublished" datetime="2022-07-23T10:07:02+08:00">2022-07-23</time>
+      <time title="创建时间：2022-07-23 10:07:02" itemprop="dateCreated datePublished" datetime="2022-07-23T10:07:02+08:00">2022-07-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-31 11:26:13" itemprop="dateModified" datetime="2022-07-31T11:26:13+08:00">2022-07-31</time>
     </span>
 
   
@@ -212,7 +218,55 @@
     
     <div class="post-body" itemprop="articleBody">
         <p>协程和线程有点类似，可以简单的理解成一种轻量级的线程。协程可以仅在编程语言层面实现不同协程之间的切换，从而大大提升并发编程的运行效率。协程允许在单线程模式下模拟多线程的编程效果，代码执行时的挂起与恢复完全是由编程语言来控制的，和操作系统无关。</p>
-<h1 id="协程的基本用法"><a href="#协程的基本用法" class="headerlink" title="协程的基本用法"></a>协程的基本用法</h1><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<span id="more"></span>
+
+<h1 id="协程的基本用法"><a href="#协程的基本用法" class="headerlink" title="协程的基本用法"></a>协程的基本用法</h1><p>Kotlin 协程是以官方扩展库的形式进行支持的，需要先添加依赖才能使用：</p>
+<figure class="highlight gradle"><table><tbody><tr><td class="code"><pre><span class="line">implementation <span class="string">'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'</span></span><br><span class="line">implementation <span class="string">'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p><code>GlobalScope.launch</code> 函数可以创建一个协程的作用域，这样传递给 <code>launch</code> 函数的代码块就是在协程中运行的了：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line">GlobalScope.launch {</span><br><span class="line">    println(<span class="string">"codes run in coroutine scope"</span>)</span><br><span class="line">    delay(<span class="number">1500</span>)</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p><code>GlobalScope.launch</code> 函数创建的永远是顶层协程。管理成本比较高，在实际项目中也不太常用。</p>
+<p><code>delay()</code> 函数可以让当前协程延迟指定时间后再运行。<code>delay()</code> 函数是一个非阻塞式的挂起函数，它只会挂起当前协程，并不会影响其他协程的运行，只能在协程的作用域或其他挂起函数中调用。<code>Thread.sleep()</code> 方法会阻塞当前的线程，这样运行在该线程下的所有协程都会被阻塞。</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line">runBlocking{</span><br><span class="line">    println(<span class="string">"codes run in coroutine scope)</span></span><br><span class="line"><span class="string">}</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p><code>runBlocking</code> 函数同样会创建一个协程的作用域，但是它可以保证协程作用域内的所有代码和子协程没有全部执行完之前一直阻塞当前线程。如果恰好在主线程中调用，有可能导致界面卡死。<code>runBlocking</code> 函数通常只应该在测试环境下使用，在正式环境中使用容易产生一些性能上的问题。</p>
+<p><code>launch</code> 函数必须在协程的作用域中才能调用，会在当前协程的作用域下创建子协程。子协程的特点是如果外层作用域的协程结束了，该作用域下的所有子线程也会一同结束。</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line">runBlocking{</span><br><span class="line">    launch{</span><br><span class="line">        println(<span class="string">"launch1"</span>)</span><br><span class="line">    }</span><br><span class="line">    launch{</span><br><span class="line">        println(<span class="string">"launch2"</span>)</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><code>suspend</code> 关键字可以将任意函数声明成挂起函数，挂起函数之间可以相互调用。</p>
+<p><code>coroutineScope</code> 函数是一个挂起函数，可以在其他挂起函数中调用，它会继承外部的协程作用域并创建一个子作用域。</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">printDot</span><span class="params">()</span></span> = coroutineScope {</span><br><span class="line">    launch {</span><br><span class="line">        println(<span class="string">"."</span>)</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p><code>coroutineScope</code> 函数可以保证其作用域内的所有代码和子协程在全部执行完之前，外部的协程会一直被挂起，只有当它作用域内的所有代码和子协程都执行完毕之后，<code>coroutineScope</code> 函数之后的代码才能得到运行。<code>coroutineScope</code> 函数只会阻塞当前协程，既不影响其他协程，也不影响任何线程，因此不会造成任何性能上的问题。</p>
+<h1 id="更多的作用域构建器"><a href="#更多的作用域构建器" class="headerlink" title="更多的作用域构建器"></a>更多的作用域构建器</h1><p>实际项目中比较常用的写法：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> job= Job()</span><br><span class="line"><span class="keyword">val</span> scope= CoroutineScope(job)</span><br><span class="line">scope.launch {</span><br><span class="line">    <span class="comment">// 处理具体的逻辑</span></span><br><span class="line">}</span><br><span class="line">job.cancel()</span><br></pre></td></tr></tbody></table></figure>
+
+<p>先创建了一个 <code>Job</code> 对象，然后传入 <code>CoroutineScope()</code> 函数中，所有调用 <code>CoroutineScope</code> 的 <code>launch</code> 函数所创建的协程都会被关联在 <code>Job</code> 对象的作用域下面，只需要调用一次 <code>cancel()</code> 方法就可以将同一作用域内的所有协程全部取消，从而大大降低协程管理的成本。</p>
+<p><code>launch</code> 函数只能用于执行一段逻辑却不能获取执行结果，因为它的返回值永远是一个 <code>Job</code> 对象。使用 <code>async</code> 函数可以创建一个协程并获取它的执行结果。</p>
+<p><code>async</code> 函数必须在协程的作用域中才能调用，它会创建一个新的子协程并返回一个 <code>Deferred</code> 对象，如果想要获取 <code>async</code> 代码块的执行结果，只需要调用 <code>Deferred</code> 对象的 <code>await()</code> 方法即可：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line">runBlocking{</span><br><span class="line">    <span class="keyword">val</span> result1 = async {</span><br><span class="line">        <span class="number">5</span> + <span class="number">5</span></span><br><span class="line">    }.await()</span><br><span class="line">    <span class="keyword">val</span> result2 = async {</span><br><span class="line">        <span class="number">4</span> + <span class="number">6</span></span><br><span class="line">    }.await()</span><br><span class="line">    println(<span class="string">"result is <span class="subst">${result1 + result2}</span>."</span>)</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>调用了 <code>async</code> 函数后，代码块中的代码会立刻执行，当调用 <code>await()</code> 方法时，如果代码块中的代码还没有执行完，那么 <code>await()</code> 方法将会将当前协程阻塞住，直到可以获得 <code>async</code> 函数的执行结果。以上代码串行执行。</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line">runBlocking{</span><br><span class="line">    <span class="keyword">val</span> deferred1 = async {</span><br><span class="line">        <span class="number">5</span> + <span class="number">5</span></span><br><span class="line">    }</span><br><span class="line">    <span class="keyword">val</span> deferred2 = async {</span><br><span class="line">        <span class="number">4</span> + <span class="number">6</span></span><br><span class="line">    }</span><br><span class="line">    println(<span class="string">"result is <span class="subst">${deferred1.await() + deferred2.await()}</span>."</span>)</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>以上代码并行执行。</p>
+<p><code>withContext()</code> 函数是一个挂起函数：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line">runBlocking {</span><br><span class="line">    <span class="keyword">val</span> result = withContext(Dispatchers.Default) {</span><br><span class="line">        <span class="number">5</span> + <span class="number">5</span></span><br><span class="line">    }</span><br><span class="line">    println(result)</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>调用 <code>withContext()</code> 函数后会立即执行代码块中的代码，同时将当前协程阻塞住，当代码块中的代码全部执行完之后，会将最后一行的执行结果作为 <code>withContext()</code> 函数的返回值进行返回。<code>withContext()</code> 函数强制要求指定线程参数，其他几个函数是可选的（<code>coroutineScope</code> 函数不指定）。</p>
+<p>常用的线程参数有以下 3 种：</p>
+<ul>
+<li><p><code>Dispatchers.Default</code>：使用一种默认低并发的线程策略，适合计算密集型任务</p>
+</li>
+<li><p><code>Dispatchers.IO</code>：使用较高并发的线程策略，针对磁盘和网络 IO 进行了优化，适合 IO 密集型的任务，如：读写文件、操作数据库以及网络请求</p>
+</li>
+<li><p><code>Dispatchers.Main</code>：不会开启子线程，在 Android 主线程种执行。</p>
+</li>
+</ul>
+<h1 id="使用协程简化回调的写法"><a href="#使用协程简化回调的写法" class="headerlink" title="使用协程简化回调的写法"></a>使用协程简化回调的写法</h1><p><code>suspendCoroutine</code> 函数必须在协程作用域或挂起函数中才能使用，它接收一个 Lambda 表达式参数，主要作用是将当前协程立即挂起，然后在一个普通线程种执行 Lambda 表达式中的代码。Lambda 表达式的参数列表上会传入一个 <code>Continuation</code> 参数，调用它的 <code>resume()</code> 方法或 <code>resumeWithException()</code> 可以让协程恢复执行。</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> Call<span class="type">&lt;T&gt;</span>.<span class="title">await</span><span class="params">()</span></span>: T {</span><br><span class="line">    <span class="keyword">return</span> suspendCoroutine { continuation -&gt;</span><br><span class="line">        enqueue(<span class="keyword">object</span> : Callback&lt;T&gt; {</span><br><span class="line">            <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onResponse</span><span class="params">(call: <span class="type">Call</span>&lt;<span class="type">T</span>&gt;, response: <span class="type">Response</span>&lt;<span class="type">T</span>&gt;)</span></span> {</span><br><span class="line">                <span class="keyword">val</span> body = response.body()</span><br><span class="line">                <span class="keyword">if</span> (body != <span class="literal">null</span>) continuation.resume(body)</span><br><span class="line">                <span class="keyword">else</span> continuation.resumeWithException(RuntimeException(<span class="string">"response body is null"</span>))</span><br><span class="line">            }</span><br><span class="line"></span><br><span class="line">            <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onFailure</span><span class="params">(call: <span class="type">Call</span>&lt;<span class="type">T</span>&gt;, t: <span class="type">Throwable</span>)</span></span> {</span><br><span class="line">                continuation.resumeWithException(t)</span><br><span class="line">            }</span><br><span class="line">        })</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
 <li><a target="_blank" rel="noopener" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&amp;p=JF8BANIJK1olXDYCV1dfC0sVAl9MRANLAjZbERscSkAJHTdNTwcKBlMdBgABFksUCm0LG1kUQl9HCANtFj8WAy1zXCB3KWRxIB4FDSIUUCR3e1cZbQcyV19dCEseC2kOGmslXQEyAjBdCUoWAm4NH1wSbQcyVFlZCk8SC2YAH10QXjYFVFdtUx55Bm1cH18RCAVWXA1bC3snM2w4HFscSQBwFQxJDjknM284GGtXMwIEUlkID0pFUDxfTF5GWQUKAVYIW0ITB2YIS1oVCFEEZFxcCU8eM18">第一行代码 第 3 版</a></li>
 </ul>
 
@@ -222,13 +276,45 @@
     
     
 
-    <footer class="post-footer">
+    <footer class="post-footer"><style>
+        .ss_ad{
+            display: block;
+            width: 100%;
+            text-align: center;
+            color: #fff;
+            background: #0088CC;
+			font-family: Microsoft YaHei;
+        }
+		a.ss_ad{
+			border:0;
+			color:#fff;
+		}
+		a.ss_ad:hover{
+				text-decoration:none;
+				color:#fff;
+		}
+</style>
+<div class="post-block animated fadeIn" style="margin-top:20px; padding: 0px; background: #0088cc">
+<a class="ss_ad" style="font-size:22px" href="https://order.yizhihongxing.network/aff.php?aff=3671" target="_blank">可靠便捷的VPN服务</a>
+<a class="ss_ad" style="font-size:15px" href="https://order.yizhihongxing.network/aff.php?aff=3671" target="_blank">100 G 月流量，5台设备可用，一年仅需99元！</a>
+</div>
+<script>
+    var elements = document.querySelectorAll('figure');
+	for (var i = 0; i < elements.length; i++) {
+		var lang = elements[i].getAttribute("class");
+		if (lang != null ) {
+		lang = lang.substr(10);
+		}
+		elements[i].setAttribute("data-language", lang);
+	}
+</script>
+
           
 
 <div class="post-copyright">
 <ul>
   <li class="post-copyright-author">
-      <strong>本文作者： </strong>沐墨
+      <strong>本文作者： </strong>Mumo
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
@@ -253,6 +339,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/posts/11/" rel="next" title="Hexo Next 主题代码块显示语言名字">
+                  Hexo Next 主题代码块显示语言名字 <i class="fa fa-chevron-right"></i>
+                </a>
             </div>
           </div>
     </footer>
@@ -299,7 +388,7 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">沐墨</span>
+  <span class="author" itemprop="copyrightHolder">Mumo</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
