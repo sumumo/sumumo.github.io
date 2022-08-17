@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mumo.fun","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Activity 是与用户交互的接口Android 系统通过 Activity 栈的形式管理 Activity">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Activity">
+<meta property="og:url" content="https://mumo.fun/posts/14/index.html">
+<meta property="og:site_name" content="Mumo">
+<meta property="og:description" content="Activity 是与用户交互的接口Android 系统通过 Activity 栈的形式管理 Activity">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://cdn.mumo.fun/2022/14_1_activity_lifecycle.png">
+<meta property="article:published_time" content="2022-08-11T09:42:46.000Z">
+<meta property="article:modified_time" content="2022-08-12T09:49:20.255Z">
+<meta property="article:author" content="Mumo">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cdn.mumo.fun/2022/14_1_activity_lifecycle.png">
+
+
+<link rel="canonical" href="https://mumo.fun/posts/14/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mumo.fun/posts/14/","path":"posts/14/","title":"Android Activity"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Android Activity | Mumo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Mumo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Activity-4%E7%A7%8D%E5%BD%A2%E6%80%81"><span class="nav-number">1.</span> <span class="nav-text">Activity 4 种形态</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Activity-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">2.</span> <span class="nav-text">Activity 生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E7%8A%B6%E6%80%81%E4%B8%8B%E7%9A%84%E7%8A%B6%E6%80%81%E6%9B%B4%E6%94%B9"><span class="nav-number">2.1.</span> <span class="nav-text">异常状态下的状态更改</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Activity%E4%B9%8B%E9%97%B4%E9%80%9A%E4%BF%A1"><span class="nav-number">3.</span> <span class="nav-text">Activity 之间通信</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Activity%E4%B8%8EFragment%E9%80%9A%E4%BF%A1"><span class="nav-number">4.</span> <span class="nav-text">Activity 与 Fragment 通信</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity%E5%B0%86%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%92%E7%BB%99Fragment"><span class="nav-number">4.1.</span> <span class="nav-text">Activity 将数据传递给 Fragment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fragment%E5%B0%86%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%92%E7%BB%99Activity"><span class="nav-number">4.2.</span> <span class="nav-text">Fragment 将数据传递给 Activity</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Activity%E4%B8%8EService%E6%95%B0%E6%8D%AE%E9%80%9A%E4%BF%A1"><span class="nav-number">5.</span> <span class="nav-text">Activity 与 Service 数据通信</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%91%E5%AE%9A%E6%9C%8D%E5%8A%A1%EF%BC%8C%E5%88%A9%E7%94%A8ServiceConnection%E7%B1%BB"><span class="nav-number">5.1.</span> <span class="nav-text">绑定服务，利用 ServiceConnection 类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E9%80%9A%E4%BF%A1%EF%BC%8C%E5%88%A9%E7%94%A8Intent%E8%BF%9B%E8%A1%8C%E4%BC%A0%E5%80%BC"><span class="nav-number">5.2.</span> <span class="nav-text">简单通信，利用 Intent 进行传值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AAcallback%E6%8E%A5%E5%8F%A3%E6%9D%A5%E7%9B%91%E5%90%AC%E6%9C%8D%E5%8A%A1%E4%B8%AD%E7%9A%84%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%8F%98%E5%8C%96"><span class="nav-number">5.3.</span> <span class="nav-text">定义一个 callback 接口来监听服务中的进程的变化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Activity%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F"><span class="nav-number">6.</span> <span class="nav-text">Activity 启动模式</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Mumo</p>
+  <div class="site-description" itemprop="description">也无风雨也无晴</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://mumo.fun/posts/14/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Mumo">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mumo">
+      <meta itemprop="description" content="也无风雨也无晴">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Android Activity | Mumo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android Activity
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-08-11 17:42:46" itemprop="dateCreated datePublished" datetime="2022-08-11T17:42:46+08:00">2022-08-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-08-12 17:49:20" itemprop="dateModified" datetime="2022-08-12T17:49:20+08:00">2022-08-12</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>Activity 是与用户交互的接口<br>Android 系统通过 Activity 栈的形式管理 Activity</p>
+<span id="more"></span>
+
+<h1 id="Activity-4种形态"><a href="#Activity-4种形态" class="headerlink" title="Activity 4种形态"></a>Activity 4 种形态</h1><ol>
+<li>Active 运行状态：Activity 处于栈顶，可见，可以和用户进行交互</li>
+<li> Paused 暂停状态：不处于栈顶，可见但不可交互，失去焦点被非全屏 Acitivty 挡住</li>
+<li> Stopped 停止状态：不处于栈顶并且完全不可见，被另一个 Activity 完全覆盖</li>
+<li> Killed 销毁状态：从返回栈中移除，系统回收掉</li>
+</ol>
+<h1 id="Activity-生命周期"><a href="#Activity-生命周期" class="headerlink" title="Activity 生命周期"></a>Activity 生命周期</h1><p><img src="http://cdn.mumo.fun/2022/14_1_activity_lifecycle.png" alt="图 1.Activity 生命周期的简化图示">  </p>
+<p>以下是 Activity A 启动 Activity B 时的操作发生顺序：</p>
+<ol>
+<li>Activity A 的 <code>onPause()</code> 方法执行。</li>
+<li>Activity B 的 <code>onCreate()</code>、<code>onStart()</code> 和 <code>onResume()</code> 方法依次执行（Activity B 现在具有用户焦点）。</li>
+<li>然后<ul>
+<li>如果 Activity A 在屏幕上不再显示，其 <code>onStop()</code> 方法执行。</li>
+<li>如果 Activity B 为对话框或者透明窗口，并且局部覆盖了 Activity A，其 <code>onStop()</code> 方法不会执行</li>
+</ul>
+</li>
+</ol>
+<p>当 Activity 开始停止时，系统会调用 <code>onSaveInstanceState()</code> 方法，将状态信息保存到实例状态 Bundle 中。</p>
+<div class="note info"><p>当用户显式关闭 Activity 时，或者在其他情况下调用 <code>finish()</code> 时，系统不会调用 <code>onSaveInstanceState()</code>。</p>
+</div>
+
+<h2 id="异常状态下的状态更改"><a href="#异常状态下的状态更改" class="headerlink" title="异常状态下的状态更改"></a>异常状态下的状态更改</h2><p>如果系统因系统限制（例如配置变更或内存压力）而销毁 Activity，系统会记住它曾经存在过。如果用户尝试回退到该 Activity，系统将使用一组描述 Activity 销毁时状态的已保存数据新建该 Activity 的实例。</p>
+<div class="note info"><p>配置发生更改：最显著的例子或许是横屏和竖屏之间的屏幕方向变化。其他情况，如语言或输入设备的改变等，也可能导致配置更改。</p>
+</div>
+
+<p>重建先前被销毁的 Activity 后，可以从系统传递给 Activity 的 Bundle 中恢复保存的实例状态。<code>onCreate()</code> 和 <code>onRestoreInstanceState()</code> 回调方法均会收到包含实例状态信息的相同 Bundle。</p>
+<p><code>onRestoreInstanceState()</code> 方法会在 onStart () 之后调用，<code>onCreate()</code> 中的 Bundle 可能为 null，<code>onRestoreInstanceState()</code> 方法中的 Bundle 不为 null。</p>
+<h1 id="Activity之间通信"><a href="#Activity之间通信" class="headerlink" title="Activity之间通信"></a>Activity 之间通信</h1><ul>
+<li>Intent/Bundle</li>
+<li> 类静态变量</li>
+<li>全局变量 </li>
+<li>EventBus</li>
+<li> 广播</li>
+</ul>
+<h1 id="Activity与Fragment通信"><a href="#Activity与Fragment通信" class="headerlink" title="Activity与Fragment通信"></a>Activity 与 Fragment 通信</h1><h2 id="Activity将数据传递给Fragment"><a href="#Activity将数据传递给Fragment" class="headerlink" title="Activity将数据传递给Fragment"></a>Activity 将数据传递给 Fragment</h2><ul>
+<li>Bundle</li>
+<li> 在 Activity 中定义方法</li>
+</ul>
+<h2 id="Fragment将数据传递给Activity"><a href="#Fragment将数据传递给Activity" class="headerlink" title="Fragment将数据传递给Activity"></a>Fragment 将数据传递给 Activity</h2><ol>
+<li>在 Fragment 中定义一个内部回调接口，在 Activity 中实现接口</li>
+<li> Fragment 的方法 <code>onAttach()</code>，检查 Activity 是否实现对应接口</li>
+<li>调用 <code>onDetach()</code> 方法，将传递进来的 Activity 对象释放掉</li>
+</ol>
+<h1 id="Activity与Service数据通信"><a href="#Activity与Service数据通信" class="headerlink" title="Activity与Service数据通信"></a>Activity 与 Service 数据通信</h1><h2 id="绑定服务，利用ServiceConnection类"><a href="#绑定服务，利用ServiceConnection类" class="headerlink" title="绑定服务，利用ServiceConnection类"></a>绑定服务，利用 ServiceConnection 类</h2><p>在 Service 中创建一个 Bindler 对象：</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyService</span> : <span class="type">Service</span></span>() {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> mBinder = DownloadBinder()</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">DownloadBinder</span> : <span class="type">Binder</span></span>() {</span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">startDownload</span><span class="params">()</span></span> {</span><br><span class="line">            Log.d(<span class="string">"MyService"</span>, <span class="string">"startDownload: "</span>)</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">getProgress</span><span class="params">()</span></span>: <span class="built_in">Int</span> {</span><br><span class="line">            Log.d(<span class="string">"MyService"</span>, <span class="string">"getProgress: "</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onBind</span><span class="params">(intent: <span class="type">Intent</span>)</span></span>: IBinder {</span><br><span class="line">        <span class="keyword">return</span> mBinder</span><br><span class="line">    }</span><br><span class="line">    ...</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<p>新建一个 DownloadBinder 类并继承自 Binder，在其内部提供方法。接着在 MyService 中创建 <code>DownloadBinder</code> 的实例，然后在 <code>onBind()</code> 方法中返回这个实例。</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> : <span class="type">AppCompatActivity</span></span>() {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">lateinit</span> <span class="keyword">var</span> downloadBinder: MyService.DownloadBinder</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> connection = <span class="keyword">object</span> : ServiceConnection {</span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onServiceConnected</span><span class="params">(name: <span class="type">ComponentName</span>?, service: <span class="type">IBinder</span>?)</span></span> {</span><br><span class="line">            downloadBinder = service <span class="keyword">as</span> MyService.DownloadBinder</span><br><span class="line">            downloadBinder.startDownload()</span><br><span class="line">            downloadBinder.getProgress()</span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onServiceDisconnected</span><span class="params">(name: <span class="type">ComponentName</span>?)</span></span> {</span><br><span class="line"></span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> {</span><br><span class="line">        ...</span><br><span class="line">        binding.bindServiceBtn.setOnClickListener {</span><br><span class="line">            <span class="keyword">val</span> intent = Intent(<span class="keyword">this</span>, MyService::<span class="keyword">class</span>.java)</span><br><span class="line">            bindService(intent, connection, BIND_AUTO_CREATE) <span class="comment">// 绑定Service</span></span><br><span class="line">        }</span><br><span class="line"></span><br><span class="line">        binding.unbindServiceBtn.setOnClickListener {</span><br><span class="line">            unbindService(connection) <span class="comment">// 解绑Service</span></span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>先创建一个 ServiceConnection 的匿名类实现，并在里面重写了 <code>onServiceConnected()</code> 方法和 <code>onServiceDisconnected()</code> 方法。<code>onServiceConnected()</code> 方法会在 Activity 与 Service 成功绑定的时候调用，而 <code>onServiceDisconnected()</code> 方法只有在 Service 的创建进程崩溃或者被杀掉的时候才会调用，这个方法不太常用。那么在 <code>onServiceConnected()</code> 方法中，又通过向下转型得到了 DownloadBinder 的实例。可以在 Activity 中根据具体的场景来调用 DownloadBinder 中的任何 public 方法。</p>
+<p>调用 <code>bindService()</code> 方法将 MainActivity 和 MyService 进行绑定。<code>bindService()</code> 方法接收 3 个参数，第一个参数就是刚刚构建出的 Intent 对象，第二个参数是前面创建出的 ServiceConnection 的实例，第三个参数则是一个标志位，这里传入 IND_AUTO_CREATE 表示在 Activity 和 Service 进行绑定后自动创建 Service。这会使得 MyService 中的 <code>onCreate()</code> 方法得到执行，但 <code>onStartCommand()</code> 方法不会执行。调用 <code>unbindService()</code> 方法可以解除绑定。</p>
+<h2 id="简单通信，利用Intent进行传值"><a href="#简单通信，利用Intent进行传值" class="headerlink" title="简单通信，利用Intent进行传值"></a>简单通信，利用 Intent 进行传值</h2><p>只能传递简单数据，性能没有优势</p>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onStartCommand</span><span class="params">(intent: <span class="type">Intent</span>?, flags: <span class="type">Int</span>, startId: <span class="type">Int</span>)</span></span>: <span class="built_in">Int</span> {</span><br><span class="line">   Log.d(TAG, <span class="string">"onStartCommand: "</span>)</span><br><span class="line">   <span class="keyword">data</span> = intent?.getStringArrayExtra(<span class="string">"data"</span>)</span><br><span class="line">   <span class="keyword">return</span> <span class="keyword">super</span>.onStartCommand(intent, flags, startId)</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="定义一个callback接口来监听服务中的进程的变化"><a href="#定义一个callback接口来监听服务中的进程的变化" class="headerlink" title="定义一个callback接口来监听服务中的进程的变化"></a>定义一个 callback 接口来监听服务中的进程的变化</h2><p>在 Service 中添加接口，在 Binder 中定义返回 Service 对象的方法<br>在 <code>onServiceConnected()</code> 方法中利用 IBinder 对象实现 Service 中的接口，实现的方法是在子线程中，需要使用 handler 更新 UI。</p>
+<h1 id="Activity启动模式"><a href="#Activity启动模式" class="headerlink" title="Activity启动模式"></a>Activity 启动模式</h1><ul>
+<li><p>standard (默认模式)</p>
+<ol>
+<li>在不指定启动模式的前提下，系统默认使用该模式启动 Activity</li>
+<li> 每次启动一个 Activity 都会重新创建一个新的实例</li>
+<li>会依次调用 <code>onCreate()</code>，<code>onStart()</code>，<code>onResume()</code> 方法</li>
+</ol>
+</li>
+<li><p> singleTop (栈顶复用)<br> 如果当前任务的顶部已存在 Activity 的实例，则系统会通过调用其 <code>onNewIntent()</code> 方法来将 intent 转送给该实例，而不是创建 Activity 的新实例。如果不在顶部则会在堆栈中添加新实例。</p>
+<p> 应用场景：IM 对话框、新闻客户端推送等。</p>
+</li>
+<li><p>singleTask (栈内复用)</p>
+<ol>
+<li>根据任务相关性 <code>taskAffinity</code> 寻找是否存在一个对应名字的任务栈</li>
+<li>如果不存在则会创建一个新的 Task</li>
+<li> 如果存在则得到该任务栈，查找该任务栈中是否存在该 Activity 实例<ul>
+<li>如果存在实例则将该实例上方所有 Activity 实例出栈，然后回调该实例中的 <code>onNewIntent()</code> 方法</li>
+<li>如果不存在则创建一个新的 Activity 实例</li>
+</ul>
+</li>
+</ol>
+<p> 应用场景：应用主界面</p>
+</li>
+<li><p>singleInstance<br> 与 <code>singleTask</code> 相似，唯一不同的是系统不会将任何其他 Activity 启动到包含该实例的任务中。该 Activity 始终是其任务唯一的成员；由该 Activity 启动的任何 Activity 都会在其他的任务中打开。</p>
+<p> 应用场景：呼叫来电等</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><script>
+    var elements = document.querySelectorAll('figure');
+	for (var i = 0; i < elements.length; i++) {
+		var lang = elements[i].getAttribute("class");
+		if (lang != null ) {
+		lang = lang.substr(10);
+		}
+		elements[i].setAttribute("data-language", lang);
+	}
+</script>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Mumo
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://mumo.fun/posts/14/" title="Android Activity">https://mumo.fun/posts/14/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"># Android</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/13/" rel="prev" title="Android Jetpack 组件">
+                  <i class="fa fa-chevron-left"></i> Android Jetpack 组件
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/15/" rel="next" title="Android Service">
+                  Android Service <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<style>
+        .ss_ad{
+            display: block;
+            width: 100%;
+            text-align: center;
+            color: #fff;
+            background: #0088CC;
+			font-family: Microsoft YaHei;
+        }
+		a.ss_ad{
+			border:0;
+			color:#fff;
+		}
+		a.ss_ad:hover{
+				text-decoration:none;
+				color:#fff;
+		}
+</style>
+<div class="post-block animated fadeIn" style="margin-top:20px; padding: 0px; background: #0088cc">
+<a class="ss_ad" style="font-size:22px" href="https://order.yizhihongxing.network/aff.php?aff=3671" target="_blank">可靠便捷的VPN服务</a>
+<a class="ss_ad" style="font-size:15px" href="https://order.yizhihongxing.network/aff.php?aff=3671" target="_blank">100 G 月流量，5台设备可用，一年仅需99元！</a>
+</div>
+    <div class="comments"><div id="twikoo-comments"></div></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mumo</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+<script class="next-config" data-name="twikoo" type="application/json">{"enable":true,"visitor":false,"envId":"https://twikoo-nu-opal.vercel.app/","el":"#twikoo-comments"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.twikoo.el)
+    .then(() => NexT.utils.getScript(
+      CONFIG.twikoo.jsUrl || 'https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js',
+      { condition: window.twikoo }
+    ))
+    .then(() => {
+      twikoo.init(CONFIG.twikoo);
+    });
+});
+</script>
+<style>
+.post-block, .comments {
+  overflow: visible;
+}
+.tk-owo-emotion {
+  display: inline-block;
+}
+</style>
+<style>
+        .ss_ad{
+            display: block;
+            width: 100%;
+            text-align: center;
+            color: #fff;
+            background: #0088CC;
+			font-family: Microsoft YaHei;
+        }
+		a.ss_ad{
+			border:0;
+			color:#fff;
+		}
+		a.ss_ad:hover{
+				text-decoration:none;
+				color:#fff;
+		}
+</style>
+<div class="post-block animated fadeIn" style="margin-top:20px; padding: 0px; background: #0088cc">
+<a class="ss_ad" style="font-size:22px" href="https://order.yizhihongxing.network/aff.php?aff=3671" target="_blank">可靠便捷的VPN服务</a>
+<a class="ss_ad" style="font-size:15px" href="https://order.yizhihongxing.network/aff.php?aff=3671" target="_blank">100 G 月流量，5台设备可用，一年仅需99元！</a>
+</div>
+</body>
+</html>
