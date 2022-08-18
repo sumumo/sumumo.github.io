@@ -21,28 +21,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"mumo.fun","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="修改_config.next.yml 文件，取消 custom_file_path 中style和 postMeta 的注释。 在 source&#x2F;_data&#x2F; 文件夹中新建 post-meta.njk 文件，添加如下代码：">
+    <meta name="description" content="Android 中的异步消息处理主要由 4 个部分组成：Message、Handler、MessageQueue 和 Looper。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo Next 主题代码块显示语言名字">
-<meta property="og:url" content="https://mumo.fun/posts/11/index.html">
+<meta property="og:title" content="Android 异步消息处理机制">
+<meta property="og:url" content="https://mumo.fun/posts/20/index.html">
 <meta property="og:site_name" content="Mumo">
-<meta property="og:description" content="修改_config.next.yml 文件，取消 custom_file_path 中style和 postMeta 的注释。 在 source&#x2F;_data&#x2F; 文件夹中新建 post-meta.njk 文件，添加如下代码：">
+<meta property="og:description" content="Android 中的异步消息处理主要由 4 个部分组成：Message、Handler、MessageQueue 和 Looper。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-07-29T02:25:04.000Z">
-<meta property="article:modified_time" content="2022-07-29T08:08:54.675Z">
+<meta property="article:published_time" content="2022-08-17T15:23:46.000Z">
+<meta property="article:modified_time" content="2022-08-17T15:44:03.058Z">
 <meta property="article:author" content="Mumo">
-<meta property="article:tag" content="博客">
+<meta property="article:tag" content="Android">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://mumo.fun/posts/11/">
+<link rel="canonical" href="https://mumo.fun/posts/20/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mumo.fun/posts/11/","path":"posts/11/","title":"Hexo Next 主题代码块显示语言名字"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mumo.fun/posts/20/","path":"posts/20/","title":"Android 异步消息处理机制"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Hexo Next 主题代码块显示语言名字 | Mumo</title>
+<title>Android 异步消息处理机制 | Mumo</title>
   
 
 
@@ -110,7 +110,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">1.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Handler"><span class="nav-number">1.</span> <span class="nav-text">Handler</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -168,7 +168,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://mumo.fun/posts/11/">
+    <link itemprop="mainEntityOfPage" href="https://mumo.fun/posts/20/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -181,12 +181,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Hexo Next 主题代码块显示语言名字 | Mumo">
+      <meta itemprop="name" content="Android 异步消息处理机制 | Mumo">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hexo Next 主题代码块显示语言名字
+          Android 异步消息处理机制
         </h1>
 
         <div class="post-meta-container">
@@ -198,7 +198,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-29 10:25:04 / 修改时间：16:08:54" itemprop="dateCreated datePublished" datetime="2022-07-29T10:25:04+08:00">2022-07-29</time>
+      <time title="创建时间：2022-08-17 23:23:46 / 修改时间：23:44:03" itemprop="dateCreated datePublished" datetime="2022-08-17T23:23:46+08:00">2022-08-17</time>
     </span>
 
   
@@ -211,22 +211,28 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>修改<code>_config.next.yml</code> 文件，取消 <code>custom_file_path</code> 中<code>style</code>和 <code>postMeta</code> 的注释。</p>
-<p>在 <code>source/_data/</code> 文件夹中新建 <code>post-meta.njk</code> 文件，添加如下代码：</p>
+        <p>Android 中的异步消息处理主要由 4 个部分组成：Message、Handler、MessageQueue 和 Looper。</p>
 <span id="more"></span>
 
-<figure class="highlight js"><figcaption><span>source/_data/post-meta.njk</span></figcaption><table><tbody><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">var</span> elements = <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">'figure'</span>);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; elements.<span class="property">length</span>; i++) {</span><br><span class="line">		<span class="keyword">var</span> lang = elements[i].<span class="title function_">getAttribute</span>(<span class="string">"class"</span>);</span><br><span class="line">		<span class="keyword">if</span> (lang != <span class="literal">null</span> ) {</span><br><span class="line">		lang = lang.<span class="title function_">substr</span>(<span class="number">10</span>);</span><br><span class="line">		}</span><br><span class="line">		elements[i].<span class="title function_">setAttribute</span>(<span class="string">"data-language"</span>, lang);</span><br><span class="line">	}</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></tbody></table></figure>
+<ol>
+<li><p>Message</p>
+<p> Message 是在线程之间传递的消息，它可以在内部携带少量的信息，用于在不同线程之间传递数据。</p>
+</li>
+<li><p>Handler</p>
+<p> 主要是用于发送和处理消息的。发送消息一般是使用 Handler 的 <code>sendMessage()</code> 方法、<code>post()</code> 方法等，而发出的消息经过一系列地辗转处理后，最终会传递到 Handler 的 <code>handleMessage()</code> 方法中。</p>
+</li>
+<li><p>MessageQueue</p>
+<p>MessageQueue 是消息队列的意思，它主要用于存放所有通过 Handler 发送的消息。这部分消息会一直存在于消息队列中，等待被处理。每个线程中只会有一个 MessageQueue 对象。</p>
+</li>
+<li><p>Looper</p>
+<p> Looper 是每个线程中的 MessageQueue 的管家，调用 Looper 的 <code>loop()</code> 方法后，就会进入一个无限循环当中，然后每当发现 MessageQueue 中存在一条消息时，就会将它取出，并传递到 Handler 的 <code>handleMessage()</code> 方法中。每个线程中只会有一个 Looper 对象。</p>
+</li>
+</ol>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> : <span class="type">AppCompatActivity</span></span>() {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">lateinit</span> <span class="keyword">var</span> binding: ActivityMainBinding</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> updateText = <span class="number">1</span></span><br><span class="line">    <span class="keyword">val</span> handler = <span class="keyword">object</span> : Handler(Looper.getMainLooper()) {</span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">handleMessage</span><span class="params">(msg: <span class="type">Message</span>)</span></span> {</span><br><span class="line">            <span class="keyword">when</span> (msg.what) {</span><br><span class="line">                updateText -&gt; binding.textView.text = <span class="string">"Nice to meet you"</span></span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> {</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        binding = ActivityMainBinding.inflate(layoutInflater)</span><br><span class="line">        setContentView(binding.root)</span><br><span class="line"></span><br><span class="line">        binding.changeTextBtn.setOnClickListener {</span><br><span class="line">            thread {</span><br><span class="line">                <span class="keyword">val</span> msg = Message()</span><br><span class="line">                msg.what = updateText</span><br><span class="line">                handler.sendMessage(msg)</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
-<p>根据<code>_config.netx.yml</code> 中配置的代码渲染选项在 <code>styles.styl</code> 中添加代码：</p>
-<div class="tabs" id="set-styles"><ul class="nav-tabs"><li class="tab active"><a href="#set-styles-1">highlight</a></li><li class="tab"><a href="#set-styles-2">prismjs</a></li></ul><div class="tab-content"><div class="tab-pane active" id="set-styles-1"><figure class="highlight stylus"><figcaption><span>source/_data/styles.styl</span></figcaption><table><tbody><tr><td class="code"><pre><span class="line"><span class="selector-tag">figure</span><span class="selector-attr">[class*=highlight]</span><span class="selector-pseudo">:before</span> {</span><br><span class="line">  <span class="attribute">color</span>: var(--t-l);</span><br><span class="line">  <span class="attribute">content</span>: attr(data-language);</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">1.9em</span>;</span><br><span class="line">  <span class="attribute">font-weight</span>: <span class="number">700</span>;</span><br><span class="line">  <span class="attribute">opacity</span>: .<span class="number">15</span>;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">right</span>: .<span class="number">3rem</span>;</span><br><span class="line">  <span class="attribute">top</span>: .<span class="number">1em</span>;</span><br><span class="line">  <span class="attribute">text-transform</span>: uppercase;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div><div class="tab-pane" id="set-styles-2"><figure class="highlight stylus"><figcaption><span>source/_data/styles.styl</span></figcaption><table><tbody><tr><td class="code"><pre><span class="line">pre<span class="selector-attr">[class*=language-]</span><span class="selector-pseudo">:before</span> {</span><br><span class="line">  <span class="attribute">color</span>: var(--t-l);</span><br><span class="line">  <span class="attribute">content</span>: attr(data-language);</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">1.9em</span>;</span><br><span class="line">  <span class="attribute">font-weight</span>: <span class="number">700</span>;</span><br><span class="line">  <span class="attribute">opacity</span>: .<span class="number">15</span>;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">right</span>: .<span class="number">3rem</span>;</span><br><span class="line">  <span class="attribute">top</span>: .<span class="number">1em</span>;</span><br><span class="line">  <span class="attribute">text-transform</span>: uppercase;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure></div></div></div>
 
-<p>因为前端方面不太熟，目前没有太多时间研究，所以样式就先这样。所有代码块都显示感觉有那么一点点乱，以后有时间的话再来研究移动鼠标过去时显示语言。</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a target="_blank" rel="noopener" href="https://pinlyu.com/">频率</a></li>
-<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/53905340/how-to-extract-a-substring-from-a-class-using-css-selectors">stackoverflow</a></li>
-<li><a target="_blank" rel="noopener" href="https://theme-next.js.org/docs/advanced-settings/custom-files.html">Custom Files</a></li>
-</ul>
 
+<h1 id="Handler"><a href="#Handler" class="headerlink" title="Handler"></a>Handler</h1>
     </div>
 
     
@@ -253,7 +259,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://mumo.fun/posts/11/" title="Hexo Next 主题代码块显示语言名字">https://mumo.fun/posts/11/</a>
+      <a href="https://mumo.fun/posts/20/" title="Android 异步消息处理机制">https://mumo.fun/posts/20/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -262,21 +268,18 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag"># 博客</a>
+              <a href="/tags/Android/" rel="tag"># Android</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/posts/10/" rel="prev" title="Kotlin 使用协程编写高效的并发程序">
-                  <i class="fa fa-chevron-left"></i> Kotlin 使用协程编写高效的并发程序
+                <a href="/posts/19/" rel="prev" title="K 线技术分析">
+                  <i class="fa fa-chevron-left"></i> K 线技术分析
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/posts/12/" rel="next" title="Retrofit 使用">
-                  Retrofit 使用 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
