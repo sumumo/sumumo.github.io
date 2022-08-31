@@ -21,28 +21,33 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"mumo.fun","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="对变量延迟初始化延迟初始化使用 lateinit 关键字，它可以告诉编译器会在晚些对这个变量进行初始化，这样就不用在一开始的时候将它赋值为 null 了。如果在变量还没有初始化的情况下直接使用，程序会崩溃，所以当对一个全局变量使用了 lateinit 关键字时，要确保它在任何地方调用之前已经完成了初始化工作。 使用::variable.isInitialized 判断变量是否已经初始化。">
+    <meta name="description" content="本地预览时可以正常访问图片，发布后无法显示图片，原因是博客使用了 https 协议，七牛中没有配置 https。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Kotlin 延迟初始化和密封类">
-<meta property="og:url" content="https://mumo.fun/posts/4/index.html">
+<meta property="og:title" content="Hexo Next 七牛图床不显示图片的解决方法">
+<meta property="og:url" content="https://mumo.fun/posts/21/index.html">
 <meta property="og:site_name" content="Mumo">
-<meta property="og:description" content="对变量延迟初始化延迟初始化使用 lateinit 关键字，它可以告诉编译器会在晚些对这个变量进行初始化，这样就不用在一开始的时候将它赋值为 null 了。如果在变量还没有初始化的情况下直接使用，程序会崩溃，所以当对一个全局变量使用了 lateinit 关键字时，要确保它在任何地方调用之前已经完成了初始化工作。 使用::variable.isInitialized 判断变量是否已经初始化。">
+<meta property="og:description" content="本地预览时可以正常访问图片，发布后无法显示图片，原因是博客使用了 https 协议，七牛中没有配置 https。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-07-05T02:40:57.000Z">
-<meta property="article:modified_time" content="2022-07-20T09:42:48.410Z">
+<meta property="og:image" content="https://img.mumo.fun/2022/21-1.png">
+<meta property="og:image" content="https://img.mumo.fun/2022/21-2.png">
+<meta property="og:image" content="https://img.mumo.fun/2022/21-3.png">
+<meta property="og:image" content="https://img.mumo.fun/2022/21-4.png">
+<meta property="article:published_time" content="2022-08-19T07:11:38.000Z">
+<meta property="article:modified_time" content="2022-08-19T08:02:02.535Z">
 <meta property="article:author" content="Mumo">
-<meta property="article:tag" content="Kotlin">
+<meta property="article:tag" content="博客">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.mumo.fun/2022/21-1.png">
 
 
-<link rel="canonical" href="https://mumo.fun/posts/4/">
+<link rel="canonical" href="https://mumo.fun/posts/21/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mumo.fun/posts/4/","path":"posts/4/","title":"Kotlin 延迟初始化和密封类"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mumo.fun/posts/21/","path":"posts/21/","title":"Hexo Next 七牛图床不显示图片的解决方法"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Kotlin 延迟初始化和密封类 | Mumo</title>
+<title>Hexo Next 七牛图床不显示图片的解决方法 | Mumo</title>
   
 
 
@@ -110,7 +115,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%B9%E5%8F%98%E9%87%8F%E5%BB%B6%E8%BF%9F%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">对变量延迟初始化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%AF%86%E5%B0%81%E7%B1%BB%E4%BC%98%E5%8C%96%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">使用密封类优化代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%B3%E8%AF%B7SSL%E8%AF%81%E4%B9%A6"><span class="nav-number">1.</span> <span class="nav-text">申请 SSL 证书</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E4%B8%83%E7%89%9B%E4%BA%91%E6%BA%90%E7%AB%99%E5%9F%9F%E5%90%8D"><span class="nav-number">2.</span> <span class="nav-text">配置七牛云源站域名</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -168,7 +173,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://mumo.fun/posts/4/">
+    <link itemprop="mainEntityOfPage" href="https://mumo.fun/posts/21/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -181,12 +186,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Kotlin 延迟初始化和密封类 | Mumo">
+      <meta itemprop="name" content="Hexo Next 七牛图床不显示图片的解决方法 | Mumo">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Kotlin 延迟初始化和密封类
+          Hexo Next 七牛图床不显示图片的解决方法
         </h1>
 
         <div class="post-meta-container">
@@ -196,15 +201,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2022-07-05 10:40:57" itemprop="dateCreated datePublished" datetime="2022-07-05T10:40:57+08:00">2022-07-05</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-20 17:42:48" itemprop="dateModified" datetime="2022-07-20T17:42:48+08:00">2022-07-20</time>
+      <time title="创建时间：2022-08-19 15:11:38 / 修改时间：16:02:02" itemprop="dateCreated datePublished" datetime="2022-08-19T15:11:38+08:00">2022-08-19</time>
     </span>
 
   
@@ -217,21 +216,18 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="对变量延迟初始化"><a href="#对变量延迟初始化" class="headerlink" title="对变量延迟初始化"></a>对变量延迟初始化</h1><p>延迟初始化使用 <code>lateinit</code> 关键字，它可以告诉编译器会在晚些对这个变量进行初始化，这样就不用在一开始的时候将它赋值为 null 了。如果在变量还没有初始化的情况下直接使用，程序会崩溃，所以当对一个全局变量使用了 <code>lateinit</code> 关键字时，要确保它在任何地方调用之前已经完成了初始化工作。</p>
-<p>使用<code>::variable.isInitialized</code> 判断变量是否已经初始化。</p>
+        <p>本地预览时可以正常访问图片，发布后无法显示图片，原因是博客使用了 https 协议，七牛中没有配置 https。</p>
 <span id="more"></span>
 
-<h1 id="使用密封类优化代码"><a href="#使用密封类优化代码" class="headerlink" title="使用密封类优化代码"></a>使用密封类优化代码</h1><p>例子：</p>
-<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Result</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Success</span></span>(<span class="keyword">val</span> msg: String) : Result</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Failure</span></span>(<span class="keyword">val</span> error: Exception) : Result</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">getResultMsg</span><span class="params">(result: <span class="type">Result</span>)</span></span> = <span class="keyword">when</span> (result) {</span><br><span class="line">    <span class="keyword">is</span> Success -&gt; result.msg</span><br><span class="line">    <span class="keyword">is</span> Failure -&gt; result.error.message</span><br><span class="line">    <span class="keyword">else</span> -&gt; <span class="keyword">throw</span>  IllegalArgumentException()</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<p>以上代码中，必须编写 else 条件。如果新增一个 Unknow 类并实现 Result 接口而忘记在 <code>getResultMsg()</code> 方法中添加相应条件分支，编译器不会提醒，而是在运行的时候进入 else 条件，从而抛出异常并导致程序崩溃。密封类很好的解决了这个问题。</p>
-<p>密封类的关键字是 <code>sealed class</code>：</p>
-<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">sealed</span> <span class="class"><span class="keyword">class</span> <span class="title">Result</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Success</span></span>(<span class="keyword">val</span> msg: String) : Result()</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Failure</span></span>(<span class="keyword">val</span> error: Exception) : Result()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">getResultMsg</span><span class="params">(result: <span class="type">Result</span>)</span></span> = <span class="keyword">when</span> (result) {</span><br><span class="line">    <span class="keyword">is</span> Success -&gt; result.msg</span><br><span class="line">    <span class="keyword">is</span> Failure -&gt; result.error.message</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<p>当在 when 语句中传入一个密封类变量作为条件时，Kotlin 编译器会自动检查该密封类有哪些子类，并强制要求将每一个子类所对应的条件全部处理。密封类及其所有子类只能定义在同一个文件的顶层位置，不能嵌套在其他类中。</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a target="_blank" rel="noopener" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&amp;p=JF8BANIJK1olXDYCV1dfC0sVAl9MRANLAjZbERscSkAJHTdNTwcKBlMdBgABFksUCm0LG1kUQl9HCANtFj8WAy1zXCB3KWRxIB4FDSIUUCR3e1cZbQcyV19dCEseC2kOGmslXQEyAjBdCUoWAm4NH1wSbQcyVFlZCk8SC2YAH10QXjYFVFdtUx55Bm1cH18RCAVWXA1bC3snM2w4HFscSQBwFQxJDjknM284GGtXMwIEUlkID0pFUDxfTF5GWQUKAVYIW0ITB2YIS1oVCFEEZFxcCU8eM18">第一行代码 第 3 版</a></li>
-</ul>
+<h1 id="申请SSL证书"><a href="#申请SSL证书" class="headerlink" title="申请SSL证书"></a>申请 SSL 证书</h1><p>以腾讯云申请免费证书为例：<br>访问<a target="_blank" rel="noopener" href="https://console.cloud.tencent.com/ssl">证书网页</a>，点击<code>申请免费证书</code>，按照提示完成证书申请 (域名为七牛中外链的源站域名，可以单独设置一个域名，如 <code>img.mumo.fun</code>)</p>
+<p><img src="https://img.mumo.fun/2022/21-1.png" alt="图 1 申请免费证书">  </p>
+<p>待签发后在下载中选择其他类型的证书下载。</p>
+<p><img src="https://img.mumo.fun/2022/21-2.png" alt="图 2 证书下载">  </p>
+<p>一般提交完申请几分钟内就可以成功，如果长时间没有签发的话可以检查一下域名解析，尝试暂停除证书验证外其他解析记录。</p>
+<h1 id="配置七牛云源站域名"><a href="#配置七牛云源站域名" class="headerlink" title="配置七牛云源站域名"></a>配置七牛云源站域名</h1><p>访问<a target="_blank" rel="noopener" href="https://portal.qiniu.com/certificate/ssl#cert">证书管理页面</a>，选择<code>上传自有证书</code>，填写上面下载的压缩包中证书内容：证书内容中粘贴 pem 文件中的内容，证书私钥填写 key 文件中的内容。</p>
+<p><img src="https://img.mumo.fun/2022/21-3.png" alt="图 3 添加证书">  </p>
+<p>访问<a target="_blank" rel="noopener" href="https://portal.qiniu.com/kodo/bucket">七牛空间管理页面</a>，在<code>自定义源站域名</code>中，如未绑定，绑定上面申请证书的域名后，点击操作中的<code>配置HTTPS</code>，打开<code>访问控制</code>，选择刚才上传的证书，等待几分钟即可（别忘了配置<code>文件管理</code>中<code>外链域名</code>为刚才的域名）。</p>
+<p><img src="https://img.mumo.fun/2022/21-4.png" alt="图 4 选择配置">  </p>
 
     </div>
 
@@ -259,7 +255,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://mumo.fun/posts/4/" title="Kotlin 延迟初始化和密封类">https://mumo.fun/posts/4/</a>
+      <a href="https://mumo.fun/posts/21/" title="Hexo Next 七牛图床不显示图片的解决方法">https://mumo.fun/posts/21/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -268,20 +264,20 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
+              <a href="/tags/%E5%8D%9A%E5%AE%A2/" rel="tag"># 博客</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/posts/3/" rel="prev" title="Kotlin 标准函数和静态方法">
-                  <i class="fa fa-chevron-left"></i> Kotlin 标准函数和静态方法
+                <a href="/posts/20/" rel="prev" title="Android 异步消息处理机制">
+                  <i class="fa fa-chevron-left"></i> Android 异步消息处理机制
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/posts/5/" rel="next" title="Kotlin 扩展函数和运算符重载">
-                  Kotlin 扩展函数和运算符重载 <i class="fa fa-chevron-right"></i>
+                <a href="/posts/22/" rel="next" title="Android 自定义 View">
+                  Android 自定义 View <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
