@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mumo.fun","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="ANR(Application NotResponding)如果 Android 应用的界面线程处于阻塞状态的时间过长，会触发 “应用无响应”(ANR) 错误。如果应用位于前台，系统会向用户显示一个对话框，为用户提供强制退出应用的选项。 出现以下任何情况时，系统都会针对应用触发 ANR：  当 activity 位于前台时，应用在 5 秒钟内未响应输入事件或 BroadcastReceiver（如">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 异常与性能优化">
+<meta property="og:url" content="https://mumo.fun/posts/23/index.html">
+<meta property="og:site_name" content="Mumo">
+<meta property="og:description" content="ANR(Application NotResponding)如果 Android 应用的界面线程处于阻塞状态的时间过长，会触发 “应用无响应”(ANR) 错误。如果应用位于前台，系统会向用户显示一个对话框，为用户提供强制退出应用的选项。 出现以下任何情况时，系统都会针对应用触发 ANR：  当 activity 位于前台时，应用在 5 秒钟内未响应输入事件或 BroadcastReceiver（如">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-08-31T12:53:51.000Z">
+<meta property="article:modified_time" content="2022-09-04T02:56:18.155Z">
+<meta property="article:author" content="Mumo">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://mumo.fun/posts/23/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mumo.fun/posts/23/","path":"posts/23/","title":"Android 异常与性能优化"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Android 异常与性能优化 | Mumo</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Mumo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ANR-Application-NotResponding"><span class="nav-number">1.</span> <span class="nav-text">ANR(Application NotResponding)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%A0%E6%88%90ANR%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8E%9F%E5%9B%A0"><span class="nav-number">1.1.</span> <span class="nav-text">造成 ANR 的主要原因</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Android%E5%9C%A8%E4%B8%BB%E7%BA%BF%E7%A8%8B%E4%B8%AD%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="nav-number">1.1.1.</span> <span class="nav-text">Android 在主线程中的操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3ANR"><span class="nav-number">1.2.</span> <span class="nav-text">如何解决 ANR</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OOM"><span class="nav-number">2.</span> <span class="nav-text">OOM</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3OOM"><span class="nav-number">2.1.</span> <span class="nav-text">解决 OOM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E5%85%B3bitmap"><span class="nav-number">2.1.1.</span> <span class="nav-text">有关 bitmap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E6%96%B9%E6%B3%95"><span class="nav-number">2.1.2.</span> <span class="nav-text">其他方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">内存泄漏</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8FVS%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA"><span class="nav-number">3.1.</span> <span class="nav-text">内存泄漏 VS 内存溢出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F"><span class="nav-number">3.2.</span> <span class="nav-text">为什么会内存泄漏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F"><span class="nav-number">3.3.</span> <span class="nav-text">常见内存泄漏</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Mumo</p>
+  <div class="site-description" itemprop="description">也无风雨也无晴</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://mumo.fun/posts/23/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Mumo">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mumo">
+      <meta itemprop="description" content="也无风雨也无晴">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Android 异常与性能优化 | Mumo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android 异常与性能优化
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-08-31 20:53:51" itemprop="dateCreated datePublished" datetime="2022-08-31T20:53:51+08:00">2022-08-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-09-04 10:56:18" itemprop="dateModified" datetime="2022-09-04T10:56:18+08:00">2022-09-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="ANR-Application-NotResponding"><a href="#ANR-Application-NotResponding" class="headerlink" title="ANR(Application NotResponding)"></a>ANR(Application NotResponding)</h1><p>如果 Android 应用的界面线程处于阻塞状态的时间过长，会触发 “应用无响应”(ANR) 错误。如果应用位于前台，系统会向用户显示一个对话框，为用户提供强制退出应用的选项。</p>
+<p>出现以下任何情况时，系统都会针对应用触发 ANR：</p>
+<ul>
+<li><p>当 activity 位于前台时，应用在 5 秒钟内未响应输入事件或 BroadcastReceiver（如按键或屏幕轻触事件）。</p>
+</li>
+<li><p>虽然前台没有 activity，BroadcastReceiver 用了相当长的时间仍未执行完毕。</p>
+</li>
+</ul>
+<p>不同的组件发生 ANR 的时间不一样，Activity 是 5 秒，BroadCastReceiver 是 10 秒，Service 是 20 秒（均为前台）。</p>
+<h2 id="造成ANR的主要原因"><a href="#造成ANR的主要原因" class="headerlink" title="造成ANR的主要原因"></a>造成 ANR 的主要原因</h2><ul>
+<li><p>主线程被 IO 操作（从 4.0 之后网络 IO 不允许在主线程中）阻塞。</p>
+</li>
+<li><p>主线程中存在耗时的计算</p>
+</li>
+<li><p>主线程中错误的操作，比如 Thread.wait 或者 Thread.sleep 等</p>
+</li>
+</ul>
+<h3 id="Android在主线程中的操作"><a href="#Android在主线程中的操作" class="headerlink" title="Android在主线程中的操作"></a>Android 在主线程中的操作</h3><ul>
+<li><p>Activity 的所有生命周期回调都是执行在主线程的</p>
+</li>
+<li><p>Service 默认是执行在主线程的</p>
+</li>
+<li><p>BroadcastReceiver 的 onReceive 回调是执行在主线程的</p>
+</li>
+<li><p>没有使用子线程的 looper 的 Handler 的 handleMessage，post (Runnable) 是执行在主线程的</p>
+</li>
+<li><p>AsyncTask 的回调中除了 doInBackground，其他都是执行在主线程</p>
+</li>
+</ul>
+<h2 id="如何解决ANR"><a href="#如何解决ANR" class="headerlink" title="如何解决ANR"></a>如何解决 ANR</h2><ul>
+<li><p>使用 AsyncTask 处理耗时 IO 操作</p>
+</li>
+<li><p>使用 Thread 或者 HandlerThread 时，调用 Process.setThreadPriority (Process.THREAD_PRIORITY_BACKGROUND) 设置优先级，否则仍然会降低程序响应，因为默认 Thread 的优先级和主线程相同</p>
+</li>
+<li><p>使用 Handler 处理工作线程的耗时任务，而不是使用 Thread.wait () 或者 Thread.sleep () 来阻塞主线程。</p>
+</li>
+<li><p>Activity 的 onCreate 和 onResume 回调中尽量避免耗时的代码。 BroadcastReceiver 中 onReceive 代码也要尽量减少耗时，建议使用 IntentService 处理。</p>
+</li>
+</ul>
+<h1 id="OOM"><a href="#OOM" class="headerlink" title="OOM"></a>OOM</h1><p>当前占用的内存加上我们申请的内存资源超过了 Dalvik 虚拟机的最大内存限制就会抛出的 Out of memory 异常。</p>
+<h2 id="解决OOM"><a href="#解决OOM" class="headerlink" title="解决OOM"></a>解决 OOM</h2><h3 id="有关bitmap"><a href="#有关bitmap" class="headerlink" title="有关bitmap"></a>有关 bitmap</h3><ul>
+<li><p>加在合适尺寸的图片</p>
+</li>
+<li><p>及时释放内存</p>
+</li>
+<li><p>图片压缩</p>
+</li>
+<li><p>inBitmap 属性</p>
+</li>
+<li><p>捕获异常</p>
+</li>
+</ul>
+<h3 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h3><ul>
+<li><p>listview:convertview/lru</p>
+</li>
+<li><p>避免在 onDraw 方法里面执行对象的创建</p>
+</li>
+<li><p>谨慎使用多进程</p>
+</li>
+</ul>
+<h1 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h1><p>检测工具：</p>
+<ul>
+<li><p>Memory Profile</p>
+</li>
+<li><p>LeakCanary</p>
+</li>
+<li><p>MAT</p>
+</li>
+</ul>
+<h2 id="内存泄漏VS内存溢出"><a href="#内存泄漏VS内存溢出" class="headerlink" title="内存泄漏VS内存溢出"></a>内存泄漏 VS 内存溢出</h2><ul>
+<li><p>内存溢出：超出了虚拟机分配的内存</p>
+</li>
+<li><p>内存泄漏：某个不再使用对象由于被其他实例引用</p>
+</li>
+</ul>
+<h2 id="为什么会内存泄漏"><a href="#为什么会内存泄漏" class="headerlink" title="为什么会内存泄漏"></a>为什么会内存泄漏</h2><p>该被回收的对象不能被回收</p>
+<h2 id="常见内存泄漏"><a href="#常见内存泄漏" class="headerlink" title="常见内存泄漏"></a>常见内存泄漏</h2><ul>
+<li><p>单例</p>
+<p>  长生命周期对象持有了短生命周期的引用导致短生命周期对象需要被回收的时候无法回收</p>
+<p>  解决：需要使用 context 时使用 <code>getApplicationContext()</code></p>
+</li>
+<li><p>Handler</p>
+<p>  非静态内部类，持有外部类 XXXActivity 的引用，延时发送消息导致</p>
+<p>  解决：</p>
+<ol>
+<li><p>Activity 中避免使用 Handle 非静态内部类，声明为静态的</p>
+</li>
+<li><p>Handler 中通过 <code>WeakReference</code> 弱引用方式来引用 Activity</p>
+</li>
+<li><p>在 Activity 销毁时移除 message：removeCallbacksAndMessages </p>
+</li>
+</ol>
+</li>
+<li><p>线程引起</p>
+<p>  匿名内部类创建的 AsycTask、Runnable 会持有当前外部类 Activity 隐式的引用，Activity 销毁前 AsycTask、Runnable 内部耗时任务未完成导致 Activity 无法回收</p>
+<p>  解决：和 Handler 类似，使用静态内部类、销毁时取消任务</p>
+</li>
+<li><p>Webview</p>
+</li>
+<li><p>其他</p>
+<ul>
+<li><p>非静态内部类创建静态实例引起</p>
+<p>  解决：把内部类修改为静态的</p>
+</li>
+<li><p>非静态匿名内部类引起</p>
+<p>  解决：将匿名内部类设置为静态的</p>
+</li>
+<li><p>注册 / 反注册未成对使用引起</p>
+<p>  注册广播接受器、EventBus 等，记得解绑</p>
+</li>
+<li><p>资源对象没有关闭引起</p>
+<p>  在这些资源不使用的时候，记得调用相应的类似 close（）、destroy（）、recycler（）、release（）等方法释放。</p>
+</li>
+<li><p>集合对象没有及时清理引起</p>
+<p>  通常会把一些对象装入到集合中，当不使用的时候一定要记得及时清理集合，让相关对象不再被引用</p>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><script>
+    var elements = document.querySelectorAll('figure');
+	for (var i = 0; i < elements.length; i++) {
+		var lang = elements[i].getAttribute("class");
+		if (lang != null ) {
+		lang = lang.substr(10);
+		}
+		elements[i].setAttribute("data-language", lang);
+	}
+</script>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Mumo
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://mumo.fun/posts/23/" title="Android 异常与性能优化">https://mumo.fun/posts/23/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"># Android</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/22/" rel="prev" title="Android 自定义 View">
+                  <i class="fa fa-chevron-left"></i> Android 自定义 View
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/24/" rel="next" title="减肥食谱">
+                  减肥食谱 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+<style>
+        .ss_ad{
+            display: block;
+            width: 100%;
+            text-align: center;
+            color: #fff;
+            background: #0088CC;
+			font-family: Microsoft YaHei;
+        }
+		a.ss_ad{
+			border:0;
+			color:#fff;
+		}
+		a.ss_ad:hover{
+				text-decoration:none;
+				color:#fff;
+		}
+</style>
+<div class="post-block animated fadeIn" style="margin-top:20px; padding: 0px; background: #0088cc">
+<a class="ss_ad" style="font-size:22px" href="https://order.yizhihongxing.network/aff.php?aff=3671" target="_blank">可靠便捷的VPN服务</a>
+<a class="ss_ad" style="font-size:15px" href="https://order.yizhihongxing.network/aff.php?aff=3671" target="_blank">100 G 月流量，5台设备可用，一年仅需99元！</a>
+</div>
+    <div class="comments"><div id="twikoo-comments"></div></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mumo</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+<script class="next-config" data-name="twikoo" type="application/json">{"enable":true,"visitor":false,"envId":"https://twikoo-nu-opal.vercel.app/","el":"#twikoo-comments"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.twikoo.el)
+    .then(() => NexT.utils.getScript(
+      CONFIG.twikoo.jsUrl || 'https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js',
+      { condition: window.twikoo }
+    ))
+    .then(() => {
+      twikoo.init(CONFIG.twikoo);
+    });
+});
+</script>
+<style>
+.post-block, .comments {
+  overflow: visible;
+}
+.tk-owo-emotion {
+  display: inline-block;
+}
+</style>
+
+</body>
+</html>
