@@ -21,28 +21,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"mumo.fun","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="扩展函数扩展函数表示即使在不修改某个类的源码的形况下，仍然可以打开这个类，向该类添加新的函数。扩展函数的语法结构： fun ClassName.methodName(param1: Int, param2: Int): Int {    return 0}  扩展函数可以定义在任何一个现有类中，建议向哪个类中添加扩展函数就定义一个同名的 Kotlin 文件，便于以后查找，最好定义为顶层方法，可以让">
+    <meta name="description" content="爬楼梯燃脂计划   时间 总量     Day 1 20 层    Day 2 25 层    Day 3 35 层   总原则：一周 3-4 练，逐步提高层数，保持锻炼时间相同 注意：根据第二天大腿臀部酸痛程度，如果酸痛程度很高，不用提高训练容量 参考叔贵自用刷脂秘籍：不花钱，轻松瘦 8 斤，腹肌硌得手疼！">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Kotlin 扩展函数和运算符重载">
-<meta property="og:url" content="https://mumo.fun/posts/5/index.html">
+<meta property="og:title" content="运动合集">
+<meta property="og:url" content="https://mumo.fun/posts/26/index.html">
 <meta property="og:site_name" content="Mumo">
-<meta property="og:description" content="扩展函数扩展函数表示即使在不修改某个类的源码的形况下，仍然可以打开这个类，向该类添加新的函数。扩展函数的语法结构： fun ClassName.methodName(param1: Int, param2: Int): Int {    return 0}  扩展函数可以定义在任何一个现有类中，建议向哪个类中添加扩展函数就定义一个同名的 Kotlin 文件，便于以后查找，最好定义为顶层方法，可以让">
+<meta property="og:description" content="爬楼梯燃脂计划   时间 总量     Day 1 20 层    Day 2 25 层    Day 3 35 层   总原则：一周 3-4 练，逐步提高层数，保持锻炼时间相同 注意：根据第二天大腿臀部酸痛程度，如果酸痛程度很高，不用提高训练容量 参考叔贵自用刷脂秘籍：不花钱，轻松瘦 8 斤，腹肌硌得手疼！">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-07-07T03:08:41.000Z">
-<meta property="article:modified_time" content="2022-07-20T09:42:48.415Z">
+<meta property="article:published_time" content="2022-09-15T13:58:44.000Z">
+<meta property="article:modified_time" content="2022-09-19T02:25:46.134Z">
 <meta property="article:author" content="Mumo">
-<meta property="article:tag" content="Kotlin">
+<meta property="article:tag" content="生活">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://mumo.fun/posts/5/">
+<link rel="canonical" href="https://mumo.fun/posts/26/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mumo.fun/posts/5/","path":"posts/5/","title":"Kotlin 扩展函数和运算符重载"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mumo.fun/posts/26/","path":"posts/26/","title":"运动合集"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Kotlin 扩展函数和运算符重载 | Mumo</title>
+<title>运动合集 | Mumo</title>
   
 
 
@@ -110,7 +110,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%A9%E5%B1%95%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">扩展函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%90%E7%AE%97%E7%AC%A6%E9%87%8D%E8%BD%BD"><span class="nav-number">2.</span> <span class="nav-text">运算符重载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%88%AC%E6%A5%BC%E6%A2%AF%E7%87%83%E8%84%82%E8%AE%A1%E5%88%92"><span class="nav-number">1.</span> <span class="nav-text">爬楼梯燃脂计划</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">2.</span> <span class="nav-text">参考</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -168,7 +168,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://mumo.fun/posts/5/">
+    <link itemprop="mainEntityOfPage" href="https://mumo.fun/posts/26/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -181,12 +181,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Kotlin 扩展函数和运算符重载 | Mumo">
+      <meta itemprop="name" content="运动合集 | Mumo">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Kotlin 扩展函数和运算符重载
+          运动合集
         </h1>
 
         <div class="post-meta-container">
@@ -197,14 +197,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2022-07-07 11:08:41" itemprop="dateCreated datePublished" datetime="2022-07-07T11:08:41+08:00">2022-07-07</time>
+      <time title="创建时间：2022-09-15 21:58:44" itemprop="dateCreated datePublished" datetime="2022-09-15T21:58:44+08:00">2022-09-15</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-20 17:42:48" itemprop="dateModified" datetime="2022-07-20T17:42:48+08:00">2022-07-20</time>
+      <time title="修改时间：2022-09-19 10:25:46" itemprop="dateModified" datetime="2022-09-19T10:25:46+08:00">2022-09-19</time>
     </span>
 
   
@@ -217,99 +217,29 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="扩展函数"><a href="#扩展函数" class="headerlink" title="扩展函数"></a>扩展函数</h1><p>扩展函数表示即使在不修改某个类的源码的形况下，仍然可以打开这个类，向该类添加新的函数。扩展函数的语法结构：</p>
-<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> ClassName.<span class="title">methodName</span><span class="params">(param1: <span class="type">Int</span>, param2: <span class="type">Int</span>)</span></span>: <span class="built_in">Int</span> {</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<p>扩展函数可以定义在任何一个现有类中，建议向哪个类中添加扩展函数就定义一个同名的 Kotlin 文件，便于以后查找，最好定义为顶层方法，可以让扩展函数拥有全局的访问域。</p>
-<span id="more"></span>
-
-<h1 id="运算符重载"><a href="#运算符重载" class="headerlink" title="运算符重载"></a>运算符重载</h1><p>运算符重载是 Kotlin 提供的一个比较有趣的语法糖。Kotlin 允许将所有的运算符甚至其他的关键字进行重载，从而扩展这些运算符和关键字的用法。</p>
-<p>运算符重载使用 <code>operator</code> 关键字，只有在指定函数前加上 <code>operator</code> 关键字就可以实现运算符的重载功能，不同的运算符对应的重载函数也是不同的，以加号运算符为例：</p>
-<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Obj</span> </span>{</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="title">plus</span><span class="params">(obj: <span class="type">Obj</span>)</span></span>: Obj {</span><br><span class="line">        <span class="comment">// 处理相加的逻辑</span></span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<p>让两个 Money 对象相加或 Money 对象和数字相加：</p>
-<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Money</span></span>(<span class="keyword">val</span> value: <span class="built_in">Int</span>) {</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="title">plus</span><span class="params">(money: <span class="type">Money</span>)</span></span>: Money {</span><br><span class="line">        <span class="keyword">val</span> sum = value + money.value</span><br><span class="line">        <span class="keyword">return</span> Money(sum)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="title">plus</span><span class="params">(newValue: <span class="type">Int</span>)</span></span>: Money {</span><br><span class="line">        <span class="keyword">val</span> sum = value + newValue</span><br><span class="line">        <span class="keyword">return</span> Money(sum)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
-
-<center>语法糖表达式和实际调用函数对照表</center>
-
-<table>
+        <h1 id="爬楼梯燃脂计划"><a href="#爬楼梯燃脂计划" class="headerlink" title="爬楼梯燃脂计划"></a>爬楼梯燃脂计划</h1><table>
 <thead>
 <tr>
-<th align="center">语法糖表达式</th>
-<th align="center">实际调用函数</th>
+<th align="center">时间</th>
+<th align="center">总量</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center"> a + b</td>
-<td align="center">a.plus(b)</td>
+<td align="center"> Day 1</td>
+<td align="center">20 层</td>
 </tr>
 <tr>
-<td align="center">a - b</td>
-<td align="center">a.minus(b)</td>
+<td align="center"> Day 2</td>
+<td align="center">25 层</td>
 </tr>
 <tr>
-<td align="center">a * b</td>
-<td align="center">a.times(b)</td>
-</tr>
-<tr>
-<td align="center">a / b</td>
-<td align="center">a.div(b)</td>
-</tr>
-<tr>
-<td align="center">a % b</td>
-<td align="center">a.rem(b)</td>
-</tr>
-<tr>
-<td align="center">a++</td>
-<td align="center">a.inc()</td>
-</tr>
-<tr>
-<td align="center">a–</td>
-<td align="center">a.dec()</td>
-</tr>
-<tr>
-<td align="center">+a</td>
-<td align="center">a.unaryPlus()</td>
-</tr>
-<tr>
-<td align="center">-a</td>
-<td align="center">a.unaryMinus()</td>
-</tr>
-<tr>
-<td align="center">!a</td>
-<td align="center">a.not()</td>
-</tr>
-<tr>
-<td align="center">a == b</td>
-<td align="center">a.equals(b)</td>
-</tr>
-<tr>
-<td align="center">a &gt; b<br>a &lt; b<br>a &gt;= b<br>a &lt;= b</td>
-<td align="center">a.compareTo(b)</td>
-</tr>
-<tr>
-<td align="center">a..b</td>
-<td align="center">a.rangeTo(b)</td>
-</tr>
-<tr>
-<td align="center">a[b]</td>
-<td align="center">a.get(b)</td>
-</tr>
-<tr>
-<td align="center">a[b]=c</td>
-<td align="center">a.set(b, c)</td>
-</tr>
-<tr>
-<td align="center">a in b</td>
-<td align="center">b.contains(a)</td>
+<td align="center"> Day 3</td>
+<td align="center">35 层</td>
 </tr>
 </tbody></table>
-<p>实现 <code>str * n</code> 的写法表示让 str 字符串重复 n 次，可以向 String 类中添加扩展函数：</p>
-<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> String.<span class="title">times</span><span class="params">(n: <span class="type">Int</span>)</span></span> = repeat(n)</span><br></pre></td></tr></tbody></table></figure>
-
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a target="_blank" rel="noopener" href="https://union-click.jd.com/jdc?e=618%7Cpc%7C&amp;p=JF8BANIJK1olXDYCV1dfC0sVAl9MRANLAjZbERscSkAJHTdNTwcKBlMdBgABFksUCm0LG1kUQl9HCANtFj8WAy1zXCB3KWRxIB4FDSIUUCR3e1cZbQcyV19dCEseC2kOGmslXQEyAjBdCUoWAm4NH1wSbQcyVFlZCk8SC2YAH10QXjYFVFdtUx55Bm1cH18RCAVWXA1bC3snM2w4HFscSQBwFQxJDjknM284GGtXMwIEUlkID0pFUDxfTF5GWQUKAVYIW0ITB2YIS1oVCFEEZFxcCU8eM18">第一行代码 第 3 版</a></li>
-</ul>
+<p>总原则：一周 3-4 练，逐步提高层数，保持锻炼时间相同</p>
+<p>注意：根据第二天大腿臀部酸痛程度，如果酸痛程度很高，不用提高训练容量</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzIxNzAwMDc4MA==&amp;mid=2650828335&amp;idx=1&amp;sn=611ccd9d88234b90b9130141f4393caf&amp;chksm=8c74b00cbb03391ac6f792c366d40acd66ee2e944151b9f659e366d63a6b92eb31dcbeae9f6b&amp;scene=21#wechat_redirect">叔贵自用刷脂秘籍：不花钱，轻松瘦 8 斤，腹肌硌得手疼！</a></p>
 
     </div>
 
@@ -337,7 +267,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://mumo.fun/posts/5/" title="Kotlin 扩展函数和运算符重载">https://mumo.fun/posts/5/</a>
+      <a href="https://mumo.fun/posts/26/" title="运动合集">https://mumo.fun/posts/26/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -346,21 +276,18 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
+              <a href="/tags/%E7%94%9F%E6%B4%BB/" rel="tag"># 生活</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/posts/4/" rel="prev" title="Kotlin 延迟初始化和密封类">
-                  <i class="fa fa-chevron-left"></i> Kotlin 延迟初始化和密封类
+                <a href="/posts/25/" rel="prev" title="PC 原神 Xbox 手柄一键拾取">
+                  <i class="fa fa-chevron-left"></i> PC 原神 Xbox 手柄一键拾取
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/posts/6/" rel="next" title="Kotlin 高阶函数">
-                  Kotlin 高阶函数 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
