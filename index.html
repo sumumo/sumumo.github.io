@@ -119,7 +119,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -154,6 +154,113 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://mumo.fun/posts/27/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Mumo">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mumo">
+      <meta itemprop="description" content="也无风雨也无晴">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Mumo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/posts/27/" class="post-title-link" itemprop="url">架构模式</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-11-09 10:32:55" itemprop="dateCreated datePublished" datetime="2022-11-09T10:32:55+08:00">2022-11-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-02-22 20:57:50" itemprop="dateModified" datetime="2023-02-22T20:57:50+08:00">2023-02-22</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h1><p>MVC 是比较直观的架构模式，好处是便于 UI 界面的显示和业务逻辑的分离。</p>
+<ul>
+<li><p>模型层 (Model)：业务逻辑处理。针对业务模型，建立数据结构和相关的类，它主要负责网络请求，数据库处理，I/O 的操作。</p>
+</li>
+<li><p>视图层 (View)：处理数据显示的部分。对应于 xml 布局文件和 java 代码动态 view 部分。</p>
+</li>
+<li><p>控制层 (Controller)：Activity 处理用户交互问题。MVC 中 Android 的控制层是由 Activity 来承担的，Activity 本来主要是作为初始化页面，展示数据的操作，但是因为 XML 视图功能太弱，所以 Activity 既要负责视图的显示又要加入控制逻辑，承担的功能过多。</p>
+</li>
+</ul>
+<p>特点：耦合性低，可扩展性好，模块职责划分明确</p>
+<p><img src="https://img.mumo.fun/2022/27-1.png" alt="图 1">  </p>
+<h1 id="MVP"><a href="#MVP" class="headerlink" title="MVP"></a>MVP</h1><p>MVP 是把 MVC 中的 Controller 换成了 Presenter（呈现），目的就是为了完全切断 View 跟 Model 之间的联系，由 Presenter 充当桥梁，做到 View-Model 之间通信的完全隔离。</p>
+<ul>
+<li><p>模型层（Model）: 主要是获取数据功能，业务逻辑和实体模型。</p>
+</li>
+<li><p>视图层（View）：对应于 Activity 或 Fragment，负责视图的部分展示和业务逻辑用户交互。</p>
+</li>
+<li><p>控制层（Presenter）: 负责完成 View 层与 Model 层间的交互，通过 P 层来获取 M 层中数据后返回给 V 层，使得 V 层与 M 层间没有耦合。</p>
+</li>
+</ul>
+<p>在 MVP 中 ，Presenter 层完全将 View 层和 Model 层进行了分离，把主要程序逻辑放在 Presenter 层实现，Presenter 与具体的 View 层（Activity）是没有直接的关联，是通过定义接口来进行交互的，从而使得当 View 层（Activity）发生改变时，Persenter 依然可以保持不变。View 层接口类只应该只有 set/get 方法，及一些界面显示内容和用户输入，除此之外不应该有多余的内容。绝不允许 View 层直接访问 Model 层，这是与 MVC 最大区别之处，也是 MVP 核心优点。</p>
+<p><img src="https://img.mumo.fun/2022/27-2.png" alt="图 2">  </p>
+<h1 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h1><p>如果说 MVP 是对 MVC 的进一步改进，那么 MVVM 则是思想的完全变革。它是将 “数据模型数据双向绑定” 的思想作为核心，因此在 View 和 Model 之间没有联系，通过 ViewModel 进行交互，而且 Model 和 ViewModel 之间的交互是双向的，因此视图的数据的变化会同时修改数据源，而数据源数据的变化也会立即反应到 View 上。</p>
+<ul>
+<li><p>Model: 实体模型，提供数据接口。</p>
+</li>
+<li><p>View: 对应于 Activity 和 XML，负责 View 的绘制以及与用户交互。不做业务逻辑，不涉及数据操作，不处理数据。</p>
+</li>
+<li><p>ViewModel: 负责完成 View 与 Model 间的交互，负责业务逻辑。不会持有任何控件的引用。</p>
+</li>
+</ul>
+<p><img src="https://img.mumo.fun/2022/27-3.png" alt="图 3">  </p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -459,7 +566,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-09-04 18:34:36" itemprop="dateModified" datetime="2022-09-04T18:34:36+08:00">2022-09-04</time>
+      <time title="修改时间：2023-04-19 18:11:40" itemprop="dateModified" datetime="2023-04-19T18:11:40+08:00">2023-04-19</time>
     </span>
 
   
@@ -542,7 +649,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-31 08:57:50" itemprop="dateModified" datetime="2022-08-31T08:57:50+08:00">2022-08-31</time>
+      <time title="修改时间：2022-11-24 16:39:20" itemprop="dateModified" datetime="2022-11-24T16:39:20+08:00">2022-11-24</time>
     </span>
 
   
@@ -559,10 +666,10 @@
 <li>自定义绘制的方式是重写绘制方法，其中最常用的是 <code>onDraw()</code></li>
 <li>绘制的关键是 Canvas 的使用<ul>
 <li> Canvas 的绘制类方法：drawXXX ()（关键参数：Paint）</li>
-<li>Canvas 的辅助类方法：范围裁切和几何变换</li>
+<li>Canvas 的辅助类方法：范围裁切 (clipXXX ()) 和几何变换 (Matrix)</li>
 </ul>
 </li>
-<li>可以使用不同的绘制方法来控制遮盖关系</li>
+<li> 可以使用不同的绘制方法来控制遮盖关系</li>
 </ul>
           <!--noindex-->
             <div class="post-button">
@@ -710,7 +817,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-18 18:42:02" itemprop="dateModified" datetime="2022-08-18T18:42:02+08:00">2022-08-18</time>
+      <time title="修改时间：2023-04-19 11:47:11" itemprop="dateModified" datetime="2023-04-19T11:47:11+08:00">2023-04-19</time>
     </span>
 
   
@@ -723,7 +830,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>Android 中的异步消息处理主要由 4 个部分组成：Message、Handler、MessageQueue 和 Looper。</p>
+          <h1 id="运作机制"><a href="#运作机制" class="headerlink" title="运作机制"></a>运作机制</h1><p>Android 中的异步消息处理主要由 4 个部分组成：Message、Handler、MessageQueue 和 Looper。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/posts/20/#more" rel="contents">
@@ -918,84 +1025,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://mumo.fun/posts/17/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Mumo">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mumo">
-      <meta itemprop="description" content="也无风雨也无晴">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Mumo">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/posts/17/" class="post-title-link" itemprop="url">双线组合实战应用技巧</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2022-08-15 17:56:58 / 修改时间：21:13:22" itemprop="dateCreated datePublished" datetime="2022-08-15T17:56:58+08:00">2022-08-15</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>把较长周期的均线作为移动趋势线使用，称为定性线，较短周期的均线用来确定买进卖出的位置和时机，称为定量线。</p>
-<p>本文采用 10 日和 60 日的中期均线组合。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/17/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
@@ -1030,7 +1059,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
