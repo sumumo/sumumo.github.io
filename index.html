@@ -199,7 +199,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-02-22 20:57:50" itemprop="dateModified" datetime="2023-02-22T20:57:50+08:00">2023-02-22</time>
+      <time title="修改时间：2023-06-11 10:52:37" itemprop="dateModified" datetime="2023-06-11T10:52:37+08:00">2023-06-11</time>
     </span>
 
   
@@ -214,37 +214,16 @@
     <div class="post-body" itemprop="articleBody">
           <h1 id="MVC"><a href="#MVC" class="headerlink" title="MVC"></a>MVC</h1><p>MVC 是比较直观的架构模式，好处是便于 UI 界面的显示和业务逻辑的分离。</p>
 <ul>
-<li><p>模型层 (Model)：业务逻辑处理。针对业务模型，建立数据结构和相关的类，它主要负责网络请求，数据库处理，I/O 的操作。</p>
-</li>
-<li><p>视图层 (View)：处理数据显示的部分。对应于 xml 布局文件和 java 代码动态 view 部分。</p>
-</li>
-<li><p>控制层 (Controller)：Activity 处理用户交互问题。MVC 中 Android 的控制层是由 Activity 来承担的，Activity 本来主要是作为初始化页面，展示数据的操作，但是因为 XML 视图功能太弱，所以 Activity 既要负责视图的显示又要加入控制逻辑，承担的功能过多。</p>
-</li>
+<li>模型层 (Model)：业务逻辑处理。针对业务模型，建立数据结构和相关的类，它主要负责网络请求，数据库处理，I/O 的操作。</li>
 </ul>
-<p>特点：耦合性低，可扩展性好，模块职责划分明确</p>
-<p><img src="https://img.mumo.fun/2022/27-1.png" alt="图 1">  </p>
-<h1 id="MVP"><a href="#MVP" class="headerlink" title="MVP"></a>MVP</h1><p>MVP 是把 MVC 中的 Controller 换成了 Presenter（呈现），目的就是为了完全切断 View 跟 Model 之间的联系，由 Presenter 充当桥梁，做到 View-Model 之间通信的完全隔离。</p>
-<ul>
-<li><p>模型层（Model）: 主要是获取数据功能，业务逻辑和实体模型。</p>
-</li>
-<li><p>视图层（View）：对应于 Activity 或 Fragment，负责视图的部分展示和业务逻辑用户交互。</p>
-</li>
-<li><p>控制层（Presenter）: 负责完成 View 层与 Model 层间的交互，通过 P 层来获取 M 层中数据后返回给 V 层，使得 V 层与 M 层间没有耦合。</p>
-</li>
-</ul>
-<p>在 MVP 中 ，Presenter 层完全将 View 层和 Model 层进行了分离，把主要程序逻辑放在 Presenter 层实现，Presenter 与具体的 View 层（Activity）是没有直接的关联，是通过定义接口来进行交互的，从而使得当 View 层（Activity）发生改变时，Persenter 依然可以保持不变。View 层接口类只应该只有 set/get 方法，及一些界面显示内容和用户输入，除此之外不应该有多余的内容。绝不允许 View 层直接访问 Model 层，这是与 MVC 最大区别之处，也是 MVP 核心优点。</p>
-<p><img src="https://img.mumo.fun/2022/27-2.png" alt="图 2">  </p>
-<h1 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h1><p>如果说 MVP 是对 MVC 的进一步改进，那么 MVVM 则是思想的完全变革。它是将 “数据模型数据双向绑定” 的思想作为核心，因此在 View 和 Model 之间没有联系，通过 ViewModel 进行交互，而且 Model 和 ViewModel 之间的交互是双向的，因此视图的数据的变化会同时修改数据源，而数据源数据的变化也会立即反应到 View 上。</p>
-<ul>
-<li><p>Model: 实体模型，提供数据接口。</p>
-</li>
-<li><p>View: 对应于 Activity 和 XML，负责 View 的绘制以及与用户交互。不做业务逻辑，不涉及数据操作，不处理数据。</p>
-</li>
-<li><p>ViewModel: 负责完成 View 与 Model 间的交互，负责业务逻辑。不会持有任何控件的引用。</p>
-</li>
-</ul>
-<p><img src="https://img.mumo.fun/2022/27-3.png" alt="图 3">  </p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/posts/27/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
