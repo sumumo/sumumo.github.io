@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
-
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -16,21 +15,21 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"mumo.fun","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mumo.fun","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.18.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":true,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="泛型的基本用法在一般的编程模式下，我们需要给任何一个变量指定一个具体的类型，而泛型允许我们在不指定具体类型的情况下进行编程，这样编写出来的代码将会拥有更好的扩展性。 泛型主要有两种定义方式：一种是定义泛型类，另一种是定义泛型方法，使用的语法结构都是 &lt;T&gt;，使用任何英文字母或单词都可以，通常情况下 T 是一种约定俗成的泛型写法。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kotlin 泛型和委托">
 <meta property="og:url" content="https://mumo.fun/posts/7/index.html">
-<meta property="og:site_name" content="Mumo">
+<meta property="og:site_name" content="八亩山啊">
 <meta property="og:description" content="泛型的基本用法在一般的编程模式下，我们需要给任何一个变量指定一个具体的类型，而泛型允许我们在不指定具体类型的情况下进行编程，这样编写出来的代码将会拥有更好的扩展性。 泛型主要有两种定义方式：一种是定义泛型类，另一种是定义泛型方法，使用的语法结构都是 &lt;T&gt;，使用任何英文字母或单词都可以，通常情况下 T 是一种约定俗成的泛型写法。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-07-12T08:54:41.000Z">
-<meta property="article:modified_time" content="2022-07-20T10:28:16.590Z">
-<meta property="article:author" content="Mumo">
+<meta property="article:modified_time" content="2022-07-20T10:28:16.000Z">
+<meta property="article:author" content="八亩山">
 <meta property="article:tag" content="Kotlin">
 <meta name="twitter:card" content="summary">
 
@@ -42,8 +41,11 @@
 <script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mumo.fun/posts/7/","path":"posts/7/","title":"Kotlin 泛型和委托"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Kotlin 泛型和委托 | Mumo</title>
+<title>Kotlin 泛型和委托 | 八亩山啊</title>
   
+
+
+
 
 
 
@@ -58,8 +60,8 @@
   <div class="headband"></div>
 
   <main class="main">
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切换导航栏" role="button">
     </div>
@@ -69,13 +71,13 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <p class="site-title">Mumo</p>
+      <p class="site-title">八亩山啊</p>
       <i class="logo-line"></i>
     </a>
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
     </div>
   </div>
 </div>
@@ -86,15 +88,9 @@
 
 
 
-</div>
+</header>
         
   
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-
   <aside class="sidebar">
 
     <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
@@ -115,47 +111,35 @@
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Mumo</p>
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">八亩山</p>
   <div class="site-description" itemprop="description">也无风雨也无晴</div>
 </div>
-<div class="site-state-wrap site-overview-item animated">
+<div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
 
-
-
         </div>
       </div>
     </div>
-  </aside>
-  <div class="sidebar-dimmer"></div>
-
-
-    </header>
 
     
-  <div class="back-to-top" role="button" aria-label="返回顶部">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
+  </aside>
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
 
+    </div>
 
     <div class="main-inner post posts-expand">
 
@@ -172,16 +156,16 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Mumo">
+      <meta itemprop="name" content="八亩山">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mumo">
+      <meta itemprop="name" content="八亩山啊">
       <meta itemprop="description" content="也无风雨也无晴">
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Kotlin 泛型和委托 | Mumo">
+      <meta itemprop="name" content="Kotlin 泛型和委托 | 八亩山啊">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
@@ -216,40 +200,39 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-        <h1 id="泛型的基本用法"><a href="#泛型的基本用法" class="headerlink" title="泛型的基本用法"></a>泛型的基本用法</h1><p>在一般的编程模式下，我们需要给任何一个变量指定一个具体的类型，而泛型允许我们在不指定具体类型的情况下进行编程，这样编写出来的代码将会拥有更好的扩展性。</p>
+    <div class="post-body" itemprop="articleBody"><h1 id="泛型的基本用法"><a href="#泛型的基本用法" class="headerlink" title="泛型的基本用法"></a>泛型的基本用法</h1><p>在一般的编程模式下，我们需要给任何一个变量指定一个具体的类型，而泛型允许我们在不指定具体类型的情况下进行编程，这样编写出来的代码将会拥有更好的扩展性。</p>
 <p>泛型主要有两种定义方式：一种是定义泛型类，另一种是定义泛型方法，使用的语法结构都是 <code>&lt;T&gt;</code>，使用任何英文字母或单词都可以，通常情况下 T 是一种约定俗成的泛型写法。</p>
 <span id="more"></span>
 
 <p>定义一个泛型类：</p>
-<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span>&lt;<span class="type">T</span>&gt; </span>{</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">method</span><span class="params">(param: <span class="type">T</span>)</span></span>: T {</span><br><span class="line">        <span class="keyword">return</span> param</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> myClass = MyClass&lt;<span class="built_in">Int</span>&gt;()</span><br><span class="line"><span class="keyword">val</span> result = myClass.method(<span class="number">123</span>)</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span>&lt;<span class="type">T</span>&gt; {</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">method</span><span class="params">(param: <span class="type">T</span>)</span></span>: T {</span><br><span class="line">        <span class="keyword">return</span> param</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> myClass = MyClass&lt;<span class="built_in">Int</span>&gt;()</span><br><span class="line"><span class="keyword">val</span> result = myClass.method(<span class="number">123</span>)</span><br></pre></td></tr></tbody></table></figure>
 
 <p>定义一个泛型方法：</p>
-<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span></span>{</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">method</span><span class="params">(param: <span class="type">T</span>)</span></span>: T {</span><br><span class="line">        <span class="keyword">return</span> param</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> myClass = MyClass()</span><br><span class="line"><span class="keyword">val</span> result = myClass.method&lt;<span class="built_in">Int</span>&gt;(<span class="number">123</span>)</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span>{</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">method</span><span class="params">(param: <span class="type">T</span>)</span></span>: T {</span><br><span class="line">        <span class="keyword">return</span> param</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="keyword">val</span> myClass = MyClass()</span><br><span class="line"><span class="keyword">val</span> result = myClass.method&lt;<span class="built_in">Int</span>&gt;(<span class="number">123</span>)</span><br></pre></td></tr></tbody></table></figure>
 
 <p>由于 Kotlin 拥有出色的类型推导机制，这里可以直接省略泛型的指定：</p>
 <figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> myClass = MyClass()</span><br><span class="line"><span class="keyword">val</span> result = myClass.method(<span class="number">123</span>)</span><br></pre></td></tr></tbody></table></figure>
 
 <p>Kotlin 还允许对泛型的类型进行限制，可以以通过指定上界的方式来对泛型的类型进行约束，如指定成数字类型：</p>
-<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T : Number&gt;</span> <span class="title">method</span><span class="params">(param: <span class="type">T</span>)</span></span>: T {</span><br><span class="line">        <span class="keyword">return</span> param</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span> {</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T : Number&gt;</span> <span class="title">method</span><span class="params">(param: <span class="type">T</span>)</span></span>: T {</span><br><span class="line">        <span class="keyword">return</span> param</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>默认情况下，所有的泛型都可以指定成可空类型，因为泛型的上界默认是 <code>Any?</code>，如果想让泛型的类型不可为空，需要将泛型的上界指定为 <code>Any</code>。</p>
 <h1 id="类委托和委托属性"><a href="#类委托和委托属性" class="headerlink" title="类委托和委托属性"></a>类委托和委托属性</h1><p>委托是一种设计模式：操作对象自己不会去处理某段逻辑，而是会把工作委托给另外一个辅助对象去处理。Kotlin 中将委托功能分为了两种：类委托和委托属性。</p>
 <h2 id="类委托"><a href="#类委托" class="headerlink" title="类委托"></a>类委托</h2><p>类委托的核心思想在于将一个类的具体实现委托给另一个类去完成。</p>
 <p>Set 是一个接口，使用它需要用它具体的实现类比如 HashSet。借助委托模式可以轻松实现一个自己的实现类，比如定义一个 MySet 并让它实现 Set 接口：</p>
-<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MySet</span>&lt;<span class="type">T</span>&gt;</span>(<span class="keyword">val</span> helperSet: HashSet&lt;T&gt;) : Set&lt;T&gt; {</span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">val</span> size: <span class="built_in">Int</span></span><br><span class="line">        <span class="keyword">get</span>() = helperSet.size</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">contains</span><span class="params">(element: <span class="type">T</span>)</span></span> = helperSet.contains(element)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">containsAll</span><span class="params">(elements: <span class="type">Collection</span>&lt;<span class="type">T</span>&gt;)</span></span> = helperSet.containsAll(elements)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">isEmpty</span><span class="params">()</span></span> = helperSet.isEmpty()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">iterator</span><span class="params">()</span></span>: Iterator&lt;T&gt; = helperSet.iterator()</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MySet</span>&lt;<span class="type">T</span>&gt;(<span class="keyword">val</span> helperSet: HashSet&lt;T&gt;) : Set&lt;T&gt; {</span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">val</span> size: <span class="built_in">Int</span></span><br><span class="line">        <span class="keyword">get</span>() = helperSet.size</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">contains</span><span class="params">(element: <span class="type">T</span>)</span></span> = helperSet.contains(element)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">containsAll</span><span class="params">(elements: <span class="type">Collection</span>&lt;<span class="type">T</span>&gt;)</span></span> = helperSet.containsAll(elements)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">isEmpty</span><span class="params">()</span></span> = helperSet.isEmpty()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">iterator</span><span class="params">()</span></span>: Iterator&lt;T&gt; = helperSet.iterator()</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>MySet 的构造函数中接收了一个 HashSet 参数，这就相当于一个辅助对象。Set 接口所有的实现方法中都没有进行自己的实现，而是调用了辅助对象中相应的方法实现，这其实就是一种委托模式。</p>
 <p>如果只是让大部分的方法实现调用辅助对象中的方法，少部分的方法实现由自己重写，甚至加入一些自己独有的方法，那么 MySet 就会称为一个全新的数据结构类，这就是委托模式的意义所在。</p>
 <p>Kotlin 中委托使用的关键字是 <code>by</code>，只需要在接口声明的后面使用 <code>by</code> 关键字再接上受委托的辅助对象，就可以免去一大堆模板式代码：</p>
-<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MySet</span>&lt;<span class="type">T</span>&gt;</span>(<span class="keyword">val</span> helperSet: HashSet&lt;T&gt;) : Set&lt;T&gt; <span class="keyword">by</span> helperSet {</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MySet</span>&lt;<span class="type">T</span>&gt;(<span class="keyword">val</span> helperSet: HashSet&lt;T&gt;) : Set&lt;T&gt; <span class="keyword">by</span> helperSet {</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>上面两段代码效果一样，借助了类委托的功能后代码大大简化，如果要对某个方法重新实现只需要单独重写哪一个方法就可以了。</p>
 <h2 id="委托属性"><a href="#委托属性" class="headerlink" title="委托属性"></a>委托属性</h2><p>委托属性的核心思想是将一个属性（字段）的具体实现委托给另一个类去完成。委托属性的语法结构如下：</p>
-<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> p <span class="keyword">by</span> Delegate()</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span> {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> p <span class="keyword">by</span> Delegate()</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>这里使用 <code>by</code> 关键字连接左边的 p 属性和右边的 Delegate 实例，代表着将 p 属性的具体实现委托给 Delegate 类去完成。当调用 p 属性的时候会自动调用 Delegate 类的 getValue () 方法，当给 p 属性赋值的时候会自动调用 Delegate 类的 setValue () 方法。</p>
-<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Delegate</span> </span>{</span><br><span class="line">    <span class="keyword">var</span> propValue: Any? = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="title">getValue</span><span class="params">(myClass: <span class="type">MyClass</span>, prop: <span class="type">KProperty</span>&lt;*&gt;)</span></span>: Any? {</span><br><span class="line">        <span class="keyword">return</span> propValue</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="title">setValue</span><span class="params">(myClass: <span class="type">MyClass</span>, prop: <span class="type">KProperty</span>&lt;*&gt;, value: <span class="type">Any</span>?)</span></span> {</span><br><span class="line">        propValue = value</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Delegate</span> {</span><br><span class="line">    <span class="keyword">var</span> propValue: Any? = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="title">getValue</span><span class="params">(myClass: <span class="type">MyClass</span>, prop: <span class="type">KProperty</span>&lt;*&gt;)</span></span>: Any? {</span><br><span class="line">        <span class="keyword">return</span> propValue</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="title">setValue</span><span class="params">(myClass: <span class="type">MyClass</span>, prop: <span class="type">KProperty</span>&lt;*&gt;, value: <span class="type">Any</span>?)</span></span> {</span><br><span class="line">        propValue = value</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>这是一种标准的代码实现模板，在 Delagate 类中我门必须实现 getValue () 和 setValue () 这两个方法，并且都要使用 <code>operator</code> 关键字进行声明。</p>
 <p>getValue () 方法要接收两个参数：第一个参数用于声明该 Delegate 类的委托功能可以在什么类中使用；第二个<code>参数KProperty&lt;*&gt;</code> 是 Kotlin 中的一个属性操作类，可用于获取各种属性相关的值，必须在方法参数上进行声明。&lt;*&gt; 这种泛型的写法表示不知道或者不关心泛型的具体类型，只是为了通过语法编译而已，有点类似 Java 中 &lt;?&gt; 的写法。返回值可以声明成各种类型。</p>
@@ -259,7 +242,7 @@
 <figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">val</span> p <span class="keyword">by</span> lazy { ... }</span><br></pre></td></tr></tbody></table></figure>
 
 <p>代码块中的代码一开始并不会执行，只有当 p 变量首次被调用的时候才执行，并且会将代码块中最后一行代码的返回值赋值给 p 变量。by 是 Kotlin 中的关键字，lazy 是一个高阶函数。在 lazy 函数中会创建并返回已给 Delegate 对象，调用 p 属性时其实调用的是 Delegate 对象的 getValue () 方法，然后 getValue () 方法又会调用 lazy 函数传入的 Lambda 表达式，这样表达式中的代码就可以得到执行了，并且调用 p 属性后得到的值就是 Lambda 表达式中最后一行代码的返回值。</p>
-<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Later</span>&lt;<span class="type">T</span>&gt;</span>(<span class="keyword">val</span> block: () -&gt; T) {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> value: Any? = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="title">getValue</span><span class="params">(any: <span class="type">Any</span>?, prop: <span class="type">KProperty</span>&lt;*&gt;)</span></span>: T {</span><br><span class="line">        <span class="keyword">if</span> (value == <span class="literal">null</span>) {</span><br><span class="line">            value = block()</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> value <span class="keyword">as</span> T</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Later</span>&lt;<span class="type">T</span>&gt;(<span class="keyword">val</span> block: () -&gt; T) {</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> value: Any? = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="title">getValue</span><span class="params">(any: <span class="type">Any</span>?, prop: <span class="type">KProperty</span>&lt;*&gt;)</span></span>: T {</span><br><span class="line">        <span class="keyword">if</span> (value == <span class="literal">null</span>) {</span><br><span class="line">            value = block()</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> value <span class="keyword">as</span> T</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>这里定义了一个 Later 类并指定为泛型类，Later 的构造函数中接收一个函数类型参数，这个函数类型参数不接收任何参数，并且返回值类型就是 Later 类指定的泛型。getValue () 方法的第一个参数指定成 Any? 类型，表示我们希望 Later 的委托功能在所有类中都可以使用。然后使用了一个 value 变量对值进行缓存，如果 value 值为空就调用构造函数中传入的函数类型参数去获取值，否则就直接返回。懒加载技术不会对属性机型赋值，因此这里不用实现 setValue () 方法。</p>
 <p>为了让用法更类似 lazy 函数，可以再定义一个顶层函数：</p>
@@ -294,14 +277,14 @@
 <div class="post-copyright">
 <ul>
   <li class="post-copyright-author">
-      <strong>本文作者： </strong>Mumo
+      <strong>本文作者： </strong>八亩山
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
       <a href="https://mumo.fun/posts/7/" title="Kotlin 泛型和委托">https://mumo.fun/posts/7/</a>
   </li>
   <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
   </li>
 </ul>
 </div>
@@ -315,12 +298,12 @@
           <div class="post-nav">
             <div class="post-nav-item">
                 <a href="/posts/6/" rel="prev" title="Kotlin 高阶函数">
-                  <i class="fa fa-chevron-left"></i> Kotlin 高阶函数
+                  <i class="fa fa-angle-left"></i> Kotlin 高阶函数
                 </a>
             </div>
             <div class="post-nav-item">
                 <a href="/posts/8/" rel="next" title="Kotlin 使用 infix 函数构建更可读的语法">
-                  Kotlin 使用 infix 函数构建更可读的语法 <i class="fa fa-chevron-right"></i>
+                  Kotlin 使用 infix 函数构建更可读的语法 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -332,28 +315,7 @@
 
 
 
-<style>
-        .ss_ad{
-            display: block;
-            width: 100%;
-            text-align: center;
-            color: #fff;
-            background: #0088CC;
-			font-family: Microsoft YaHei;
-        }
-		a.ss_ad{
-			border:0;
-			color:#fff;
-		}
-		a.ss_ad:hover{
-				text-decoration:none;
-				color:#fff;
-		}
-</style>
-<div class="post-block animated fadeIn" style="margin-top:20px; padding: 0px; background: #0088cc">
-<a class="ss_ad" style="font-size:22px" href="https://order.yizhihongxing.network/aff.php?aff=3671" target="_blank">可靠便捷的VPN服务</a>
-<a class="ss_ad" style="font-size:15px" href="https://order.yizhihongxing.network/aff.php?aff=3671" target="_blank">100 G 月流量，5台设备可用，一年仅需99元！</a>
-</div>
+
     <div class="comments"><div id="twikoo-comments"></div></div>
 </div>
   </main>
@@ -361,15 +323,14 @@
   <footer class="footer">
     <div class="footer-inner">
 
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Mumo</span>
-</div>
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">八亩山</span>
+  </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
@@ -377,11 +338,23 @@
   </footer>
 
   
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
 <script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
+
 
 
 

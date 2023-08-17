@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
-
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
@@ -16,21 +15,21 @@
 
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"mumo.fun","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.11.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mumo.fun","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.18.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":true,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="标准函数Kotlin 的标准函数指的是 Standard.kt 文件中定义的函数，任何 Kotlin 代码都可以自由地调用所有的标准函数 let 函数let 函数提供了函数式 API 的编程接口，并将原始调用对象作为参数传递到 Lambda 表达式中。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kotlin 标准函数和静态方法">
 <meta property="og:url" content="https://mumo.fun/posts/3/index.html">
-<meta property="og:site_name" content="Mumo">
+<meta property="og:site_name" content="八亩山啊">
 <meta property="og:description" content="标准函数Kotlin 的标准函数指的是 Standard.kt 文件中定义的函数，任何 Kotlin 代码都可以自由地调用所有的标准函数 let 函数let 函数提供了函数式 API 的编程接口，并将原始调用对象作为参数传递到 Lambda 表达式中。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-06-16T08:28:14.000Z">
-<meta property="article:modified_time" content="2022-07-20T09:42:48.410Z">
-<meta property="article:author" content="Mumo">
+<meta property="article:modified_time" content="2022-07-20T09:42:48.000Z">
+<meta property="article:author" content="八亩山">
 <meta property="article:tag" content="Kotlin">
 <meta name="twitter:card" content="summary">
 
@@ -42,8 +41,11 @@
 <script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mumo.fun/posts/3/","path":"posts/3/","title":"Kotlin 标准函数和静态方法"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Kotlin 标准函数和静态方法 | Mumo</title>
+<title>Kotlin 标准函数和静态方法 | 八亩山啊</title>
   
+
+
+
 
 
 
@@ -58,8 +60,8 @@
   <div class="headband"></div>
 
   <main class="main">
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切换导航栏" role="button">
     </div>
@@ -69,13 +71,13 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <p class="site-title">Mumo</p>
+      <p class="site-title">八亩山啊</p>
       <i class="logo-line"></i>
     </a>
   </div>
 
   <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
     </div>
   </div>
 </div>
@@ -86,15 +88,9 @@
 
 
 
-</div>
+</header>
         
   
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-
   <aside class="sidebar">
 
     <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
@@ -115,47 +111,35 @@
         <!--/noindex-->
 
         <div class="site-overview-wrap sidebar-panel">
-          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">Mumo</p>
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">八亩山</p>
   <div class="site-description" itemprop="description">也无风雨也无晴</div>
 </div>
-<div class="site-state-wrap site-overview-item animated">
+<div class="site-state-wrap animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
 
-
-
         </div>
       </div>
     </div>
-  </aside>
-  <div class="sidebar-dimmer"></div>
-
-
-    </header>
 
     
-  <div class="back-to-top" role="button" aria-label="返回顶部">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
+  </aside>
 
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
 
+    </div>
 
     <div class="main-inner post posts-expand">
 
@@ -172,16 +156,16 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Mumo">
+      <meta itemprop="name" content="八亩山">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mumo">
+      <meta itemprop="name" content="八亩山啊">
       <meta itemprop="description" content="也无风雨也无晴">
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Kotlin 标准函数和静态方法 | Mumo">
+      <meta itemprop="name" content="Kotlin 标准函数和静态方法 | 八亩山啊">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
@@ -216,8 +200,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-        <h1 id="标准函数"><a href="#标准函数" class="headerlink" title="标准函数"></a>标准函数</h1><p>Kotlin 的标准函数指的是 <code>Standard.kt</code> 文件中定义的函数，任何 Kotlin 代码都可以自由地调用所有的标准函数</p>
+    <div class="post-body" itemprop="articleBody"><h1 id="标准函数"><a href="#标准函数" class="headerlink" title="标准函数"></a>标准函数</h1><p>Kotlin 的标准函数指的是 <code>Standard.kt</code> 文件中定义的函数，任何 Kotlin 代码都可以自由地调用所有的标准函数</p>
 <h2 id="let函数"><a href="#let函数" class="headerlink" title="let函数"></a>let 函数</h2><p><code>let</code> 函数提供了函数式 API 的编程接口，并将原始调用对象作为参数传递到 Lambda 表达式中。</p>
 <span id="more"></span>
 
@@ -238,7 +221,7 @@
 
 <h1 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h1><p>Kotlin 极度弱化了静态方法这个概念，提供了比静态方法更好用的语法特性 —— 单例类。像工具类这种功能，在 Kotlin 中就非常推荐使用单例类的方式来实现。</p>
 <p>让类中的某一个方法变成静态方法的调用方式使用 <code>companion object</code>：</p>
-<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Util</span> </span>{</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">doAction1</span><span class="params">()</span></span> {</span><br><span class="line">        println(<span class="string">"do action"</span>)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span> {</span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">doAction2</span><span class="params">()</span></span> {</span><br><span class="line">            println(<span class="string">"do action2"</span>)</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight kotlin"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Util</span> {</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">doAction1</span><span class="params">()</span></span> {</span><br><span class="line">        println(<span class="string">"do action"</span>)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span> {</span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">doAction2</span><span class="params">()</span></span> {</span><br><span class="line">            println(<span class="string">"do action2"</span>)</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>doAction2 () 方法并不是静态方法，<code>companion object</code> 关键字会在 Util 类的内部创建一个伴生类，而 doAction2 () 方法就是定义在这个伴生类里面的实例方法。Kotlin 会保证 Util 类始终只会存在一个伴生类对象，因此调用 Util.doAction2 () 方法实际上就是调用了 Util 类中伴生对象的 doAction2 () 方法。</p>
 <h2 id="JvmStatic注解和顶层方法"><a href="#JvmStatic注解和顶层方法" class="headerlink" title="@JvmStatic注解和顶层方法"></a>@JvmStatic 注解和顶层方法</h2><p>Kotlin 提供了注解和顶层方法两种实现方式类定义真正的静态方法。</p>
@@ -274,14 +257,14 @@
 <div class="post-copyright">
 <ul>
   <li class="post-copyright-author">
-      <strong>本文作者： </strong>Mumo
+      <strong>本文作者： </strong>八亩山
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
       <a href="https://mumo.fun/posts/3/" title="Kotlin 标准函数和静态方法">https://mumo.fun/posts/3/</a>
   </li>
   <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
   </li>
 </ul>
 </div>
@@ -295,12 +278,12 @@
           <div class="post-nav">
             <div class="post-nav-item">
                 <a href="/posts/2/" rel="prev" title="均线多头排列、空头排列交易验证记录">
-                  <i class="fa fa-chevron-left"></i> 均线多头排列、空头排列交易验证记录
+                  <i class="fa fa-angle-left"></i> 均线多头排列、空头排列交易验证记录
                 </a>
             </div>
             <div class="post-nav-item">
                 <a href="/posts/4/" rel="next" title="Kotlin 延迟初始化和密封类">
-                  Kotlin 延迟初始化和密封类 <i class="fa fa-chevron-right"></i>
+                  Kotlin 延迟初始化和密封类 <i class="fa fa-angle-right"></i>
                 </a>
             </div>
           </div>
@@ -312,28 +295,7 @@
 
 
 
-<style>
-        .ss_ad{
-            display: block;
-            width: 100%;
-            text-align: center;
-            color: #fff;
-            background: #0088CC;
-			font-family: Microsoft YaHei;
-        }
-		a.ss_ad{
-			border:0;
-			color:#fff;
-		}
-		a.ss_ad:hover{
-				text-decoration:none;
-				color:#fff;
-		}
-</style>
-<div class="post-block animated fadeIn" style="margin-top:20px; padding: 0px; background: #0088cc">
-<a class="ss_ad" style="font-size:22px" href="https://order.yizhihongxing.network/aff.php?aff=3671" target="_blank">可靠便捷的VPN服务</a>
-<a class="ss_ad" style="font-size:15px" href="https://order.yizhihongxing.network/aff.php?aff=3671" target="_blank">100 G 月流量，5台设备可用，一年仅需99元！</a>
-</div>
+
     <div class="comments"><div id="twikoo-comments"></div></div>
 </div>
   </main>
@@ -341,15 +303,14 @@
   <footer class="footer">
     <div class="footer-inner">
 
-
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2023</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Mumo</span>
-</div>
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">八亩山</span>
+  </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
@@ -357,11 +318,23 @@
   </footer>
 
   
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
 <script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
+
 
 
 
