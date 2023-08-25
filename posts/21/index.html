@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"mumo.fun","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.18.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":true,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mumo.fun","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.18.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":true,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="本地预览时可以正常访问图片，发布后无法显示图片，原因是博客使用了 https 协议，七牛中没有配置 https。">
 <meta property="og:type" content="article">
@@ -128,7 +128,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -195,6 +195,13 @@
     </span>
 
   
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
 </div>
 
         </div>
@@ -207,14 +214,14 @@
 <span id="more"></span>
 
 <h1 id="申请SSL证书"><a href="#申请SSL证书" class="headerlink" title="申请SSL证书"></a>申请 SSL 证书</h1><p>以腾讯云申请免费证书为例：<br>访问<a target="_blank" rel="noopener" href="https://console.cloud.tencent.com/ssl">证书网页</a>，点击<code>申请免费证书</code>，按照提示完成证书申请 (域名为七牛中外链的源站域名，可以单独设置一个域名，如 <code>img.mumo.fun</code>)</p>
-<p><img src="https://img.mumo.fun/2022/21-1.png" alt="图 1 申请免费证书">  </p>
+<p><img data-src="https://img.mumo.fun/2022/21-1.png" alt="图 1 申请免费证书">  </p>
 <p>待签发后在下载中选择其他类型的证书下载。</p>
-<p><img src="https://img.mumo.fun/2022/21-2.png" alt="图 2 证书下载">  </p>
+<p><img data-src="https://img.mumo.fun/2022/21-2.png" alt="图 2 证书下载">  </p>
 <p>一般提交完申请几分钟内就可以成功，如果长时间没有签发的话可以检查一下域名解析，尝试暂停除证书验证外其他解析记录。</p>
 <h1 id="配置七牛云源站域名"><a href="#配置七牛云源站域名" class="headerlink" title="配置七牛云源站域名"></a>配置七牛云源站域名</h1><p>访问<a target="_blank" rel="noopener" href="https://portal.qiniu.com/certificate/ssl#cert">证书管理页面</a>，选择<code>上传自有证书</code>，填写上面下载的压缩包中证书内容：证书内容中粘贴 pem 文件中的内容，证书私钥填写 key 文件中的内容。</p>
-<p><img src="https://img.mumo.fun/2022/21-3.png" alt="图 3 添加证书">  </p>
+<p><img data-src="https://img.mumo.fun/2022/21-3.png" alt="图 3 添加证书">  </p>
 <p>访问<a target="_blank" rel="noopener" href="https://portal.qiniu.com/kodo/bucket">七牛空间管理页面</a>，在<code>自定义源站域名</code>中，如未绑定，绑定上面申请证书的域名后，点击操作中的<code>配置HTTPS</code>，打开<code>访问控制</code>，选择刚才上传的证书，等待几分钟即可（别忘了配置<code>文件管理</code>中<code>外链域名</code>为刚才的域名）。</p>
-<p><img src="https://img.mumo.fun/2022/21-4.png" alt="图 4 选择配置">  </p>
+<p><img data-src="https://img.mumo.fun/2022/21-4.png" alt="图 4 选择配置">  </p>
 
     </div>
 
@@ -336,6 +343,24 @@
     </span>
     <span class="author" itemprop="copyrightHolder">八亩山啊</span>
   </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
@@ -355,6 +380,7 @@
 
   
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
 <script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
@@ -366,6 +392,7 @@
 
 
   
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 

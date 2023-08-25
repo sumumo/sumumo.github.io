@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"mumo.fun","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.18.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":true,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mumo.fun","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.18.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":true,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="原理使用手柄时点鼠标左键即可一键拾取，那么我们将鼠标左键映射到 Xbox 手柄按键就可以实现一键拾取了。">
 <meta property="og:type" content="article">
@@ -130,7 +130,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -197,6 +197,13 @@
     </span>
 
   
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
 </div>
 
         </div>
@@ -209,19 +216,19 @@
 <span id="more"></span>
 
 <h1 id="设置按键映射"><a href="#设置按键映射" class="headerlink" title="设置按键映射"></a>设置按键映射</h1><p>首先下载免费软件 <a target="_blank" rel="noopener" href="https://joyxoff.com/en/">JoyXoff</a>，安装后右键点击托盘图标打开设置：</p>
-<p><img src="https://img.mumo.fun/2022/25-1.png" alt="图 1">  </p>
+<p><img data-src="https://img.mumo.fun/2022/25-1.png" alt="图 1">  </p>
 <p>打开设置后按图中步骤清空预设的按键绑定（如果还需要使用软件的其他功能可以在<code>进程键绑定</code>中单独为原神设置按键绑定）：</p>
-<p><img src="https://img.mumo.fun/2022/25-2.png" alt="图 2">  </p>
+<p><img data-src="https://img.mumo.fun/2022/25-2.png" alt="图 2">  </p>
 <p>在 <code>X</code> 键上点击右键，在菜单中选择<code>鼠标左键</code>：</p>
-<p><img src="https://img.mumo.fun/2022/25-3.png" alt="图 3">  </p>
+<p><img data-src="https://img.mumo.fun/2022/25-3.png" alt="图 3">  </p>
 <p>点击编辑，设置规则为<code>全屏模式下不禁用</code>：</p>
-<p><img src="https://img.mumo.fun/2022/25-4.png" alt="图 4">  </p>
+<p><img data-src="https://img.mumo.fun/2022/25-4.png" alt="图 4">  </p>
 <p>之后确定保存。</p>
 <h1 id="添加UAC白名单"><a href="#添加UAC白名单" class="headerlink" title="添加UAC白名单"></a>添加 UAC 白名单</h1><p>设置完成后可能无效，这是因为原神启动时会有用户账户控制弹窗，我们点右键<code>以管理员身份运行</code> JoyXoff 就可以了，下面提供一个一劳永逸的方法：</p>
 <p>先下载 <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/114096199">UAC 白名单小工具</a>，下载完成后打开，将 JoyXoff 快捷方式拖拽到小工具中，然后点击<code>添加到UAC白名单</code>会在桌面上生成一个名为 <code>noUAC.Joyxoff</code> 的快捷方式：</p>
-<p><img src="https://img.mumo.fun/2022/25-5.png" alt="图 5">  </p>
+<p><img data-src="https://img.mumo.fun/2022/25-5.png" alt="图 5">  </p>
 <p>按 <code>Windows + R</code> 打开运行对话框，输入 <code>shell:startup</code> 后回车，将刚才生成的快捷方式拖拽到打开的文件夹中即可实现 JoyXoff 以管理员身份开机启动：</p>
-<p><img src="https://img.mumo.fun/2022/25-6.png" alt="图 6">  </p>
+<p><img data-src="https://img.mumo.fun/2022/25-6.png" alt="图 6">  </p>
 <p>PS：同样可以将原神添加到白名单，这样再也不用点 UAC 弹窗了。</p>
 
     </div>
@@ -344,6 +351,24 @@
     </span>
     <span class="author" itemprop="copyrightHolder">八亩山啊</span>
   </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
@@ -363,6 +388,7 @@
 
   
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
 <script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
@@ -374,6 +400,7 @@
 
 
   
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 

@@ -20,7 +20,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"mumo.fun","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.18.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":true,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mumo.fun","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.18.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":true,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="绘制基础自定义绘制概述 自定义绘制的方式是重写绘制方法，其中最常用的是 onDraw() 绘制的关键是 Canvas 的使用  Canvas 的绘制类方法：drawXXX ()（关键参数：Paint） Canvas 的辅助类方法：范围裁切 (clipXXX ()) 和几何变换 (Matrix)    可以使用不同的绘制方法来控制遮盖关系">
 <meta property="og:type" content="article">
@@ -131,7 +131,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -204,6 +204,13 @@
     </span>
 
   
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
 </div>
 
         </div>
@@ -317,19 +324,19 @@
 </ul>
 <p>其中后面的两个带有 <code>INVERSE_</code> 前缀的，只是前两个的反色版本。</p>
 <p>简单粗暴版的总结，<code>WINDING</code> 是「全填充」，而 <code>EVEN_ODD</code> 是「交叉填充」：</p>
-<p><img src="https://img.mumo.fun/2022/22-5.png" alt="图 5">  </p>
+<p><img data-src="https://img.mumo.fun/2022/22-5.png" alt="图 5">  </p>
 <p>之所以叫「简单粗暴版」，是因为这些只是通常情形下的效果</p>
 <h5 id="EVEN-ODD和WINDING的原理"><a href="#EVEN-ODD和WINDING的原理" class="headerlink" title="EVEN_ODD和WINDING的原理"></a>EVEN_ODD 和 WINDING 的原理</h5><ul>
 <li><p>EVEN_ODD</p>
 <p>  即 even-odd rule（奇偶原则）：对于平面中的任意一点，向任意方向射出一条射线，这条射线和图形相交的次数（相交才算，相切不算）如果是奇数，则这个点被认为在图形内部，是要被涂色的区域；如果是偶数，则这个点被认为在图形外部，是不被涂色的区域。以左右相交的双圆为例：</p>
-<p>  <img src="https://img.mumo.fun/2022/22-1.png" alt="图 1">  </p>
+<p>  <img data-src="https://img.mumo.fun/2022/22-1.png" alt="图 1">  </p>
 <p>  从上图可以看出，射线每穿过图形中的一条线，内外状态就发生一次切换，这就是为什么 EVEN_ODD 是一个「交叉填充」的模式。</p>
 </li>
 <li><p>WINDING</p>
 <p>  即 non-zero winding rule （非零环绕数原则）：首先，它需要你图形中的所有线条都是有绘制方向的：</p>
-<p>  <img src="https://img.mumo.fun/2022/22-2.jpg" alt="图 2"> </p>
+<p>  <img data-src="https://img.mumo.fun/2022/22-2.jpg" alt="图 2"> </p>
 <p>  然后，同样是从平面中的点向任意方向射出一条射线，但计算规则不一样：以 0 为初始值，对于射线和图形的所有交点，遇到每个顺时针的交点（图形从射线的左边向右穿过）把结果加 1，遇到每个逆时针的交点（图形从射线的右边向左穿过）把结果减 1，最终把所有的交点都算上，得到的结果如果不是 0，则认为这个点在图形内部，是要被涂色的区域；如果是 0，则认为这个点在图形外部，是不被涂色的区域。</p>
-<p>  <img src="https://img.mumo.fun/2022/22-3.jpg" alt="图 3"> </p>
+<p>  <img data-src="https://img.mumo.fun/2022/22-3.jpg" alt="图 3"> </p>
 <p>  如果你所有的图形都用相同的方向来绘制，那么 <code>WINDING</code> 确实是一个「全填充」的规则；但如果使用不同的方向来绘制图形，结果就不一样了。</p>
   <details class="note "><summary><p>waring</p>
 </summary>
@@ -338,7 +345,7 @@
 </details></li>
 </ul>
 <p>完整版的 <code>EVEN_ODD</code> 和 <code>WINDING</code> 的效果应该是这样的：</p>
-<p><img src="https://img.mumo.fun/2022/22-4.png" alt="图 4">  </p>
+<p><img data-src="https://img.mumo.fun/2022/22-4.png" alt="图 4">  </p>
 <h3 id="drawBitmap-Bitmap-bitmap-float-left-float-top-Paint-paint-画-Bitmap"><a href="#drawBitmap-Bitmap-bitmap-float-left-float-top-Paint-paint-画-Bitmap" class="headerlink" title="drawBitmap(Bitmap bitmap, float left, float top, Paint paint) 画 Bitmap"></a>drawBitmap (Bitmap bitmap, float left, float top, Paint paint) 画 Bitmap</h3><p>绘制 <code>Bitmap</code> 对象，也就是把这个 <code>Bitmap</code> 中的像素内容贴过来。其中 <code>left</code> 和 <code>top</code> 是要把 <code>bitmap</code> 绘制到的位置坐标。</p>
 <p>它的重载方法：</p>
 <p><code>drawBitmap(Bitmap bitmap, Rect src, RectF dst, Paint paint)</code> /<br><code>drawBitmap(Bitmap bitmap, Rect src, Rect dst, Paint paint)</code> /<br><code>drawBitmap(Bitmap bitmap, Matrix matrix, Paint paint)</code></p>
@@ -373,14 +380,14 @@
 <h2 id="draw-总调度方法"><a href="#draw-总调度方法" class="headerlink" title="draw()总调度方法"></a>draw () 总调度方法</h2><p>draw () 是绘制过程的总调度方法。一个 View 的整个绘制过程都发生在 <code>draw()</code> 方法里。</p>
 <h3 id="写在super-draw-的下面"><a href="#写在super-draw-的下面" class="headerlink" title="写在super.draw()的下面"></a>写在 super.draw () 的下面</h3><p>由于 <code>draw()</code> 是总调度方法，所以如果把绘制代码写在 <code>super.draw()</code> 的下面，那么这段代码会在其他所有绘制完成之后再执行，也就是说，它的绘制内容会盖住其他的所有绘制内容。</p>
 <h3 id="写在super-draw-的上面"><a href="#写在super-draw-的上面" class="headerlink" title="写在super.draw()的上面"></a>写在 super.draw () 的上面</h3><p>由于 <code>draw()</code> 是总调度方法，所以如果把绘制代码写在 <code>super.draw()</code> 的上面，那么这段代码会在其他所有绘制之前被执行，所以这部分绘制内容会被其他所有的内容盖住，包括背景。</p>
-<p><img src="https://img.mumo.fun/2022/22-6.jpg" alt="图 1">  </p>
+<p><img data-src="https://img.mumo.fun/2022/22-6.jpg" alt="图 1">  </p>
 <h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ol>
 <li><p>出于效率的考虑，ViewGroup 默认会绕过 <code>draw()</code> 方法，换而直接执行 <code>dispatchDraw()</code>，以此来简化绘制流程。所以如果你自定义了某个 <code>ViewGroup</code> 的子类（比如 <code>LinearLayout</code>）并且需要在它的除 <code>dispatchDraw()</code> 以外的任何一个绘制方法内绘制内容，你可能会需要调用 <code>View.setWillNotDraw(false)</code> 这行代码来切换到完整的绘制流程（是「可能」而不是「必须」的原因是，有些 <code>ViewGroup</code> 是已经调用过 <code>setWillNotDraw(false)</code> 了的，例如 <code>ScrollView</code>）。</p>
 </li>
 <li><p>有的时候，一段绘制代码写在不同的绘制方法中效果是一样的，这时你可以选一个自己喜欢或者习惯的绘制方法来重写。但有一个例外：如果绘制代码既可以写在 <code>onDraw()</code> 里，也可以写在其他绘制方法里，那么优先写在 <code>onDraw()</code>，因为 Android 有相关的优化，可以在不需要重绘的时候自动跳过 <code>onDraw()</code> 的重复执行，以提升开发效率。享受这种优化的只有 <code>onDraw()</code> 一个方法。</p>
 </li>
 </ol>
-<p><img src="https://img.mumo.fun/2022/22-7.png" alt="图 2">  </p>
+<p><img data-src="https://img.mumo.fun/2022/22-7.png" alt="图 2">  </p>
 <h1 id="属性动画Property-Animation上手"><a href="#属性动画Property-Animation上手" class="headerlink" title="属性动画Property Animation上手"></a><a target="_blank" rel="noopener" href="https://rengwuxian.com/ui-1-6/">属性动画 Property Animation 上手</a></h1><h1 id="属性动画Property-Animation进阶"><a href="#属性动画Property-Animation进阶" class="headerlink" title="属性动画Property Animation进阶"></a><a target="_blank" rel="noopener" href="https://rengwuxian.com/ui-1-7/">属性动画 Property Animation 进阶</a></h1><h1 id="硬件加速"><a href="#硬件加速" class="headerlink" title="硬件加速"></a><a target="_blank" rel="noopener" href="https://rengwuxian.com/ui-1-8/">硬件加速</a></h1><h1 id="布局基础"><a href="#布局基础" class="headerlink" title="布局基础"></a><a target="_blank" rel="noopener" href="https://rengwuxian.com/ui-2-1/">布局基础</a></h1><h2 id="布局过程的含义"><a href="#布局过程的含义" class="headerlink" title="布局过程的含义"></a>布局过程的含义</h2><p>布局过程，就是程序在运行时利用布局文件的代码来计算出实际尺寸的过程。</p>
 <h2 id="布局过程的工作内容"><a href="#布局过程的工作内容" class="headerlink" title="布局过程的工作内容"></a>布局过程的工作内容</h2><p>两个阶段：测量阶段和布局阶段。</p>
 <ul>
@@ -601,6 +608,24 @@
     </span>
     <span class="author" itemprop="copyrightHolder">八亩山啊</span>
   </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
 
@@ -620,6 +645,7 @@
 
   
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
 <script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
@@ -631,6 +657,7 @@
 
 
   
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 
