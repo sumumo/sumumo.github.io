@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="0ydcAPpQnfjyIquZR5KbvDe_WHPV746nXXsrEtSP-WM">
+  <meta name="baidu-site-verification" content="codeva-VViFgvXQqe">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic%7C'等距更纱黑体+SC':300,300italic,400,400italic,700,700italic%7Cmonospace:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"mumo.fun","root":"/","images":"/images","scheme":"Gemini","darkmode":true,"version":"8.18.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":true,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="添加新包 打开 HTTP 请求、集合、或者文件夹，然后选择 Scripts 选项。  选择 Pre-request 或 Post-response 选项。  打开代码编辑器右侧的窗口，然后选择 Open package library。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Postman 请求自动 SM2、SM4 加解密">
+<meta property="og:url" content="https://mumo.fun/posts/37/index.html">
+<meta property="og:site_name" content="Mumo">
+<meta property="og:description" content="添加新包 打开 HTTP 请求、集合、或者文件夹，然后选择 Scripts 选项。  选择 Pre-request 或 Post-response 选项。  打开代码编辑器右侧的窗口，然后选择 Open package library。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.mumo.fun/2024/37-1.png">
+<meta property="og:image" content="https://img.mumo.fun/2024/37-2.png">
+<meta property="og:image" content="https://img.mumo.fun/2024/37-3.png">
+<meta property="og:image" content="https://img.mumo.fun/2024/37-4.png">
+<meta property="og:image" content="https://img.mumo.fun/2024/37-5.png">
+<meta property="og:image" content="https://img.mumo.fun/2024/37-6.png">
+<meta property="article:published_time" content="2024-06-13T02:53:41.000Z">
+<meta property="article:modified_time" content="2024-06-13T03:20:57.790Z">
+<meta property="article:author" content="八亩山啊">
+<meta property="article:tag" content="开发">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.mumo.fun/2024/37-1.png">
+
+
+<link rel="canonical" href="https://mumo.fun/posts/37/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://mumo.fun/posts/37/","path":"posts/37/","title":"Postman 请求自动 SM2、SM4 加解密"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Postman 请求自动 SM2、SM4 加解密 | Mumo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Mumo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E6%96%B0%E5%8C%85"><span class="nav-number">1.</span> <span class="nav-text">添加新包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SM2-%E5%8A%A0%E8%A7%A3%E5%AF%86"><span class="nav-number">1.1.</span> <span class="nav-text">SM2 加解密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SM4-%E5%8A%A0%E8%A7%A3%E5%AF%86"><span class="nav-number">1.2.</span> <span class="nav-text">SM4 加解密</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">2.</span> <span class="nav-text">添加环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E8%84%9A%E6%9C%AC"><span class="nav-number">3.</span> <span class="nav-text">编写脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E8%AF%B7%E6%B1%82"><span class="nav-number">4.</span> <span class="nav-text">发送请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="八亩山啊"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">八亩山啊</p>
+  <div class="site-description" itemprop="description">也无风雨也无晴</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://mumo.fun/posts/37/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="八亩山啊">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mumo">
+      <meta itemprop="description" content="也无风雨也无晴">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Postman 请求自动 SM2、SM4 加解密 | Mumo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Postman 请求自动 SM2、SM4 加解密
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-06-13 10:53:41 / 修改时间：11:20:57" itemprop="dateCreated datePublished" datetime="2024-06-13T10:53:41+08:00">2024-06-13</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="添加新包"><a href="#添加新包" class="headerlink" title="添加新包"></a>添加新包</h2><ol>
+<li><p>打开 HTTP 请求、集合、或者文件夹，然后选择 <strong>Scripts</strong> 选项。</p>
+</li>
+<li><p>选择 <strong>Pre-request</strong> 或 <strong>Post-response</strong> 选项。</p>
+</li>
+<li><p>打开代码编辑器右侧的窗口，然后选择 <strong>Open package library</strong>。</p>
+<span id="more"></span>
+<p><img data-src="https://img.mumo.fun/2024/37-1.png" alt="图 37-1"></p>
+</li>
+</ol>
+<h3 id="SM2-加解密"><a href="#SM2-加解密" class="headerlink" title="SM2 加解密"></a>SM2 加解密</h3><ol>
+<li>选择 <strong>New package</strong>。</li>
+<li>输入包名：<code>sm2</code>。</li>
+<li>将<a target="_blank" rel="noopener" href="https://github.com/JuneAndGreen/sm-crypto/blob/master/dist/sm2.js">代码</a>粘贴到窗口中。</li>
+<li>选择 <strong>Create</strong>。</li>
+</ol>
+<h3 id="SM4-加解密"><a href="#SM4-加解密" class="headerlink" title="SM4 加解密"></a>SM4 加解密</h3><ol>
+<li>选择 <strong>New package</strong>。</li>
+<li>输入包名：<code>sm4utils</code>。</li>
+<li>将<a target="_blank" rel="noopener" href="https://github.com/JuneAndGreen/sm-crypto/blob/master/src/sm4/index.js">代码</a>粘贴到窗口中。</li>
+<li>选择 <strong>Create</strong>。</li>
+</ol>
+<h2 id="添加环境变量"><a href="#添加环境变量" class="headerlink" title="添加环境变量"></a>添加环境变量</h2><ol>
+<li>选择右侧按钮，选择 <strong>Add</strong>。<br><img data-src="https://img.mumo.fun/2024/37-2.png" alt="图 37-2">  </li>
+<li>在打开的窗口中添加变量 <code>sm4key</code>、<code>sm2key</code> 内容为 SM4 密钥、SM2 密钥。</li>
+<li>选择 <strong>Save</strong> 。</li>
+<li>右上角选择设置的环境变量。<br><img data-src="https://img.mumo.fun/2024/37-3.png" alt="图 37-3"></li>
+</ol>
+<h2 id="编写脚本"><a href="#编写脚本" class="headerlink" title="编写脚本"></a>编写脚本</h2><div class="note warning"><p>代码仅为演示，请根据自己的业务需求编写代码。</p>
+</div>
+
+<ol>
+<li><p>打开 HTTP 请求，然后选择 <strong>Scripts</strong> 选项。</p>
+</li>
+<li><p>选择 <strong>Pre-request</strong> 选项，添加如下代码：</p>
+<details class="note no-icon"><summary><p>Post-response SM2 加密</p>
+</summary>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> sm2 = pm.<span class="built_in">require</span>(<span class="string">'sm2'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当 body 类型为 json 时，从 pm.request.body.raw 获取请求参数</span></span><br><span class="line"><span class="keyword">try</span> {</span><br><span class="line">    <span class="keyword">var</span> jsonData = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(pm.<span class="property">request</span>.<span class="property">body</span>.<span class="property">raw</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获得当前时间</span></span><br><span class="line">    <span class="keyword">var</span> date = <span class="keyword">new</span> <span class="title class_">Date</span>()</span><br><span class="line">    <span class="keyword">const</span> year = <span class="title class_">String</span>(date.<span class="title function_">getFullYear</span>())</span><br><span class="line">    <span class="keyword">const</span> month = <span class="title class_">String</span>(date.<span class="title function_">getMonth</span>() + <span class="number">1</span>).<span class="title function_">padStart</span>(<span class="number">2</span>, <span class="string">"0"</span>)</span><br><span class="line">    <span class="keyword">const</span> day = <span class="title class_">String</span>(date.<span class="title function_">getDate</span>()).<span class="title function_">padStart</span>(<span class="number">2</span>, <span class="string">"0"</span>)</span><br><span class="line">    <span class="keyword">const</span> hour = <span class="title class_">String</span>(date.<span class="title function_">getHours</span>()).<span class="title function_">padStart</span>(<span class="number">2</span>, <span class="string">"0"</span>)</span><br><span class="line">    <span class="keyword">const</span> minute = <span class="title class_">String</span>(date.<span class="title function_">getMinutes</span>()).<span class="title function_">padStart</span>(<span class="number">2</span>, <span class="string">"0"</span>)</span><br><span class="line">    <span class="keyword">const</span> second = <span class="title class_">String</span>(date.<span class="title function_">getSeconds</span>()).<span class="title function_">padStart</span>(<span class="number">2</span>, <span class="string">"0"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> dateStr = <span class="string">`<span class="subst">${year}</span><span class="subst">${month}</span><span class="subst">${day}</span><span class="subst">${hour}</span><span class="subst">${minute}</span><span class="subst">${second}</span>`</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 请求参数设置时间</span></span><br><span class="line">    jsonData.<span class="property">askTime</span> = dateStr</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 存储 SM4 密钥</span></span><br><span class="line">    pm.<span class="property">environment</span>.<span class="title function_">set</span>(<span class="string">'sm4key'</span>, jsonData.<span class="property">symmetricKey</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 1 - C1C3C2，0 - C1C2C3，默认为 1</span></span><br><span class="line">    <span class="keyword">const</span> cipherMode = <span class="number">0</span></span><br><span class="line">    <span class="comment">// 获得 SM2 公钥</span></span><br><span class="line">    <span class="keyword">var</span> key = pm.<span class="property">environment</span>.<span class="title function_">get</span>(<span class="string">"sm2key"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> content = <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(jsonData)</span><br><span class="line">    <span class="comment">// SM2 加密</span></span><br><span class="line">    <span class="keyword">var</span> encryptData = sm2.<span class="title function_">doEncrypt</span>(content, key, cipherMode)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 添加 04 开头</span></span><br><span class="line">    encryptData = <span class="string">'04'</span> + encryptData</span><br><span class="line">    <span class="comment">// 更新请求体</span></span><br><span class="line">    pm.<span class="property">request</span>.<span class="property">body</span> = encryptData</span><br><span class="line"></span><br><span class="line">} <span class="keyword">catch</span> (e) {</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(e);</span><br><span class="line">}</span><br><span class="line"></span><br></pre></td></tr></tbody></table></figure>
+
+</details>
+
+<details class="note no-icon"><summary><p>Post-response SM4 加密</p>
+</summary>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> sm4 = pm.<span class="built_in">require</span>(<span class="string">'sm4utils'</span>)</span><br><span class="line"><span class="comment">// 加密 body</span></span><br><span class="line"><span class="keyword">var</span> encryptBody = sm4.<span class="title function_">encrypt</span>(<span class="title class_">String</span>(pm.<span class="property">request</span>.<span class="property">body</span>), pm.<span class="property">environment</span>.<span class="title function_">get</span>(<span class="string">"sm4key"</span>));</span><br><span class="line"><span class="comment">// 更新请求体</span></span><br><span class="line">pm.<span class="property">request</span>.<span class="property">body</span> = encryptBody;</span><br></pre></td></tr></tbody></table></figure>
+
+</details>
+</li>
+<li><p>选择 <strong>Post-response</strong> 选项，添加如下代码：</p>
+<details class="note no-icon"><summary><p>Post-response SM4 解密</p>
+</summary>
+<figure class="highlight javascript"><table><tbody><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> sm4 = pm.<span class="built_in">require</span>(<span class="string">'sm4utils'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> jsonResult = pm.<span class="property">response</span>.<span class="title function_">json</span>()</span><br><span class="line"><span class="keyword">var</span> decryptBody</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (jsonResult.<span class="property">code</span> != <span class="number">2000</span>) {</span><br><span class="line">    decryptBody = jsonResult.<span class="property">msg</span></span><br><span class="line"></span><br><span class="line">} <span class="keyword">else</span> {</span><br><span class="line">    <span class="comment">// 保存 token</span></span><br><span class="line">    pm.<span class="property">environment</span>.<span class="title function_">set</span>(<span class="string">'access_token'</span>, jsonResult.<span class="property">access_token</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 解密接口返回的加密参数</span></span><br><span class="line">    decryptBody = sm4.<span class="title function_">decrypt</span>(<span class="title class_">String</span>(jsonResult.<span class="property">encryptDatas</span>), pm.<span class="property">environment</span>.<span class="title function_">get</span>(<span class="string">"sm4key"</span>))</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将接口返回数据，封装成自己需要的结构</span></span><br><span class="line"><span class="keyword">var</span> resp = {</span><br><span class="line">    <span class="attr">response</span>: decryptBody</span><br><span class="line">}</span><br><span class="line"><span class="comment">// html 模板字符</span></span><br><span class="line"><span class="keyword">var</span> template = <span class="string">`&lt;head&gt;</span></span><br><span class="line"><span class="string">    &lt;style&gt;</span></span><br><span class="line"><span class="string">        pre {</span></span><br><span class="line"><span class="string">            outline: 1px solid #ccc;</span></span><br><span class="line"><span class="string">            padding: 5px;</span></span><br><span class="line"><span class="string">            margin: 5px;</span></span><br><span class="line"><span class="string">        }</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        .string {</span></span><br><span class="line"><span class="string">            color: green;</span></span><br><span class="line"><span class="string">        }</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        /*字符串的样式*/</span></span><br><span class="line"><span class="string">        .number {</span></span><br><span class="line"><span class="string">            color: darkorange;</span></span><br><span class="line"><span class="string">        }</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        /*数字的样式*/</span></span><br><span class="line"><span class="string">        .boolean {</span></span><br><span class="line"><span class="string">            color: blue;</span></span><br><span class="line"><span class="string">        }</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        /*布尔型数据的样式*/</span></span><br><span class="line"><span class="string">        .null {</span></span><br><span class="line"><span class="string">            color: magenta;</span></span><br><span class="line"><span class="string">        }</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        /*null值的样式*/</span></span><br><span class="line"><span class="string">        .key {</span></span><br><span class="line"><span class="string">            color: red;</span></span><br><span class="line"><span class="string">        }</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        /*key值的样式*/</span></span><br><span class="line"><span class="string">    &lt;/style&gt;</span></span><br><span class="line"><span class="string">&lt;/head&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;body&gt;</span></span><br><span class="line"><span class="string">    &lt;pre id="result"&gt;嘿嘿&lt;/pre&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &lt;script&gt;</span></span><br><span class="line"><span class="string">        function syntaxHighlight(json) {</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            json = json.replaceAll('&amp;quot;', '"');</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">            try {</span></span><br><span class="line"><span class="string">                json = JSON.parse(json)</span></span><br><span class="line"><span class="string">            } catch (e) {</span></span><br><span class="line"><span class="string">                console.log(json)</span></span><br><span class="line"><span class="string">                json = '{"msg":"' + json + '"}'</span></span><br><span class="line"><span class="string">            }</span></span><br><span class="line"><span class="string">            if (typeof json != 'string') {</span></span><br><span class="line"><span class="string">                json = JSON.stringify(json, undefined, 2);</span></span><br><span class="line"><span class="string">            }</span></span><br><span class="line"><span class="string">            json = json.replace(/&amp;/g, '&amp;').replace(/&lt;/g, '&lt;').replace(/&gt;/g, '&gt;');</span></span><br><span class="line"><span class="string">            return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,</span></span><br><span class="line"><span class="string">                function (match) {</span></span><br><span class="line"><span class="string">                    var cls = 'number';</span></span><br><span class="line"><span class="string">                    if (/^"/.test(match)) {</span></span><br><span class="line"><span class="string">                        if (/:$/.test(match)) {</span></span><br><span class="line"><span class="string">                            cls = 'key';</span></span><br><span class="line"><span class="string">                        } else {</span></span><br><span class="line"><span class="string">                            cls = 'string';</span></span><br><span class="line"><span class="string">                        }</span></span><br><span class="line"><span class="string">                    } else if (/true|false/.test(match)) {</span></span><br><span class="line"><span class="string">                        cls = 'boolean';</span></span><br><span class="line"><span class="string">                    } else if (/null/.test(match)) {</span></span><br><span class="line"><span class="string">                        cls = 'null';</span></span><br><span class="line"><span class="string">                    }</span></span><br><span class="line"><span class="string">                    return '&lt;span class="' + cls + '"&gt;' + match + '&lt;/span&gt;';</span></span><br><span class="line"><span class="string">                }</span></span><br><span class="line"><span class="string">            );</span></span><br><span class="line"><span class="string">        }</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        document.getElementById("result").innerHTML = syntaxHighlight('{{response}}');</span></span><br><span class="line"><span class="string">    &lt;/script&gt;</span></span><br><span class="line"><span class="string">&lt;/body&gt;`</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置 visualizer 数据。传模板、解析对象。</span></span><br><span class="line">pm.<span class="property">visualizer</span>.<span class="title function_">set</span>(template, resp)</span><br></pre></td></tr></tbody></table></figure>
+</details></li>
+</ol>
+<h2 id="发送请求"><a href="#发送请求" class="headerlink" title="发送请求"></a>发送请求</h2><p>在 <strong>Body</strong> 中填写加密前的 <strong>json</strong> 参数即可。<br><img data-src="https://img.mumo.fun/2024/37-4.png" alt="图 37-4">  </p>
+<p>在 <strong>Visualize</strong> 中可以看到将 <code>encryptDatas</code> 解密后的 <strong>json</strong> 数据。<br><img data-src="https://img.mumo.fun/2024/37-5.png" alt="图 37-5"><br><img data-src="https://img.mumo.fun/2024/37-6.png" alt="图 37-6">  </p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://github.com/JuneAndGreen/sm-crypto">sm-crypto</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/JuneAndGreen/sm-crypto/issues/42">后端生成的密钥对，前端加密成功，但无法解密</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/04127d74d88c">在 html 页面中展示 JSON</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer"><script>
+    var elements = document.querySelectorAll('figure');
+	for (var i = 0; i < elements.length; i++) {
+		var lang = elements[i].getAttribute("class");
+		if (lang != null ) {
+		lang = lang.substr(10);
+		}
+		elements[i].setAttribute("data-language", lang);
+	}
+</script>
+<style>
+        .ss_ad{
+            display: block;
+            width: 100%;
+            text-align: center;
+            color: #fff;
+            background: #0088CC;
+			font-family: Microsoft YaHei;
+        }
+		a.ss_ad{
+			border:0;
+			color:#fff;
+		}
+		a.ss_ad:hover{
+				text-decoration:none;
+				color:#fff;
+		}
+</style>
+<div class="post-block animated fadeIn" style="margin-top:20px; padding: 0px; background: #0088cc">
+<a class="ss_ad" style="font-size:22px" href="https://order.yizhihongxing.org/aff.php?aff=3671" target="_blank">可靠便捷的VPN服务</a>
+<a class="ss_ad" style="font-size:15px" href="https://order.yizhihongxing.org/aff.php?aff=3671" target="_blank">100 G 月流量，5台设备可用，一年仅需99元！</a>
+</div>
+
+          <div class="reward-container">
+  <div>请我一杯咖啡吧！</div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="八亩山啊 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="八亩山啊 支付宝">
+        <span>支付宝</span>
+      </div>
+      <div>
+        <img src="/images/binance.jpg" alt="八亩山啊 比特币">
+        <span>比特币</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>八亩山啊
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://mumo.fun/posts/37/" title="Postman 请求自动 SM2、SM4 加解密">https://mumo.fun/posts/37/</a>
+  </li>
+  <li class="post-copyright-license">
+      <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E5%BC%80%E5%8F%91/" rel="tag"><i class="fa fa-tag"></i> 开发</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/36/" rel="prev" title="ConstraintLayout 实现控件跟随效果">
+                  <i class="fa fa-angle-left"></i> ConstraintLayout 实现控件跟随效果
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments"><div id="twikoo-comments"></div></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2022 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">八亩山啊</span>
+  </div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="twikoo" type="application/json">{"enable":true,"visitor":false,"envId":"https://twikoo-nu-opal.vercel.app/","el":"#twikoo-comments"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.twikoo.el)
+    .then(() => NexT.utils.getScript(
+      CONFIG.twikoo.jsUrl || 'https://cdn.jsdelivr.net/npm/twikoo/dist/twikoo.all.min.js',
+      { condition: window.twikoo }
+    ))
+    .then(() => {
+      twikoo.init(CONFIG.twikoo);
+    });
+});
+</script>
+<style>
+.post-block, .comments {
+  overflow: visible;
+}
+.tk-owo-emotion {
+  display: inline-block;
+}
+</style>
+
+</body>
+</html>
